@@ -6,7 +6,7 @@
 
 <div class="component-wrapper">
   <Visualization
-    data={data}
+    data={data.map((d, i) => ({...data, id: i}))}
   />
 </div>
 

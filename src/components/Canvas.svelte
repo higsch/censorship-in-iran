@@ -13,11 +13,11 @@
   let ctx;
 
   setContext('canvas', {
-    register(drawFn) {
-      drawFunctions.push(drawFn);
+    register(fn) {
+      drawFunctions.push(fn);
     },
-    unregister(drawFn) {
-      drawFunctions.splice(drawFunctions.indexOf(drawFn), 1);
+    deregister(fn) {
+      drawFunctions.splice(drawFunctions.indexOf(fn), 1);
     },
   });
 
@@ -28,8 +28,8 @@
       ctx.clearRect(0, 0, width, height);
       ctx.save();
       
-      drawFunctions.forEach((drawFn) => {
-        drawFn(ctx);
+      drawFunctions.forEach((fn) => {
+        fn(ctx);
       });
 
       ctx.restore();
@@ -43,10 +43,8 @@
     };
   });
 
-  $: if (canvas) ctx = setupCanvas(canvas, width, height, pixelRatio);
+  $: ctx = setupCanvas(canvas, width, height, pixelRatio);
 </script>
 
-<canvas
-  bind:this={canvas}
-/>
+<canvas bind:this={canvas} />
 <slot />

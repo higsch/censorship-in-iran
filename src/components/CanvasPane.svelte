@@ -1,5 +1,8 @@
 <script>
   import Canvas from './Canvas.svelte';
+  import Tile from './Tile.svelte';
+
+  export let data = [];
 
   let width = 0;
   let height = 0;
@@ -13,7 +16,14 @@
   <Canvas
     width={width}
     height={height}
-  />
+    pixelRatio={2}
+  >
+    {#each data as d (d.id)}
+      <Tile
+        d={d}
+      />
+    {/each}
+  </Canvas>
 </div>
 
 <style>

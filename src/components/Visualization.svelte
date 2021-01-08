@@ -1,13 +1,19 @@
 <script>
+  import { layoutPhyllotaxis } from '../utils/layout';
+
   import CanvasPane from './CanvasPane.svelte';
 
   export let data = [];
+
+  $: renderedData = layoutPhyllotaxis(data);
 </script>
 
 <div
   class="visualization-wrapper"
 >
-  <CanvasPane />
+  <CanvasPane
+    data={renderedData}
+  />
 </div>
 
 <style>
