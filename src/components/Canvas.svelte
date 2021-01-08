@@ -25,13 +25,15 @@
     let frameId;
 
     function update() {
-      ctx.clearRect(0, 0, width, height);
+      if (!ctx) return;
+
+      ctx.clearRect(-width / 2, -height / 2, width, height);
       ctx.save();
       
       drawFunctions.forEach((fn) => {
         fn(ctx);
       });
-
+      
       ctx.restore();
       frameId = requestAnimationFrame(update);
     }

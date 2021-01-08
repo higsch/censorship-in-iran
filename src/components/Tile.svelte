@@ -15,7 +15,7 @@
 
   function draw(ctx) {
     ctx.beginPath();
-    ctx.fillStyle = 'blue';
+    ctx.fillStyle = '#000000';
     ctx.arc(d.x, d.y, d.r, 0, 2 * Math.PI, true);
     ctx.fill();
   }

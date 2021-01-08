@@ -16,7 +16,6 @@
   <Canvas
     width={width}
     height={height}
-    pixelRatio={2}
   >
     {#each data as d (d.id)}
       <Tile
