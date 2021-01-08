@@ -2,17 +2,22 @@ const goldenRatio = (1 + Math.sqrt(5)) / 2;
 
 export const layoutPhyllotaxis = (
     data,
-    radius = 5,
+    radiusScale,
+    radius = 1,
     radiusOffset = radius / 2,
-    spacing = 10,
+    spacing = radius * 2,
     theta = 2 * Math.PI / goldenRatio
   ) => {
+  const scaledSpacing = radiusScale(spacing);
+  const scaledRadiusOffset = radiusScale(radiusOffset);
+
   const dataCoords = data.map((d, i) => {
     const scaledTheta = theta * i;
-    const scaledRadius = spacing * Math.sqrt(i) + radiusOffset;
+    const scaledRadius = scaledSpacing * Math.sqrt(i) + scaledRadiusOffset;
+
     return {
       ...d,
-      r: radius,
+      r: radiusScale(radius),
       x: Math.cos(scaledTheta) * scaledRadius,
       y: Math.sin(scaledTheta) * scaledRadius
     };
