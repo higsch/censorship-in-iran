@@ -5,9 +5,9 @@ const irrational3 = (9 + Math.sqrt(221)) / 10;
 export const layoutPhyllotaxis = (
     data,
     radiusScale,
-    radius = 1,
+    radius = 2,
     radiusOffset = radius / 2,
-    spacing = radius * 2,
+    spacing = 2.5,
     theta = 2 * Math.PI / irrational3
   ) => {
   const scaledSpacing = radiusScale(spacing);

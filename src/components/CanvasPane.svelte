@@ -17,10 +17,13 @@
     width={width}
     height={height}
   >
-    {#each data as d (d.id)}
-      <Tile
-        d={d}
-      />
+    {#each data as cluster (cluster.id)}
+      {#each cluster.data as d (d.id)}
+        <Tile
+          d={d}
+          cluster={cluster}
+        />
+      {/each}
     {/each}
   </Canvas>
 </div>
