@@ -1,4 +1,6 @@
 const goldenRatio = (1 + Math.sqrt(5)) / 2;
+const irrational2 = 1 + Math.sqrt(2);
+const irrational3 = (9 + Math.sqrt(221)) / 10;
 
 export const layoutPhyllotaxis = (
     data,
@@ -6,7 +8,7 @@ export const layoutPhyllotaxis = (
     radius = 1,
     radiusOffset = radius / 2,
     spacing = radius * 2,
-    theta = 2 * Math.PI / goldenRatio
+    theta = 2 * Math.PI / irrational3
   ) => {
   const scaledSpacing = radiusScale(spacing);
   const scaledRadiusOffset = radiusScale(radiusOffset);
