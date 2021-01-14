@@ -4,24 +4,24 @@
   import { cubicOut } from 'svelte/easing';
 
   export let d = {};
-  $: cluster = d.cluster || {x: 0, y: 0};
 
   const { register, deregister } = getContext('canvas');
 
-  const duration = 2000;
+  const flyDuration = 1000;
+  const growDuration = 1000;
   
   let x = tweened(0, {
-    duration,
+    duration: flyDuration,
     easing: cubicOut
   });
 
   let y = tweened(0, {
-    duration,
+    duration: flyDuration,
     easing: cubicOut
   });
 
   let r = tweened(0, {
-    duration: 100
+    duration: growDuration
   });
 
   function draw(ctx) {
@@ -38,6 +38,8 @@
       deregister(draw);
     };
   });
+  
+  $: cluster = d.cluster || {x: 0, y: 0};
 
   $: x.set(d.x + cluster.x);
   $: y.set(d.y + cluster.y);

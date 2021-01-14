@@ -24,7 +24,7 @@
     if (selectedGrouping) {
       const clusters = selectedGrouping.values;
 
-      const clustersData = clusters.map((cluster) => {
+      let clustersData = clusters.map((cluster) => {
         const clusterData = data.filter((d) => d[selectedGrouping.name] === cluster);
         return layoutPhyllotaxis(clusterData, $radiusScale);
       })
@@ -37,9 +37,9 @@
         };
       });
 
-      function simulationEnded() {
-        renderedData = [...clustersData].map((d) => {
-          const radius = d.r + d.data[0].r;
+      function simulationTicked() {
+        clustersData = clustersData.map((d) => {
+          const radius = d.r * 1.3;
           return {
             ...d,
             x: Math.max(-width / 2 + radius, Math.min(width / 2 - radius, d.x)),
@@ -48,7 +48,11 @@
         });
       }
 
-      simulation = createSimulation(clustersData, simulationEnded);
+      function simulationEnded() {
+        renderedData = [...clustersData];
+      }
+
+      simulation = createSimulation(clustersData, simulationTicked, simulationEnded);
     }
   }
 </script>
