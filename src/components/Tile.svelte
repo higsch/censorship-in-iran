@@ -24,7 +24,7 @@
 
   function draw(ctx) {
     ctx.beginPath();
-    ctx.fillStyle = '#000000';
+    ctx.fillStyle = 'purple';
     ctx.arc($x + cluster.x, $y + cluster.y, $r, 0, 2 * Math.PI, true);
     ctx.fill();
   }

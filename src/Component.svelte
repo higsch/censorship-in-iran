@@ -1,7 +1,20 @@
 <script>
+  import { onMount } from 'svelte';
+  import { csv } from 'd3-fetch';
+
+  import { formatData } from './utils/format';
+
   import Visualization from './components/Visualization.svelte';
 
-  export let data = [];
+  export let dataPath = 'data/data.csv';
+
+  let data = [];
+
+  onMount(() => {
+    csv(dataPath, formatData).then((res) => data = res);
+  });
+
+  $: console.log(data)
 </script>
 
 <div class="component-wrapper">
