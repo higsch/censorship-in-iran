@@ -5,6 +5,7 @@
 <div class="app-wrapper">
   <Component
     dataPath="data/data.csv"
+    dictionaryPath="data/dictionary.json"
   />
 </div>
 
@@ -12,6 +13,5 @@
   .app-wrapper {
     width: 100%;
     height: 100%;
-    overflow: hidden;
   }
 </style>

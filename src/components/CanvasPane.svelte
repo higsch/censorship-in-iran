@@ -6,6 +6,20 @@
 
   let width = 0;
   let height = 0;
+
+  let flatData = [];
+
+  $: {
+    flatData = [];
+    data.forEach((c) => {
+      c.data.forEach((d) => {
+        flatData = [...flatData, {
+          ...d,
+          cluster: c
+        }];
+      });
+    });
+  }
 </script>
 
 <div
@@ -17,13 +31,10 @@
     width={width}
     height={height}
   >
-    {#each data as cluster (cluster.id)}
-      {#each cluster.data as d (d.id)}
-        <Tile
-          d={d}
-          cluster={cluster}
-        />
-      {/each}
+    {#each flatData as d (d.id)}
+      <Tile
+        d={d}
+      />
     {/each}
   </Canvas>
 </div>
@@ -31,6 +42,6 @@
 <style>
   .canvas-pane-wrapper {
     width: 100%;
-    height: 100%;
+    flex: 1;
   }
 </style>

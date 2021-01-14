@@ -1,9 +1,11 @@
 <script>
   import { layoutPhyllotaxis } from '../utils/layout';
   import { getMinDim } from '../utils/math';
-  import { radiusScale, createRadiusScale } from '../utils/scales';
+  import { radiusScale, createRadiusScale } from '../stores/scales';
   import { createSimulation } from '../utils/force';
+  import { grouping } from '../stores/control';
 
+  import ControlPane from './ControlPane.svelte';
   import CanvasPane from './CanvasPane.svelte';
 
   export let data = [];
@@ -17,33 +19,37 @@
   $: radiusScale.set(createRadiusScale(minDim));
 
   $: {
-    const clusters = [...new Set(data.map((d) => d.cluster))];
-    
-    const clustersData = clusters.map((cluster) => {
-      const clusterData = data.filter((d) => d.cluster === cluster);
-      return layoutPhyllotaxis(clusterData, $radiusScale);
-    })
-    .map((d, i) => {
-      return {
-        id: i,
-        cluster: clusters[i],
-        r: Math.max(...d.map((dd) => [Math.abs(dd.x), Math.abs(dd.y)]).flat()),
-        data: d,
-      };
-    });
+    const selectedGrouping = $grouping.find((g) => g.selected);
 
-    function ticked() {
-      renderedData = [...clustersData].map((d) => {
-        const radius = d.r + d.data[0].r;
+    if (selectedGrouping) {
+      const clusters = selectedGrouping.values;
+
+      const clustersData = clusters.map((cluster) => {
+        const clusterData = data.filter((d) => d[selectedGrouping.name] === cluster);
+        return layoutPhyllotaxis(clusterData, $radiusScale);
+      })
+      .map((d, i) => {
         return {
-          ...d,
-          x: Math.max(-width / 2 + radius, Math.min(width / 2 - radius, d.x)),
-          y: Math.max(-height / 2 + radius, Math.min(height / 2 - radius, d.y))
-        }
+          id: i,
+          name: clusters[i],
+          r: Math.max(...d.map((dd) => [Math.abs(dd.x), Math.abs(dd.y)]).flat()),
+          data: d,
+        };
       });
-    }
 
-    simulation = createSimulation(clustersData, ticked);
+      function simulationEnded() {
+        renderedData = [...clustersData].map((d) => {
+          const radius = d.r + d.data[0].r;
+          return {
+            ...d,
+            x: Math.max(-width / 2 + radius, Math.min(width / 2 - radius, d.x)),
+            y: Math.max(-height / 2 + radius, Math.min(height / 2 - radius, d.y))
+          }
+        });
+      }
+
+      simulation = createSimulation(clustersData, simulationEnded);
+    }
   }
 </script>
 
@@ -52,6 +58,7 @@
   bind:clientWidth={width}
   bind:clientHeight={height}
 >
+  <ControlPane />
   <CanvasPane
     data={renderedData}
   />
@@ -59,6 +66,8 @@
 
 <style>
   .visualization-wrapper {
+    display: flex;
+    flex-direction: column;
     width: 100%;
     height: 100%;
   }

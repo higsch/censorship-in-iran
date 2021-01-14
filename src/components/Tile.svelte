@@ -4,17 +4,19 @@
   import { cubicOut } from 'svelte/easing';
 
   export let d = {};
-  export let cluster = {x: 0, y: 0};
+  $: cluster = d.cluster || {x: 0, y: 0};
 
   const { register, deregister } = getContext('canvas');
+
+  const duration = 2000;
   
   let x = tweened(0, {
-    duration: 100,
+    duration,
     easing: cubicOut
   });
 
   let y = tweened(0, {
-    duration: 100,
+    duration,
     easing: cubicOut
   });
 
@@ -25,7 +27,7 @@
   function draw(ctx) {
     ctx.beginPath();
     ctx.fillStyle = 'purple';
-    ctx.arc($x + cluster.x, $y + cluster.y, $r, 0, 2 * Math.PI, true);
+    ctx.arc($x, $y, $r, 0, 2 * Math.PI, true);
     ctx.fill();
   }
 
@@ -37,7 +39,7 @@
     };
   });
 
-  $: x.set(d.x);
-  $: y.set(d.y);
+  $: x.set(d.x + cluster.x);
+  $: y.set(d.y + cluster.y);
   $: r.set(d.r);
 </script>

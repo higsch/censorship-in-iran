@@ -1,4 +1,4 @@
-const toBoolean = (s) => s === 'True' ? true : false;
+const toBoolean = (s) => s.toLowerCase() === 'true' ? true : false;
 
 const getStatus = (d) => {
   let status = [];
@@ -12,7 +12,7 @@ const getStatus = (d) => {
 
   if (status.length === 0) status.push('unknown');
 
-  return status;
+  return status.join(';');
 };
 
 export const formatData = (d) => {
@@ -29,6 +29,7 @@ export const formatData = (d) => {
 
   return {
     ...tmp,
-    status: getStatus(tmp)
+    status: getStatus(tmp),
+    none: true
   }
 };
