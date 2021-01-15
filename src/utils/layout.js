@@ -49,8 +49,8 @@ export const layoutPhyllotaxis = (
 
 export const layoutVoronoi = (cluster) => {
   const { outerR: r, data } = cluster;
-  const scaledRadius = r * 1.2;
-  const voronoi = Delaunay.from(data, (d) => d.x, (d) => d.y).voronoi([-scaledRadius, -scaledRadius, scaledRadius, scaledRadius]);
+  const delaunay = Delaunay.from(data, (d) => d.x, (d) => d.y);
+  const voronoi = delaunay.voronoi([-r, -r, r, r]);
   const voronoiData = data.map((d, i) => {
     return {
       ...d,
@@ -60,6 +60,7 @@ export const layoutVoronoi = (cluster) => {
 
   return {
     ...cluster,
+    delaunay,
     data: voronoiData
   };
 };

@@ -13,6 +13,7 @@
   export let startY = 0;
   export let startColor = '#000000';
   export let startOpacity = 0.9;
+  export let selected = false;
 
   const { register, deregister } = getContext('canvas');
 
@@ -63,7 +64,7 @@
     ctx.strokeStyle = 'white';
     ctx.lineWidth = 2;
     ctx.stroke(p);
-    ctx.fillStyle = d.draw ? $color : 'black';
+    ctx.fillStyle = d.draw ? (selected ? 'red' : $color) : 'black';
     ctx.fill(p);
   }
 

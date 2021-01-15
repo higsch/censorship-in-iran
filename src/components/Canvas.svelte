@@ -1,5 +1,5 @@
 <script>
-  import { onMount, setContext } from "svelte";
+  import { onMount, setContext, createEventDispatcher } from 'svelte';
 
   import { setupCanvas } from '../utils/canvas';
 
@@ -7,6 +7,7 @@
   export let height = 0;
   export let pixelRatio = window.devicePixelRatio || 1;;
 
+  const dispatch = createEventDispatcher();
   const drawFunctions = [];
 
   let canvas;
@@ -20,6 +21,14 @@
       drawFunctions.splice(drawFunctions.indexOf(fn), 1);
     },
   });
+
+  function handleClick(e) {
+    const { layerX: x, layerY: y } = e;
+    dispatch('click', {
+      x: x - width / 2,
+      y: y - height / 2
+    });
+  }
 
   onMount(() => {
     let frameId;
@@ -48,5 +57,8 @@
   $: ctx = setupCanvas(canvas, width, height, pixelRatio);
 </script>
 
-<canvas bind:this={canvas} />
+<canvas
+  bind:this={canvas}
+  on:click={handleClick}
+/>
 <slot />

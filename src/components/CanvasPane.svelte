@@ -1,4 +1,6 @@
 <script>
+  import { selectedDatum } from '../stores/selection';
+
   import Canvas from './Canvas.svelte';
   import Tile from './Tile.svelte';
 
@@ -8,6 +10,18 @@
   let height = 0;
 
   let flatData = [];
+
+  function handleClick(e) {
+    const { detail: {x, y} } = e;
+    const selected = data.map((cluster) => {
+      const index = cluster.delaunay.find(x - cluster.x, y - cluster.y);
+      const datum = cluster.data[index];
+      return datum;
+    })
+    .find((d) => d.draw);
+
+    selectedDatum.set(selected);
+  }
 
   $: {
     flatData = [];
@@ -32,12 +46,14 @@
   <Canvas
     width={width}
     height={height}
+    on:click={handleClick}
   >
     {#each flatData as d (d.id)}
       <Tile
         d={d}
         startX={Math.random() * width - width / 2}
         startY={Math.random() * height - height / 2}
+        selected={$selectedDatum && $selectedDatum.id === d.id}
       />
     {/each}
   </Canvas>
