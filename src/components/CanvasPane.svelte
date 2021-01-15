@@ -1,6 +1,6 @@
 <script>
   import { selectedDatum } from '../stores/selection';
-  import { global as globalColor } from '../utils/colors';
+  import { global as globalColor, selection as selectionColor } from '../utils/colors';
 
   import Canvas from './Canvas.svelte';
   import Tile from './Tile.svelte';
@@ -55,6 +55,7 @@
         startX={Math.random() * width - width / 2}
         startY={Math.random() * height - height / 2}
         strokeColor={globalColor.background1}
+        selectionColor={selectionColor.selected1}
         selected={$selectedDatum && $selectedDatum.id === d.id}
       />
     {/each}

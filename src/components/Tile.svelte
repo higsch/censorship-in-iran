@@ -12,6 +12,7 @@
   export let startX = 0;
   export let startY = 0;
   export let startFillColor = '#000000';
+  export let selectionColor = 'red';
   export let startOpacity = 0.9;
   export let strokeColor = '#FFFFFF'
   export let selected = false;
@@ -65,7 +66,7 @@
     ctx.strokeStyle = strokeColor;
     ctx.lineWidth = 2;
     ctx.stroke(p);
-    ctx.fillStyle = d.draw ? (selected ? 'red' : $fillColor) : 'black';
+    ctx.fillStyle = d.draw ? (selected ? selectionColor : $fillColor) : 'black';
     ctx.fill(p);
   }
 

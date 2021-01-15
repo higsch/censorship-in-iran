@@ -8,3 +8,7 @@ export const grouping = {
 export const global = {
   background1: '#242B2E'
 };
+
+export const selection = {
+  selected1: '#BA181B'
+}
