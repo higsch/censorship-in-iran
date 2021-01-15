@@ -36,6 +36,8 @@
     {#each flatData as d (d.id)}
       <Tile
         d={d}
+        startX={Math.random() * width - width / 2}
+        startY={Math.random() * height - height / 2}
       />
     {/each}
   </Canvas>
