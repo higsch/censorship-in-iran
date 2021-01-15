@@ -7,10 +7,10 @@ import {
 export const createSimulation = (nodes, ticked, ended) => {
   return forceSimulation()
     .nodes(nodes)
-    .force('charge', forceManyBody().strength(5))
+    .force('charge', forceManyBody().strength(-30))
     .force('center', forceCenter(0, 0))
     .force('collision', forceCollide().radius(function(d) { return d.r; }))
     .on('tick', ticked)
     .on('end', ended)
-    .tick(500);
+    .tick(300);
 };

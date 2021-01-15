@@ -17,6 +17,7 @@ export const layoutPhyllotaxis = (
   const scaledRadiusOffset = radiusScale(radiusOffset);
 
   // add dummy data for clipping
+  // TODO: optimize
   const finalRadius = scaledSpacing * Math.sqrt(lastId) + scaledRadiusOffset;
   const nDummies = Math.round(2 * finalRadius * Math.PI / (2 * radius + scaledSpacing));
   const addedData = Array.from({length: nDummies}).map((_) => {
@@ -35,7 +36,8 @@ export const layoutPhyllotaxis = (
       ...d,
       r: radiusScale(radius),
       x: Math.cos(scaledTheta) * scaledRadius,
-      y: Math.sin(scaledTheta) * scaledRadius
+      y: Math.sin(scaledTheta) * scaledRadius,
+      withinClusterIndex: i
     };
   });
 

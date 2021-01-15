@@ -39,6 +39,7 @@
           outerR: Math.max(...d.map((dd) => [Math.abs(dd.x), Math.abs(dd.y)]).flat()),
           color: selectedGrouping.color,
           data: d,
+          length: d.filter((d) => d.draw).length
         };
       })
       .map((d) => {
@@ -48,7 +49,7 @@
 
       function simulationTicked() {
         clustersData = clustersData.map((d) => {
-          const radius = d.r * 1.3;
+          const radius = d.r * 1.5;
           return {
             ...d,
             x: Math.max(-width / 2 + radius, Math.min(width / 2 - radius, d.x)),
