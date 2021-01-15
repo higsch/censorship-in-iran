@@ -47,5 +47,6 @@
   .canvas-pane-wrapper {
     width: 100%;
     flex: 1;
+    overflow: hidden;
   }
 </style>

@@ -19,7 +19,7 @@
   const flyDuration = 400 * Math.random() + 800;
 
   const opacityScale = scaleLinear()
-    .domain([0, 1])
+    .domain([1, 0])
     .range([0.5, 1]);
   
   let x = tweened(startX, {
@@ -87,5 +87,5 @@
   $: y.set(cluster.y + pathY);
 
   $: color.set(cluster.color);
-  $: opacity.set(opacityScale(1 - d.withinClusterIndex / cluster.length));
+  $: opacity.set(opacityScale(d.withinClusterIndex / cluster.length));
 </script>
