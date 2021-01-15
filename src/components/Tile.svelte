@@ -11,8 +11,9 @@
   export let d = {};
   export let startX = 0;
   export let startY = 0;
-  export let startColor = '#000000';
+  export let startFillColor = '#000000';
   export let startOpacity = 0.9;
+  export let strokeColor = '#FFFFFF'
   export let selected = false;
 
   const { register, deregister } = getContext('canvas');
@@ -42,7 +43,7 @@
   let pathX = 0;
   let pathY = 0;
 
-  let color = tweened(startColor, {
+  let fillColor = tweened(startFillColor, {
     duration: flyDuration,
     easing: cubicOut,
     interpolate: interpolateHcl
@@ -61,10 +62,10 @@
     ctx.globalAlpha = $opacity;
     ctx.translate($x, $y);
     ctx.beginPath();
-    ctx.strokeStyle = 'white';
+    ctx.strokeStyle = strokeColor;
     ctx.lineWidth = 2;
     ctx.stroke(p);
-    ctx.fillStyle = d.draw ? (selected ? 'red' : $color) : 'black';
+    ctx.fillStyle = d.draw ? (selected ? 'red' : $fillColor) : 'black';
     ctx.fill(p);
   }
 
@@ -87,6 +88,6 @@
   $: x.set(cluster.x + pathX);
   $: y.set(cluster.y + pathY);
 
-  $: color.set(cluster.color);
+  $: fillColor.set(cluster.color);
   $: opacity.set(opacityScale(d.withinClusterIndex / cluster.length));
 </script>

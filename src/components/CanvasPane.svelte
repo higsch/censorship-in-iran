@@ -1,5 +1,6 @@
 <script>
   import { selectedDatum } from '../stores/selection';
+  import { global as globalColor } from '../utils/colors';
 
   import Canvas from './Canvas.svelte';
   import Tile from './Tile.svelte';
@@ -53,6 +54,7 @@
         d={d}
         startX={Math.random() * width - width / 2}
         startY={Math.random() * height - height / 2}
+        strokeColor={globalColor.background1}
         selected={$selectedDatum && $selectedDatum.id === d.id}
       />
     {/each}
@@ -64,5 +66,6 @@
     width: 100%;
     flex: 1;
     overflow: hidden;
+    cursor: pointer;
   }
 </style>

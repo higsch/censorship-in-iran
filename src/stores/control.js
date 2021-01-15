@@ -4,7 +4,7 @@ import { grouping as color} from '../utils/colors';
 const groupingInit = [
   {
     name: 'none',
-    color: '#000000'
+    color: '#dae2f5'
   },
   {
     name: 'status',
