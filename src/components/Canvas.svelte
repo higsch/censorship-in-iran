@@ -28,13 +28,13 @@
       if (!ctx) return;
 
       ctx.clearRect(-width / 2, -height / 2, width, height);
-      ctx.save();
       
       drawFunctions.forEach((fn) => {
+        ctx.save();
         fn(ctx);
+        ctx.restore();
       });
       
-      ctx.restore();
       frameId = requestAnimationFrame(update);
     }
 

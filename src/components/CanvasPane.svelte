@@ -13,10 +13,12 @@
     flatData = [];
     data.forEach((c) => {
       c.data.forEach((d) => {
-        flatData = [...flatData, {
-          ...d,
-          cluster: c
-        }];
+        if (d.draw) {
+          flatData = [...flatData, {
+            ...d,
+            cluster: c
+          }];
+        }
       });
     });
   }

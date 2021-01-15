@@ -3,12 +3,13 @@
   import { tweened } from 'svelte/motion';
   import { cubicOut } from 'svelte/easing';
 
+  import { relativePath } from '../utils/path';
+
   export let d = {};
 
   const { register, deregister } = getContext('canvas');
 
   const flyDuration = 1000;
-  const growDuration = 1000;
   
   let x = tweened(0, {
     duration: flyDuration,
@@ -20,15 +21,24 @@
     easing: cubicOut
   });
 
-  let r = tweened(0, {
-    duration: growDuration
-  });
+  let path;
+  let pathX = 0;
+  let pathY = 0;
 
   function draw(ctx) {
-    ctx.beginPath();
-    ctx.fillStyle = 'purple';
-    ctx.arc($x, $y, $r, 0, 2 * Math.PI, true);
-    ctx.fill();
+    // ctx.beginPath();
+    // ctx.arc(0, 0, cluster.r, 0, 2 * Math.PI, true);
+    // ctx.clip();
+    if (path) {
+      ctx.translate($x, $y);
+      ctx.beginPath();
+      const p = new Path2D(path);
+      ctx.strokeStyle = 'white';
+      ctx.lineWidth = 2;
+      ctx.stroke(p);
+      ctx.fillStyle = d.draw ? 'purple' : 'black';
+      ctx.fill(p);
+    }
   }
 
   onMount(() => {
@@ -41,7 +51,10 @@
   
   $: cluster = d.cluster || {x: 0, y: 0};
 
-  $: x.set(d.x + cluster.x);
-  $: y.set(d.y + cluster.y);
-  $: r.set(d.r);
+  $: {
+    [ path, pathX, pathY ] = relativePath(d.voronoiPath);
+  }
+
+  $: x.set(cluster.x + pathX);
+  $: y.set(cluster.y + pathY);
 </script>

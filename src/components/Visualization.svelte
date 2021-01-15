@@ -1,5 +1,5 @@
 <script>
-  import { layoutPhyllotaxis } from '../utils/layout';
+  import { layoutPhyllotaxis, layoutVoronoi } from '../utils/layout';
   import { getMinDim } from '../utils/math';
   import { radiusScale, createRadiusScale } from '../stores/scales';
   import { createSimulation } from '../utils/force';
@@ -24,18 +24,26 @@
     if (selectedGrouping) {
       const clusters = selectedGrouping.values;
 
+      let lastId = Math.max(...data.map((d) => +d.id));
       let clustersData = clusters.map((cluster) => {
         const clusterData = data.filter((d) => d[selectedGrouping.name] === cluster);
-        return layoutPhyllotaxis(clusterData, $radiusScale);
+        const { phyllotaxisData, lastId: newLastId } = layoutPhyllotaxis(clusterData, $radiusScale, lastId);
+        lastId = newLastId;
+        return phyllotaxisData;
       })
       .map((d, i) => {
         return {
           id: i,
           name: clusters[i],
-          r: Math.max(...d.map((dd) => [Math.abs(dd.x), Math.abs(dd.y)]).flat()),
+          r: Math.max(...d.filter((dd) => dd.draw).map((dd) => [Math.abs(dd.x), Math.abs(dd.y)]).flat()),
+          outerR: Math.max(...d.map((dd) => [Math.abs(dd.x), Math.abs(dd.y)]).flat()),
           data: d,
         };
-      });
+      })
+      .map((d) => {
+        const voronoiData = layoutVoronoi(d);
+        return voronoiData;
+      });;
 
       function simulationTicked() {
         clustersData = clustersData.map((d) => {
