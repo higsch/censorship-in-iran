@@ -37,6 +37,7 @@
           name: clusters[i],
           r: Math.max(...d.filter((dd) => dd.draw).map((dd) => [Math.abs(dd.x), Math.abs(dd.y)]).flat()),
           outerR: Math.max(...d.map((dd) => [Math.abs(dd.x), Math.abs(dd.y)]).flat()),
+          color: selectedGrouping.color,
           data: d,
         };
       })

@@ -2,13 +2,15 @@
   import { getContext, onMount } from 'svelte';
   import { tweened } from 'svelte/motion';
   import { cubicOut } from 'svelte/easing';
-  import { interpolate } from 'flubber';
+  import { interpolate as flubberInterpolate } from 'flubber';
+  import { interpolateHcl } from 'd3';
 
   import { relativePath } from '../utils/path';
 
   export let d = {};
   export let startX = 0;
   export let startY = 0;
+  export let startColor = 'purple';
 
   const { register, deregister } = getContext('canvas');
 
@@ -24,14 +26,20 @@
     easing: cubicOut
   });
 
-  let path  = tweened(null, {
+  let path = tweened(null, {
     duration: flyDuration,
     easing: cubicOut,
-    interpolate
+    interpolate: flubberInterpolate
   });
 
   let pathX = 0;
   let pathY = 0;
+
+  let color = tweened(startColor, {
+    duration: flyDuration,
+    easing: cubicOut,
+    interpolate: interpolateHcl
+  });
 
   function draw(ctx) {
     // ctx.beginPath();
@@ -44,7 +52,7 @@
       ctx.strokeStyle = 'white';
       ctx.lineWidth = 2;
       ctx.stroke(p);
-      ctx.fillStyle = d.draw ? 'purple' : 'black';
+      ctx.fillStyle = d.draw ? $color : 'black';
       ctx.fill(p);
     }
   }
@@ -67,4 +75,6 @@
 
   $: x.set(cluster.x + pathX);
   $: y.set(cluster.y + pathY);
+
+  $: color.set(cluster.color);
 </script>
