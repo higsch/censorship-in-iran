@@ -68,7 +68,7 @@ const layoutVoronoi = (cluster) => {
   };
 };
 
-export const batchLayoutClusters = (selectedGrouping, data, radiusScale) => {
+export const batchLayoutClusters = (selectedGrouping, selectedColor, data, radiusScale) => {
   const { values, name: groupingName } = selectedGrouping;
   const clusters = values.map((v) => v.value);
 
@@ -76,6 +76,9 @@ export const batchLayoutClusters = (selectedGrouping, data, radiusScale) => {
 
   const clustersData = clusters.map((cluster) => {
     const clusterData = data.filter((d) => d[groupingName] === cluster);
+    if (selectedColor) {
+      clusterData.sort((a, b) => a[selectedColor.name] < b[selectedColor.name] ? 1 : -1);
+    }
     const { phyllotaxisData, lastId: newLastId } = layoutPhyllotaxis(clusterData, radiusScale, lastId);
     lastId = newLastId;
     return phyllotaxisData;

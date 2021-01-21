@@ -2,7 +2,7 @@
   import { batchLayoutClusters, layoutBar } from '../utils/layout';
   import { getMinDim } from '../utils/math';
   import { radiusScale, createRadiusScale } from '../stores/scales';
-  import { groupingControl } from '../stores/control';
+  import { groupingControl, colorControl } from '../stores/control';
 
   import ControlPane from './ControlPane.svelte';
   import CanvasPane from './CanvasPane.svelte';
@@ -18,9 +18,10 @@
 
   $: {
     const selectedGrouping = $groupingControl.find((c) => c.selected);
+    const selectedColor = $colorControl.find((c) => c.selected);
 
     if (selectedGrouping) {
-      const clustersData = batchLayoutClusters(selectedGrouping, data, $radiusScale);
+      const clustersData = batchLayoutClusters(selectedGrouping, selectedColor, data, $radiusScale);
       renderedData = layoutBar(clustersData, width, height);
     }
   }
