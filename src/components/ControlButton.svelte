@@ -5,30 +5,30 @@
 
   import Diamond from './Diamond.svelte';
 
-  export let group = {};
+  export let control = {};
 
   const dispatch = createEventDispatcher();
 
   function handleClick() {
-    dispatch('click', group.name);
+    dispatch('click', control.name);
   }
 </script>
 
 <div
   class="grouping-button"
-  class:selected={group.selected}
-  use:css={{color: group.color}}
+  class:selected={control.selected}
+  use:css={{color: control.color}}
   on:click={handleClick}
 >
   <div class="content">
     <span class="diamond-wrapper">
       <Diamond
-        color={group.color}
-        filled={group.selected}
+        color={control.color}
+        filled={control.selected}
       />
     </span>
     <span class="name">
-      {$t(`grouping.${group.name}`)}
+      {$t(`grouping.${control.name}`)}
     </span>
   </div>
 </div>

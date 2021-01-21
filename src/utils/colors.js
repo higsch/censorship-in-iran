@@ -1,3 +1,5 @@
+import { hcl } from 'd3';
+
 export const grouping = {
   shade1: '#80FFDB',
   shade2: '#72EFDD',
@@ -11,4 +13,62 @@ export const global = {
 
 export const selection = {
   selected1: '#BA181B'
-}
+};
+
+const gender = {
+  Female: '#F6B5C1',
+  Male: '#B3C7F2'
+};
+
+export const addHclColorsDistinct = (data) => {
+  const totalColorNumbers = data.reduce((acc, cur) => acc + cur.values.length, 0);
+  let i = 0;
+  const coloredData = data.map((d) => {
+    const coloredValues = d.values.map((v) => {
+      const color = hcl(Math.floor(i / totalColorNumbers * 360), 50, 80);
+      i++;
+      return {
+        ...v,
+        color: color.formatHex()
+      };
+    });
+    return {
+      ...d,
+      values: coloredValues
+    };
+  });
+
+  return coloredData;
+};
+
+export const addHclColors = (data, defaultColor = '#FFFFFF') => {
+  const coloredData = data.map((d) => {
+    const coloredValues = d.values.map((v, i, arr) => {
+      let color = defaultColor;
+      if (d.name === 'gender') {
+        const { value } = v;
+        color = gender[value];
+      } else {
+        const hclColor = hcl(Math.floor(i / arr.length * 360), 50, 80);
+        color = hclColor.formatHex();
+      }
+      return {
+        ...v,
+        color
+      };
+    });
+    return {
+      ...d,
+      values: coloredValues
+    };
+  });
+
+  return coloredData;
+};
+
+export const getControlColor = (data, control, defaultColor = '#FFFFFF') => {
+  if (!control) return defaultColor;
+  const { name, values } = control;
+  const { color = defaultColor } = values.find((v) => v.value === data[name]) || {};
+  return color;
+};

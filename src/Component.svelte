@@ -3,7 +3,7 @@
   import { csv } from 'd3-fetch';
 
   import { formatData } from './utils/format';
-  import { grouping } from './stores/control';
+  import { groupingControl, colorControl } from './stores/control';
   import { locale as localeStore, dict } from './stores/i18n';
   import { global as globalColor } from './utils/colors'; 
   import { css } from './actions/css';
@@ -27,7 +27,8 @@
     csv(dataPath, formatData)
       .then((res) => {
         data = res;
-        grouping.init(data);
+        groupingControl.init(data);
+        colorControl.init(data);
       });
   });
 </script>

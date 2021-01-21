@@ -1,8 +1,8 @@
 <script>
-  import { batchLayoutClusters, layoutForce, layoutBar } from '../utils/layout';
+  import { batchLayoutClusters, layoutBar } from '../utils/layout';
   import { getMinDim } from '../utils/math';
   import { radiusScale, createRadiusScale } from '../stores/scales';
-  import { grouping } from '../stores/control';
+  import { groupingControl } from '../stores/control';
 
   import ControlPane from './ControlPane.svelte';
   import CanvasPane from './CanvasPane.svelte';
@@ -17,7 +17,7 @@
   $: radiusScale.set(createRadiusScale(minDim));
 
   $: {
-    const selectedGrouping = $grouping.find((g) => g.selected);
+    const selectedGrouping = $groupingControl.find((g) => g.selected);
 
     if (selectedGrouping) {
       const clustersData = batchLayoutClusters(selectedGrouping, data, $radiusScale);

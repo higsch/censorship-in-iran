@@ -1,6 +1,7 @@
 <script>
   import { selectedDatum } from '../stores/selection';
-  import { global as globalColor, selection as selectionColor } from '../utils/colors';
+  import { global as globalColor, selection as selectionColor, getControlColor } from '../utils/colors';
+  import { colorControl } from '../stores/control';
 
   import Canvas from './Canvas.svelte';
   import Tile from './Tile.svelte';
@@ -25,13 +26,16 @@
   }
 
   $: {
+    const selectedColor = $colorControl.find((c) => c.selected);
+
     flatData = [];
     data.forEach((c) => {
       c.data.forEach((d) => {
         if (d.draw) {
           flatData = [...flatData, {
             ...d,
-            cluster: c
+            cluster: c,
+            color: getControlColor(d, selectedColor)
           }];
         }
       });

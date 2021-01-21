@@ -75,11 +75,6 @@
 
   onMount(() => {
     register(draw);
-
-    // if (d.username === 'yavarsoltani') {
-    //   console.log(d)
-    //   image.src = d.imgUrl;
-    // }
     
     return () => {
       deregister(draw);
@@ -97,6 +92,6 @@
   $: x.set(cluster.x + pathX);
   $: y.set(cluster.y + pathY);
 
-  $: fillColor.set(cluster.color);
+  $: fillColor.set(d.color);
   $: opacity.set(opacityScale(d.withinClusterIndex / cluster.length));
 </script>

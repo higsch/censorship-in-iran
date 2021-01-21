@@ -6,7 +6,7 @@ const goldenRatio = (1 + Math.sqrt(5)) / 2;
 const irrational2 = 1 + Math.sqrt(2);
 const irrational3 = (9 + Math.sqrt(221)) / 10;
 
-const radiusFactor = 1.2;
+const radiusFactor = 1;
 
 const layoutPhyllotaxis = (
     data,
@@ -69,7 +69,8 @@ const layoutVoronoi = (cluster) => {
 };
 
 export const batchLayoutClusters = (selectedGrouping, data, radiusScale) => {
-  const { values: clusters, name: groupingName } = selectedGrouping;
+  const { values, name: groupingName } = selectedGrouping;
+  const clusters = values.map((v) => v.value);
 
   let lastId = Math.max(...data.map((d) => +d.id));
 
@@ -121,7 +122,7 @@ export const layoutForce = (clustersData, width, height) => {
   });
 };
 
-export const layoutBar = (clustersData, width, height) => {
+export const layoutBar = (clustersData, width, height, minimalSpacing = width / 3) => {
   const data = [...clustersData];
   data.sort((a, b) => a.r > b.r ? -1 : 1);
 
@@ -131,20 +132,20 @@ export const layoutBar = (clustersData, width, height) => {
     id: barId++,
     clusters: [],
     occupiedWidth: 0,
-    maxHeight: 0
+    maxDiameter: 0
   });
   const bars = [];
 
   let bar = createBar();
   data.forEach((cluster) => {
     const diameter = 2 * cluster.r * radiusFactor;
-    if (width - bar.occupiedWidth < diameter) {
+    if (width - bar.occupiedWidth < diameter + minimalSpacing) {
       bars.push({...bar});
       bar = createBar();
     }
     bar.clusters.push(cluster);
     bar.occupiedWidth += diameter;
-    bar.maxHeight = Math.max(bar.maxHeight, diameter);
+    bar.maxDiameter = Math.max(bar.maxDiameter, diameter);
   });
   bars.push({...bar});
 
@@ -172,13 +173,13 @@ export const layoutBar = (clustersData, width, height) => {
   });
 
   // set y coordinates
-  const ySpacing = (height - xBars.reduce((acc, cur) => acc + cur.maxHeight, 0)) / (xBars.length + 1);
+  const ySpacing = (height - xBars.reduce((acc, cur) => acc + cur.maxDiameter, 0)) / (xBars.length + 1);
   let y = 0;
   const xyBars = xBars.map((bar, i, arr) => {
     if (i === 0) {
-      y += ySpacing + bar.maxHeight / 2;
+      y += ySpacing + bar.maxDiameter / 2;
     } else {
-      y += (arr[i - 1].maxHeight + bar.maxHeight) / 2 + ySpacing;
+      y += (arr[i - 1].maxDiameter + bar.maxDiameter) / 2 + ySpacing;
     }
     return {
       ...bar,

@@ -1,5 +1,5 @@
 import { writable } from 'svelte/store';
-import { grouping as color} from '../utils/colors';
+import { grouping as color, addHclColors} from '../utils/colors';
 
 const groupingInit = [
   {
@@ -22,20 +22,49 @@ const groupingInit = [
     name: 'institutioninvestigating',
     color: color.shade4
   }
-].map((d, i) => ({...d, selected: d.name === 'status', values: [], id: i}));
+].map((d, i) => ({...d, selected: d.name === 'institutioninvestigating', values: [], id: i}));
 
-const createGroupingControl = () => {
-  const { set, update, subscribe } = writable(groupingInit);
+const colorInit = [
+  {
+    name: 'none',
+    color: '#dae2f5'
+  },
+  {
+    name: 'status',
+    color: color.shade1
+  },
+  {
+    name: 'gender',
+    color: color.shade2
+  },
+  {
+    name: 'occupation',
+    color: color.shade3
+  },
+  {
+    name: 'institutioninvestigating',
+    color: color.shade4
+  }
+].map((d, i) => ({...d, selected: d.name === 'gender', values: [], id: i}));
+
+const createControl = (initData, initColorPalette = false) => {
+  const { set, update, subscribe } = writable(initData);
 
   const init = (data) => {
-    const groupingWithValues = groupingInit.map((g) => {
-      const values = data.map((d) => d[g.name]).flat();
+    let controlWithValues = initData.map((c) => {
+      const values = data.map((d) => d[c.name]).flat();
       return {
-        ...g,
-        values: [...new Set(values)]
+        ...c,
+        values: [...new Set(values)].map((value) => ({value}))
       };
     });
-    set(groupingWithValues);
+    
+    // also init the color palette, if needed
+    if (initColorPalette) {
+      controlWithValues = addHclColors(controlWithValues);
+    }
+
+    set(controlWithValues);
   };
 
   const reset = () => update((d) => ({...d, selected: false}));
@@ -57,4 +86,5 @@ const createGroupingControl = () => {
   };
 };
 
-export const grouping = createGroupingControl();
+export const groupingControl = createControl(groupingInit);
+export const colorControl = createControl(colorInit, true);
