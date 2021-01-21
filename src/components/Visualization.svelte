@@ -1,8 +1,7 @@
 <script>
-  import { layoutPhyllotaxis, layoutVoronoi } from '../utils/layout';
+  import { batchLayoutClusters, layoutForce, layoutBar } from '../utils/layout';
   import { getMinDim } from '../utils/math';
   import { radiusScale, createRadiusScale } from '../stores/scales';
-  import { createSimulation } from '../utils/force';
   import { grouping } from '../stores/control';
 
   import ControlPane from './ControlPane.svelte';
@@ -12,7 +11,6 @@
 
   let width = 0;
   let height = 0;
-  let simulation;
   let renderedData = [];
 
   $: minDim = getMinDim(width, height);
@@ -22,47 +20,8 @@
     const selectedGrouping = $grouping.find((g) => g.selected);
 
     if (selectedGrouping) {
-      const clusters = selectedGrouping.values;
-
-      let lastId = Math.max(...data.map((d) => +d.id));
-      let clustersData = clusters.map((cluster) => {
-        const clusterData = data.filter((d) => d[selectedGrouping.name] === cluster);
-        const { phyllotaxisData, lastId: newLastId } = layoutPhyllotaxis(clusterData, $radiusScale, lastId);
-        lastId = newLastId;
-        return phyllotaxisData;
-      })
-      .map((d, i) => {
-        return {
-          id: i,
-          name: clusters[i],
-          r: Math.max(...d.filter((dd) => dd.draw).map((dd) => [Math.abs(dd.x), Math.abs(dd.y)]).flat()),
-          outerR: Math.max(...d.map((dd) => [Math.abs(dd.x), Math.abs(dd.y)]).flat()),
-          color: selectedGrouping.color,
-          data: d,
-          length: d.filter((d) => d.draw).length
-        };
-      })
-      .map((d) => {
-        const voronoiData = layoutVoronoi(d);
-        return voronoiData;
-      });;
-
-      function simulationTicked() {
-        clustersData = clustersData.map((d) => {
-          const radius = d.r * 1.5;
-          return {
-            ...d,
-            x: Math.max(-width / 2 + radius, Math.min(width / 2 - radius, d.x)),
-            y: Math.max(-height / 2 + radius, Math.min(height / 2 - radius, d.y))
-          }
-        });
-      }
-
-      function simulationEnded() {
-        renderedData = [...clustersData];
-      }
-
-      simulation = createSimulation(clustersData, simulationTicked, simulationEnded);
+      const clustersData = batchLayoutClusters(selectedGrouping, data, $radiusScale);
+      renderedData = layoutBar(clustersData, width, height);
     }
   }
 </script>

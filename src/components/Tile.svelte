@@ -24,6 +24,8 @@
   const opacityScale = scaleLinear()
     .domain([1, 0])
     .range([0.5, 1]);
+
+  const image = new Image();
   
   let x = tweened(startX, {
     duration: flyDuration,
@@ -68,11 +70,17 @@
     ctx.stroke(p);
     ctx.fillStyle = d.draw ? (selected ? selectionColor : $fillColor) : 'black';
     ctx.fill(p);
+    // ctx.clip();
   }
 
   onMount(() => {
     register(draw);
 
+    // if (d.username === 'yavarsoltani') {
+    //   console.log(d)
+    //   image.src = d.imgUrl;
+    // }
+    
     return () => {
       deregister(draw);
     };

@@ -30,6 +30,7 @@ export const formatData = (d) => {
   return {
     ...tmp,
     status: getStatus(tmp),
-    none: true
+    none: true,
+    imgUrl: `https://journalismisnotacrime.com/media/profile/${tmp.name_fa.trim().replace(/\s/, '_')}.jpg.400x400_q85_bw_crop.jpg`
   }
 };

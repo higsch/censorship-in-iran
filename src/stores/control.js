@@ -22,7 +22,7 @@ const groupingInit = [
     name: 'institutioninvestigating',
     color: color.shade4
   }
-].map((d, i) => ({...d, selected: d.name === 'none', values: [], id: i}));
+].map((d, i) => ({...d, selected: d.name === 'status', values: [], id: i}));
 
 const createGroupingControl = () => {
   const { set, update, subscribe } = writable(groupingInit);
