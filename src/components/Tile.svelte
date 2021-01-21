@@ -3,8 +3,7 @@
   import { tweened } from 'svelte/motion';
   import { cubicOut } from 'svelte/easing';
   import { interpolate as flubberInterpolate } from 'flubber';
-  import { interpolateHcl } from 'd3';
-  import { scaleLinear } from 'd3';
+  import { interpolateHcl, scaleLinear } from 'd3';
 
   import { relativePath } from '../utils/path';
 
@@ -12,6 +11,7 @@
   export let startX = 0;
   export let startY = 0;
   export let startFillColor = '#000000';
+  export let fillBackgroundColor = '#FFFFFF';
   export let selectionColor = 'red';
   export let startOpacity = 0.9;
   export let strokeColor = '#FFFFFF'
@@ -23,9 +23,7 @@
 
   const opacityScale = scaleLinear()
     .domain([1, 0])
-    .range([0.5, 1]);
-
-  const image = new Image();
+    .range([0.3, 1]);
   
   let x = tweened(startX, {
     duration: flyDuration,
@@ -62,15 +60,17 @@
     
     const p = new Path2D($path);
 
-    ctx.globalAlpha = $opacity;
+    ctx.globalAlpha = 1.0;
     ctx.translate($x, $y);
     ctx.beginPath();
     ctx.strokeStyle = strokeColor;
     ctx.lineWidth = 2;
     ctx.stroke(p);
+    ctx.fillStyle = fillBackgroundColor;
+    ctx.fill(p);
+    ctx.globalAlpha = $opacity;
     ctx.fillStyle = d.draw ? (selected ? selectionColor : $fillColor) : 'black';
     ctx.fill(p);
-    // ctx.clip();
   }
 
   onMount(() => {

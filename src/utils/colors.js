@@ -48,8 +48,10 @@ export const addHclColors = (data, defaultColor = '#FFFFFF') => {
       if (d.name === 'gender') {
         const { value } = v;
         color = gender[value];
+      } else if (d.name === 'none') {
+        color = defaultColor;
       } else {
-        const hclColor = hcl(Math.floor(i / arr.length * 360), 50, 80);
+        const hclColor = hcl(Math.floor(i / arr.length * 360), 60, 80);
         color = hclColor.formatHex();
       }
       return {
