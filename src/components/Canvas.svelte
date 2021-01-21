@@ -1,5 +1,5 @@
 <script>
-  import { onMount, setContext, createEventDispatcher } from 'svelte';
+  import { onDestroy, setContext, createEventDispatcher } from 'svelte';
 
   import { setupCanvas } from '../utils/canvas';
 
@@ -12,6 +12,8 @@
 
   let canvas;
   let ctx;
+  let pendingInvalidation = false;
+  let frameId;
 
   setContext('canvas', {
     register(fn) {
@@ -20,6 +22,11 @@
     deregister(fn) {
       drawFunctions.splice(drawFunctions.indexOf(fn), 1);
     },
+    invalidate() {
+			if (pendingInvalidation) return;
+			pendingInvalidation = true;
+			frameId = requestAnimationFrame(update);
+		}
   });
 
   function handleClick(e) {
@@ -30,28 +37,24 @@
     });
   }
 
-  onMount(() => {
-    let frameId;
+  function update() {
+    if (!ctx) return;
 
-    function update() {
-      if (!ctx) return;
+    ctx.clearRect(-width / 2, -height / 2, width, height);
+    
+    drawFunctions.forEach((fn) => {
+      ctx.save();
+      fn(ctx);
+      ctx.restore();
+    });
+    
+    pendingInvalidation = false;
+  }
 
-      ctx.clearRect(-width / 2, -height / 2, width, height);
-      
-      drawFunctions.forEach((fn) => {
-        ctx.save();
-        fn(ctx);
-        ctx.restore();
-      });
-      
-      frameId = requestAnimationFrame(update);
-    }
-
-    frameId = requestAnimationFrame(update);
-
-    return () => {
+  onDestroy(() => {
+    if (frameId) {
       cancelAnimationFrame(frameId);
-    };
+    }
   });
 
   $: ctx = setupCanvas(canvas, width, height, pixelRatio);

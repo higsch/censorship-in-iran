@@ -17,7 +17,7 @@
   $: radiusScale.set(createRadiusScale(minDim));
 
   $: {
-    const selectedGrouping = $groupingControl.find((g) => g.selected);
+    const selectedGrouping = $groupingControl.find((c) => c.selected);
 
     if (selectedGrouping) {
       const clustersData = batchLayoutClusters(selectedGrouping, data, $radiusScale);

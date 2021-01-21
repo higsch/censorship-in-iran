@@ -27,7 +27,7 @@
 
   $: {
     const selectedColor = $colorControl.find((c) => c.selected);
-
+    
     flatData = [];
     data.forEach((c) => {
       c.data.forEach((d) => {

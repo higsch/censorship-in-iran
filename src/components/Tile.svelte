@@ -1,5 +1,5 @@
 <script>
-  import { getContext, onMount } from 'svelte';
+  import { getContext, onMount, onDestroy, afterUpdate } from 'svelte';
   import { tweened } from 'svelte/motion';
   import { cubicOut } from 'svelte/easing';
   import { interpolate as flubberInterpolate } from 'flubber';
@@ -17,7 +17,7 @@
   export let strokeColor = '#FFFFFF'
   export let selected = false;
 
-  const { register, deregister } = getContext('canvas');
+  const { register, deregister, invalidate } = getContext('canvas');
 
   const flyDuration = 400 * Math.random() + 800;
 
@@ -75,11 +75,15 @@
 
   onMount(() => {
     register(draw);
+    invalidate();
     
     return () => {
       deregister(draw);
     };
   });
+
+	afterUpdate(invalidate);
+	onDestroy(invalidate);
   
   $: cluster = d.cluster || {x: 0, y: 0};
 
