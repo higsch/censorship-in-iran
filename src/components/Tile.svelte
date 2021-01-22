@@ -25,6 +25,9 @@
     .domain([1, 0])
     .range([0.3, 1]);
   
+  let pathX = 0;
+  let pathY = 0;
+  
   let x = tweened(startX, {
     duration: flyDuration,
     easing: cubicOut
@@ -40,9 +43,6 @@
     easing: cubicOut,
     interpolate: flubberInterpolate
   });
-
-  let pathX = 0;
-  let pathY = 0;
 
   let fillColor = tweened(startFillColor, {
     duration: flyDuration,
@@ -64,12 +64,12 @@
     ctx.translate($x, $y);
     ctx.beginPath();
     ctx.strokeStyle = strokeColor;
-    ctx.lineWidth = 2;
+    ctx.lineWidth = 1.6;
     ctx.stroke(p);
     ctx.fillStyle = fillBackgroundColor;
     ctx.fill(p);
-    ctx.globalAlpha = $opacity;
-    ctx.fillStyle = d.draw ? (selected ? selectionColor : $fillColor) : 'black';
+    ctx.globalAlpha = selected ? 1.0 : $opacity;
+    ctx.fillStyle = selected ? selectionColor : $fillColor;
     ctx.fill(p);
   }
 

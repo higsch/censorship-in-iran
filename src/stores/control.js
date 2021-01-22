@@ -3,47 +3,55 @@ import { grouping as color, addHclColors} from '../utils/colors';
 
 const groupingInit = [
   {
-    name: 'none',
-    color: '#dae2f5'
+    name: 'none'
   },
   {
-    name: 'status',
-    color: color.shade1
+    name: 'status'
   },
   {
-    name: 'gender',
-    color: color.shade2
+    name: 'gender'
   },
   {
-    name: 'occupation',
-    color: color.shade3
+    name: 'occupation'
   },
   {
-    name: 'institutioninvestigating',
-    color: color.shade4
+    name: 'institutioninvestigating'
+  },
+  {
+    name: 'province'
+  },
+  {
+    name: 'ethnicgroup'
+  },
+  {
+    name: 'religoiusgroup'
   }
 ].map((d, i) => ({...d, selected: d.name === 'institutioninvestigating', values: [], id: i}));
 
 const colorInit = [
   {
     name: 'none',
-    color: '#dae2f5'
   },
   {
     name: 'status',
-    color: color.shade1
   },
   {
     name: 'gender',
-    color: color.shade2
   },
   {
     name: 'occupation',
-    color: color.shade3
   },
   {
     name: 'institutioninvestigating',
-    color: color.shade4
+  },
+  {
+    name: 'province'
+  },
+  {
+    name: 'ethnicgroup'
+  },
+  {
+    name: 'religoiusgroup'
   }
 ].map((d, i) => ({...d, selected: d.name === 'gender', values: [], id: i}));
 

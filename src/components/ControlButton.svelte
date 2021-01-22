@@ -8,6 +8,7 @@
   export let control = {};
 
   const dispatch = createEventDispatcher();
+  const color = '#DAE2F5';
 
   function handleClick() {
     dispatch('click', control.name);
@@ -17,13 +18,13 @@
 <div
   class="grouping-button"
   class:selected={control.selected}
-  use:css={{color: control.color}}
+  use:css={{color}}
   on:click={handleClick}
 >
   <div class="content">
     <span class="diamond-wrapper">
       <Diamond
-        color={control.color}
+        color={color}
         filled={control.selected}
       />
     </span>
