@@ -125,7 +125,7 @@ export const layoutForce = (clustersData, width, height) => {
   });
 };
 
-export const layoutBar = (clustersData, width, height, minimalSpacing = width / 3) => {
+export const layoutBar = (clustersData, width, height, minimalSpacing = width / 2) => {
   const data = [...clustersData];
   data.sort((a, b) => a.r > b.r ? -1 : 1);
 
@@ -155,18 +155,19 @@ export const layoutBar = (clustersData, width, height, minimalSpacing = width / 
   // sort the enrties per bar and set x coordinates
   const xBars = bars.map((bar) => {
     const sortedClusters = summitSort(bar.clusters);
-    const xSpacing = (width - sortedClusters.reduce((acc, cur) => acc + 2 * cur.r * radiusFactor, 0)) / (sortedClusters.length + 1);
+    const xSpacing = (width - sortedClusters.reduce((acc, cur) => acc + 2 * cur.r * radiusFactor, 0)) / (sortedClusters.length);
     let x = 0;
     const spacedClusters = sortedClusters.map((cluster, i, arr) => {
       if (i === 0) {
-        x += xSpacing + cluster.r * radiusFactor;
+        x += xSpacing / 3 + cluster.r * radiusFactor;
       } else {
         x += (arr[i - 1].r + cluster.r) * radiusFactor + xSpacing;
       }
 
       return {
         ...cluster,
-        x
+        x,
+        xSpacing
       };
     });
     return {
@@ -186,14 +187,28 @@ export const layoutBar = (clustersData, width, height, minimalSpacing = width / 
     }
     return {
       ...bar,
-      y
+      ySpacing,
+      y: Math.min(y, height - bar.maxDiameter / 2)
     };
   });
 
   // unfold from bar array
   let result = [];
   xyBars.forEach((bar) => {
-    result = [...result, ...bar.clusters.map((cluster) => ({...cluster, x: cluster.x - width / 2, y: bar.y - height / 2}))];
+    result = [
+      ...result,
+      ...bar.clusters.map((cluster) => {
+        return {
+          ...cluster,
+          x: cluster.x - width / 2,
+          y: bar.y - height / 2,
+          xAbsolute: cluster.x,
+          yAbsolute: bar.y,
+          ySpacing: bar.ySpacing,
+          maxDiameter: bar.maxDiameter
+        };
+      })
+    ];
   });
 
   return result;

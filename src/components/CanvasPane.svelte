@@ -68,8 +68,10 @@
 
 <style>
   .canvas-pane-wrapper {
+    position: absolute;
+    z-index: 10;
     width: 100%;
-    flex: 1;
+    height: 100%;
     overflow: hidden;
     cursor: pointer;
   }

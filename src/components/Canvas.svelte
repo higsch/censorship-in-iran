@@ -5,7 +5,8 @@
 
   export let width = 0;
   export let height = 0;
-  export let pixelRatio = window.devicePixelRatio || 1;;
+  export let pixelRatio = window.devicePixelRatio || 1;
+  export let contextName = 'canvas';
 
   const dispatch = createEventDispatcher();
   const drawFunctions = [];
@@ -15,7 +16,7 @@
   let pendingInvalidation = false;
   let frameId;
 
-  setContext('canvas', {
+  $: setContext(contextName, {
     register(fn) {
       drawFunctions.push(fn);
     },

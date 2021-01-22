@@ -26,7 +26,7 @@ const groupingInit = [
   {
     name: 'religoiusgroup'
   }
-].map((d, i) => ({...d, selected: d.name === 'institutioninvestigating', values: [], id: i}));
+].map((d, i) => ({...d, selected: d.name === 'religoiusgroup', values: [], id: i}));
 
 const colorInit = [
   {

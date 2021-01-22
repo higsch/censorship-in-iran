@@ -6,6 +6,7 @@
 
   import ControlPane from './ControlPane.svelte';
   import CanvasPane from './CanvasPane.svelte';
+  import RosetteBackground from './RosetteBackground.svelte';
 
   export let data = [];
 
@@ -29,13 +30,20 @@
 
 <div
   class="visualization-wrapper"
-  bind:clientWidth={width}
-  bind:clientHeight={height}
 >
   <ControlPane />
-  <CanvasPane
-    data={renderedData}
-  />
+  <div
+    class="draw-wrapper"
+    bind:clientWidth={width}
+    bind:clientHeight={height}
+  >
+    <RosetteBackground
+      data={renderedData}
+    />
+    <CanvasPane
+      data={renderedData}
+    />
+  </div>
 </div>
 
 <style>
@@ -44,5 +52,12 @@
     flex-direction: column;
     width: 100%;
     height: 100%;
+  }
+
+  .draw-wrapper {
+    position: relative;
+    flex: 1;
+    width: 100%;
+    overflow: hidden;
   }
 </style>
