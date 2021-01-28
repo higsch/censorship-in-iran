@@ -8,6 +8,8 @@
   export let parentWidth = 0;
   export let parentHeight = 0;
 
+  const contextName = 'canvas-rosette-label';
+
   let renderedData = [];
 
   $: renderedData = cluster.data.map((d) => {
@@ -19,18 +21,22 @@
     });
 </script>
 
-<div class="rosette-label-canvas-pane">
+<div
+  class="rosette-label-canvas-pane"
+>
   <Canvas
     width={parentWidth}
     height={parentHeight}
+    pixelRatio={2}
     center={false}
-    contextName="canvas-rosette-label"
+    contextName={contextName}
   >
     {#if (labels.length > 0)}
       {#each renderedData as d (d.id)}
         <RosetteLabelLine
           d={d}
           label={labels.find((l) => l.value === d[colorControlName])}
+          contextName={contextName}
         />
       {/each}
     {/if}
