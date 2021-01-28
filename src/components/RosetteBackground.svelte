@@ -19,7 +19,6 @@
     {#each data as cluster (cluster.id)}
       <RosetteLabels
         cluster={cluster}
-        parentMinDim={minDim}
       />
     {/each}
   {/if}

@@ -6,6 +6,7 @@
   export let width = 0;
   export let height = 0;
   export let pixelRatio = window.devicePixelRatio || 1;
+  export let center = true;
   export let contextName = 'canvas';
 
   const dispatch = createEventDispatcher();
@@ -58,7 +59,7 @@
     }
   });
 
-  $: ctx = setupCanvas(canvas, width, height, pixelRatio);
+  $: ctx = setupCanvas(canvas, width, height, pixelRatio, center);
 </script>
 
 <canvas

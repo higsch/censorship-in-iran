@@ -1,4 +1,4 @@
-export const setupCanvas = (canvas, width = 0, height = 0, pixelRatio = 1) => {
+export const setupCanvas = (canvas, width = 0, height = 0, pixelRatio = 1, center = true) => {
   if (!canvas) return;
 
   const ctx = canvas.getContext('2d');
@@ -9,7 +9,10 @@ export const setupCanvas = (canvas, width = 0, height = 0, pixelRatio = 1) => {
   canvas.style.height = `${height}px`;
 
   ctx.scale(pixelRatio, pixelRatio);
-  ctx.translate(width / 2, height / 2);
+
+  if (center) {
+    ctx.translate(width / 2, height / 2);
+  }
 
   return ctx;
 };

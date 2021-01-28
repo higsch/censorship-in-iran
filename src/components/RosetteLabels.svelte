@@ -8,14 +8,14 @@
   import RosetteLabelsCanvasPane from './RosetteLabelsCanvasPane.svelte';
 
   export let cluster = {};
-  export let parentMinDim = 0;
 
+  let colorControlName = 'none';
+  let colorControlValues = [];
   let labels = [];
+  let labelElements = [];
 
   function getLabels (data, controlName, controlValues) {
-    const allLabels = data.reduce((acc, cur) => [...acc, cur[controlName]], []).flat();
-
-    labels = rollups(data, (d) => d.length, (d) => d[controlName])
+    const newLabels = rollups(data, (d) => d.length, (d) => d[controlName])
       .map((d) => {
         const value = d[0];
         const { color } = controlValues.find((v) => v.value === value);
@@ -24,12 +24,14 @@
           value,
           n: d[1],
           color
-        }
+        };
       })
       .sort((a, b) => a.n < b.n ? 1 : -1);
 
-    return labels;
+    return newLabels;
   }
+
+  $: textPaneMarginLeft = 2 * cluster.r + cluster.xSpacing / 2;
 
   $: data = cluster.data.filter((d) => d.draw);
 
@@ -40,34 +42,46 @@
       height: cluster.maxDiameter
     };
 
-  $: {
-    // color control
-    const { name, values } = $colorControl.find((c) => c.selected) || {};
-    if (name) {
-      // get labels from rosette members
-      labels = getLabels(data, name, values);
-    }
-  }
+  $: ({ name: colorControlName, values: colorControlValues } = $colorControl.find((c) => c.selected) || {});
+
+  $: if (colorControlName) labels = getLabels(data, colorControlName, colorControlValues);
+
+  $: labelElementDimensions = labelElements.map((l, i) => {
+      const label = labels[i];
+
+      const { width = 0, height = 0 } = l ? l.getBoundingClientRect() : {};
+      const { offsetLeft: x = 0, offsetTop: y = 0 } = l || {};
+
+      return {
+        ...label,
+        x: x,
+        y: y + height / 2,
+        width,
+        height
+      };
+    });
 </script>
 
 <div
   class="rosette-labels"
   use:css={{x: `${dimensions.x}px`, y: `${dimensions.y}px`, width: `${dimensions.width}px`,height: `${dimensions.height}px`}}
 >
-  <!-- <RosetteLabelsCanvasPane
-    data={shiftedData}
-    labels={labels}
-  /> -->
+  <RosetteLabelsCanvasPane
+    cluster={cluster}
+    colorControlName={colorControlName}
+    labels={labelElementDimensions}
+  />
   <div
     class="labels-text-pane"
-    use:css={{marginLeft: `${2 * cluster.r + cluster.xSpacing / 2}px`}}
+    use:css={{marginLeft: `${textPaneMarginLeft}px`}}
   >
-    {#each labels as label (label)}
+    {#each labels as { name, value, color, element }, i}
       <div
         class="label-text"
-        use:css={{color: label.color}}  
+        bind:this={labelElements[i]}
+        use:css={{color: color}}  
       >
-        {$t(`groupingvalues.${label.name}.${label.value}`)}
+        {$t(`groupingvalues.${name}.${value}`)}
       </div>
     {/each}
   </div>
@@ -82,6 +96,7 @@
     display: flex;
     width: var(--width);
     height: var(--height);
+    padding: 0 1rem 0 0;
     /* border: 1px solid white; */
   }
 
