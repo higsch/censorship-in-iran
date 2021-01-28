@@ -1,7 +1,9 @@
 <script>
+  import { rollups } from 'd3';
+
   import { css } from '../actions/css';
   import { colorControl } from '../stores/control';
-  import { generateLabels } from '../utils/labels';
+  import { t } from '../stores/i18n';
 
   import RosetteLabelsCanvasPane from './RosetteLabelsCanvasPane.svelte';
 
@@ -9,6 +11,25 @@
   export let parentMinDim = 0;
 
   let labels = [];
+
+  function getLabels (data, controlName, controlValues) {
+    const allLabels = data.reduce((acc, cur) => [...acc, cur[controlName]], []).flat();
+
+    labels = rollups(data, (d) => d.length, (d) => d[controlName])
+      .map((d) => {
+        const value = d[0];
+        const { color } = controlValues.find((v) => v.value === value);
+        return {
+          name: controlName,
+          value,
+          n: d[1],
+          color
+        }
+      })
+      .sort((a, b) => a.n < b.n ? 1 : -1);
+
+    return labels;
+  }
 
   $: data = cluster.data.filter((d) => d.draw);
 
@@ -19,26 +40,12 @@
       height: cluster.maxDiameter
     };
 
-  $: shiftedData = data.filter((d) => d.draw).map((d) => {
-      return {
-        ...d,
-        x: d.x - dimensions.x,
-        y: d.y - dimensions.y
-      };
-    });
-
   $: {
+    // color control
     const { name, values } = $colorControl.find((c) => c.selected) || {};
     if (name) {
-      console.log([...new Set(data.reduce((acc, cur) => [...acc, cur[name]], []).flat())])
-      labels = [...new Set(data.reduce((acc, cur) => [...acc, cur[name]], []).flat())]
-        .map((value) => {
-          const { color } = values.find((v) => v.value === value);
-          return {
-            value,
-            color
-          };
-        });
+      // get labels from rosette members
+      labels = getLabels(data, name, values);
     }
   }
 </script>
@@ -60,7 +67,7 @@
         class="label-text"
         use:css={{color: label.color}}  
       >
-        {label.value}
+        {$t(`groupingvalues.${label.name}.${label.value}`)}
       </div>
     {/each}
   </div>
@@ -75,7 +82,7 @@
     display: flex;
     width: var(--width);
     height: var(--height);
-    border: 1px solid white;
+    /* border: 1px solid white; */
   }
 
   .labels-text-pane {
@@ -85,7 +92,7 @@
     flex: 1;
     height: 100%;
     margin-left: var(--marginLeft);
-    border: 1px solid red;
+    /* border: 1px solid red; */
   }
 
   .label-text {

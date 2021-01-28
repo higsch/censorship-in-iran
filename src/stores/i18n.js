@@ -18,16 +18,12 @@ const toFarsiNumber = (n) => {
 };
 
 const getMessageFromLocalizedDict = (id, localizedDict) => {
-  if (!localizedDict) return '';
+  if (!localizedDict) return id;
 
   const splitId = id.split('.');
-  
-  let message = {...localizedDict};
-  splitId.forEach((partialId) => {
-    message = message[partialId];
-  });
+  const message = splitId.reduce((acc, cur) => acc ? acc[cur] : id, {...localizedDict});
 
-  return message;
+  return message || id;
 };
 
 const createMessageFormatter = (localizedDict) => (id) => getMessageFromLocalizedDict(id, localizedDict);

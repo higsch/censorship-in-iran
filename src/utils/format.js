@@ -31,6 +31,11 @@ export const formatData = (d) => {
     ...tmp,
     status: getStatus(tmp),
     none: true,
-    gender: tmp.gender ? tmp.gender.toLowerCase() : 'unknown'
+    gender: tmp.gender ? tmp.gender.toLowerCase() : 'unknown',
+    occupation: tmp.occupation === 'N/A' ? 'unknown' : tmp.occupation.replace(/\s/g, '_').toLowerCase(),
+    institutioninvestigating: tmp.institutioninvestigating === 'N/A' ? 'unknown' : tmp.institutioninvestigating.replace(/\s/g, '_').toLowerCase(),
+    province: tmp.province === 'N/A' ? 'unknown' : tmp.province.replace(/\s/g, '_').toLowerCase(),
+    ethnicgroup: tmp.ethnicgroup === 'N/A' ? 'unknown' : tmp.ethnicgroup.replace(/\s/g, '_').toLowerCase(),
+    religoiusgroup: tmp.religoiusgroup === 'N/A' ? 'unknown' : tmp.religoiusgroup.replace(/\s/g, '_').toLowerCase()
   }
 };

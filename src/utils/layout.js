@@ -125,7 +125,7 @@ export const layoutForce = (clustersData, width, height) => {
   });
 };
 
-export const layoutBar = (clustersData, width, height, minimalSpacing = width / 2) => {
+export const layoutBar = (clustersData, width, height, showLabels = false, minimalSpacing = width / 2) => {
   const data = [...clustersData];
   data.sort((a, b) => a.r > b.r ? -1 : 1);
 
@@ -156,8 +156,8 @@ export const layoutBar = (clustersData, width, height, minimalSpacing = width / 
   const xBars = bars.map((bar) => {
     const sortedClusters = summitSort(bar.clusters);
     const widthReductionFactor = 0.95;
-    const xSpacing = (widthReductionFactor * width - sortedClusters.reduce((acc, cur) => acc + 2 * cur.r * radiusFactor, 0)) / (sortedClusters.length);
-    let x = (1 - widthReductionFactor) / 2 * width;
+    const xSpacing = (widthReductionFactor * width - sortedClusters.reduce((acc, cur) => acc + 2 * cur.r * radiusFactor, 0)) / sortedClusters.length;
+    let x = showLabels ? (1 - widthReductionFactor) / 2 * width : xSpacing / 2;
     const spacedClusters = sortedClusters.map((cluster, i, arr) => {
       if (i === 0) {
         x += cluster.r * radiusFactor;

@@ -2,6 +2,7 @@
   import RosetteLabels from './RosetteLabels.svelte';
   
   export let data = [];
+  export let showLabels = false;
 
   let width = 0;
   let height = 0;
@@ -14,12 +15,14 @@
   bind:clientWidth={width}
   bind:clientHeight={height}
 >
-  {#each data as cluster (cluster.id)}
-    <RosetteLabels
-      cluster={cluster}
-      parentMinDim={minDim}
-    />
-  {/each}
+  {#if (showLabels)}
+    {#each data as cluster (cluster.id)}
+      <RosetteLabels
+        cluster={cluster}
+        parentMinDim={minDim}
+      />
+    {/each}
+  {/if}
 </div>
 
 <style>

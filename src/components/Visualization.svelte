@@ -13,6 +13,7 @@
   let width = 0;
   let height = 0;
   let renderedData = [];
+  let showLabels = false;
 
   $: minDim = getMinDim(width, height);
   $: radiusScale.set(createRadiusScale(minDim));
@@ -22,8 +23,9 @@
     const selectedColor = $colorControl.find((c) => c.selected);
 
     if (selectedGrouping) {
+      showLabels = selectedColor && selectedColor.name !== 'none';
       const clustersData = batchLayoutClusters(selectedGrouping, selectedColor, data, $radiusScale);
-      renderedData = layoutBar(clustersData, width, height);
+      renderedData = layoutBar(clustersData, width, height, showLabels);
     }
   }
 </script>
@@ -39,6 +41,7 @@
   >
     <RosetteBackground
       data={renderedData}
+      showLabels={showLabels}
     />
     <CanvasPane
       data={renderedData}
