@@ -5,11 +5,11 @@
   export let cluster;
   export let colorControlName = 'none';
   export let labels = [];
+  export let parentWidth = 0;
+  export let parentHeight = 0;
 
-  let width = 0;
-  let height = 0;
   let renderedData = [];
-  
+
   $: renderedData = cluster.data.map((d) => {
       return {
         ...d,
@@ -19,23 +19,21 @@
     });
 </script>
 
-<div
-  class="rosette-label-canvas-pane"
-  bind:clientWidth={width}
-  bind:clientHeight={height}
->
+<div class="rosette-label-canvas-pane">
   <Canvas
-    width={width}
-    height={height}
+    width={parentWidth}
+    height={parentHeight}
     center={false}
     contextName="canvas-rosette-label"
   >
-    {#each renderedData as d (d.id)}
-      <RosetteLabelLine
-        d={d}
-        label={labels.find((l) => l.value === d[colorControlName])}
-      />
-    {/each}
+    {#if (labels.length > 0)}
+      {#each renderedData as d (d.id)}
+        <RosetteLabelLine
+          d={d}
+          label={labels.find((l) => l.value === d[colorControlName])}
+        />
+      {/each}
+    {/if}
   </Canvas>
 </div>
 

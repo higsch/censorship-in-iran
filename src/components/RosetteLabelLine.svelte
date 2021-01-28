@@ -3,7 +3,6 @@
 
   export let d = null;
   export let label = null;
-  export let clusterRadius = 0;
 
   const contextName = 'canvas-rosette-label';
   const { register, deregister, invalidate } = getContext(contextName);
@@ -11,19 +10,21 @@
   function draw(ctx) {
     if (!label || !d) return;
 
-    const { x: labelX, y: labelY } = label;
-    let { absX: dX, absY: dY } = d;
+    const { x: labelX, y: labelY, color } = label;
+    const { absX: dX, absY: dY } = d;
 
-    // console.log(d)
-    ctx.beginPath();
-    ctx.arc(labelX, labelY, 5, 0, 2 * Math.PI, false);
-    ctx.fillStyle = 'white';
-    ctx.fill();
+    if (!labelX || !labelY || !dX || !dY) return;
+
+    const controlX = dX + (labelX - dX) / 1.2;
+
+    ctx.globalAlpha = 0.2;
 
     ctx.beginPath();
-    ctx.arc(dX, dY, 5, 0, 2 * Math.PI, false);
-    ctx.fillStyle = 'red';
-    ctx.fill();
+    ctx.moveTo(dX, dY);
+    ctx.bezierCurveTo(controlX, dY, controlX, labelY, labelX, labelY);
+    ctx.strokeStyle = color;
+    ctx.lineWidth = 1;
+    ctx.stroke();
   }
 
   onMount(() => {

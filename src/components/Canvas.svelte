@@ -33,16 +33,27 @@
 
   function handleClick(e) {
     const { layerX: x, layerY: y } = e;
-    dispatch('click', {
-      x: x - width / 2,
-      y: y - height / 2
-    });
+    if (center) {
+      dispatch('click', {
+        x: x - width / 2,
+        y: y - height / 2
+      });
+    } else {
+      dispatch('click', {
+        x,
+        y
+      });
+    }
   }
 
   function update() {
     if (!ctx) return;
 
-    ctx.clearRect(-width / 2, -height / 2, width, height);
+    if (center) {
+      ctx.clearRect(-width / 2, -height / 2, width, height);
+    } else {
+      ctx.clearRect(0, 0, width, height);
+    }
     
     drawFunctions.forEach((fn) => {
       ctx.save();

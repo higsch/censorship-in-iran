@@ -1,4 +1,5 @@
 <script>
+  import { fade } from 'svelte/transition';
   import { rollups } from 'd3';
 
   import { css } from '../actions/css';
@@ -31,15 +32,15 @@
     return newLabels;
   }
 
-  $: textPaneMarginLeft = 2 * cluster.r + cluster.xSpacing / 2;
+  $: textPaneMarginLeft = 2 * cluster.r + cluster.xSpacing / 3;
 
   $: data = cluster.data.filter((d) => d.draw);
 
   $: dimensions = {
       x: cluster.xAbsolute - cluster.r,
-      y: cluster.yAbsolute - cluster.maxDiameter / 2,
+      y: cluster.yAbsolute - cluster.maxDiameter / 2 - cluster.data[0].r,
       width: 2 * cluster.r + cluster.xSpacing,
-      height: cluster.maxDiameter
+      height: cluster.maxDiameter + 2 * cluster.data[0].r
     };
 
   $: ({ name: colorControlName, values: colorControlValues } = $colorControl.find((c) => c.selected) || {});
@@ -54,7 +55,7 @@
 
       return {
         ...label,
-        x: x,
+        x,
         y: y + height / 2,
         width,
         height
@@ -64,24 +65,28 @@
 
 <div
   class="rosette-labels"
-  use:css={{x: `${dimensions.x}px`, y: `${dimensions.y}px`, width: `${dimensions.width}px`,height: `${dimensions.height}px`}}
+  use:css={{x: `${dimensions.x}px`, y: `${dimensions.y}px`, width: `${dimensions.width}px`, height: `${dimensions.height}px`}}
+  transition:fade
 >
   <RosetteLabelsCanvasPane
     cluster={cluster}
     colorControlName={colorControlName}
     labels={labelElementDimensions}
+    parentWidth={dimensions.width}
+    parentHeight={dimensions.height}
   />
   <div
     class="labels-text-pane"
     use:css={{marginLeft: `${textPaneMarginLeft}px`}}
   >
-    {#each labels as { name, value, color, element }, i}
+    {#each labels as { name, value, color, n }, i}
       <div
         class="label-text"
         bind:this={labelElements[i]}
         use:css={{color: color}}  
       >
-        {$t(`groupingvalues.${name}.${value}`)}
+        <span class="number">{n}</span>
+        <span class="description">{$t(`groupingvalues.${name}.${value}`)}</span>
       </div>
     {/each}
   </div>
@@ -111,7 +116,25 @@
   }
 
   .label-text {
+    display: flex;
     margin: 0.2rem 0;
+    padding: 0 0.4rem;
+    font-size: 0.9rem;
+    color: #DAE2F5;
+  }
+
+  .label-text .number {
+    display: inline-block;
+    min-width: 1.8rem;
+    font-size: inherit;
+    font-weight: bold;
+    text-align: right;
+  }
+
+  .label-text .description {
+    margin: 0 0.2rem;
     color: var(--color);
+    font-size: inherit;
+    opacity: 0.8;
   }
 </style>

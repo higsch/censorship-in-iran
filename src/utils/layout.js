@@ -125,7 +125,7 @@ export const layoutForce = (clustersData, width, height) => {
   });
 };
 
-export const layoutBar = (clustersData, width, height, showLabels = false, minimalSpacing = width / 2) => {
+export const layoutBar = (clustersData, width, height, showLabels = false, minSpacing = width / 2, maxSpacing = width / 3) => {
   const data = [...clustersData];
   data.sort((a, b) => a.r > b.r ? -1 : 1);
 
@@ -142,7 +142,7 @@ export const layoutBar = (clustersData, width, height, showLabels = false, minim
   let bar = createBar();
   data.forEach((cluster) => {
     const diameter = 2 * cluster.r * radiusFactor;
-    if (width - bar.occupiedWidth < diameter + minimalSpacing) {
+    if (width - bar.occupiedWidth < diameter + minSpacing) {
       bars.push({...bar});
       bar = createBar();
     }
@@ -155,9 +155,9 @@ export const layoutBar = (clustersData, width, height, showLabels = false, minim
   // sort the enrties per bar and set x coordinates
   const xBars = bars.map((bar) => {
     const sortedClusters = summitSort(bar.clusters);
-    const widthReductionFactor = 0.95;
-    const xSpacing = (widthReductionFactor * width - sortedClusters.reduce((acc, cur) => acc + 2 * cur.r * radiusFactor, 0)) / sortedClusters.length;
-    let x = showLabels ? (1 - widthReductionFactor) / 2 * width : xSpacing / 2;
+    const allDiameters = sortedClusters.reduce((acc, cur) => acc + 2 * cur.r * radiusFactor, 0);
+    const xSpacing = Math.min(maxSpacing, (width - allDiameters) / (sortedClusters.length + (showLabels ? 1 : 0)));
+    let x = xSpacing / 2;
     const spacedClusters = sortedClusters.map((cluster, i, arr) => {
       if (i === 0) {
         x += cluster.r * radiusFactor;
@@ -171,6 +171,7 @@ export const layoutBar = (clustersData, width, height, showLabels = false, minim
         xSpacing
       };
     });
+
     return {
       ...bar,
       clusters: spacedClusters
