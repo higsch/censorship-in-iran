@@ -155,11 +155,12 @@ export const layoutBar = (clustersData, width, height, minimalSpacing = width / 
   // sort the enrties per bar and set x coordinates
   const xBars = bars.map((bar) => {
     const sortedClusters = summitSort(bar.clusters);
-    const xSpacing = (width - sortedClusters.reduce((acc, cur) => acc + 2 * cur.r * radiusFactor, 0)) / (sortedClusters.length);
-    let x = 0;
+    const widthReductionFactor = 0.95;
+    const xSpacing = (widthReductionFactor * width - sortedClusters.reduce((acc, cur) => acc + 2 * cur.r * radiusFactor, 0)) / (sortedClusters.length);
+    let x = (1 - widthReductionFactor) / 2 * width;
     const spacedClusters = sortedClusters.map((cluster, i, arr) => {
       if (i === 0) {
-        x += xSpacing / 3 + cluster.r * radiusFactor;
+        x += cluster.r * radiusFactor;
       } else {
         x += (arr[i - 1].r + cluster.r) * radiusFactor + xSpacing;
       }

@@ -3,6 +3,7 @@
   import RosetteLabelLine from './RosetteLabelLine.svelte';
 
   export let data = [];
+  export let labels = [];
 
   let width = 0;
   let height = 0;
@@ -21,7 +22,9 @@
     contextName="canvas-rosette-label"
   >
     {#each renderedData as d (d.id)}
-      <RosetteLabelLine />
+      <RosetteLabelLine
+        d={d}
+      />
     {/each}
   </Canvas>
 </div>

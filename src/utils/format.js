@@ -31,6 +31,6 @@ export const formatData = (d) => {
     ...tmp,
     status: getStatus(tmp),
     none: true,
-    imgUrl: `https://journalismisnotacrime.com/media/profile/${tmp.name_fa.trim().replace(/\s/, '_')}.jpg.400x400_q85_bw_crop.jpg`
+    gender: tmp.gender ? tmp.gender.toLowerCase() : 'unknown'
   }
 };

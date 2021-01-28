@@ -17,7 +17,8 @@ export const selection = {
 
 const gender = {
   female: '#F6B5C1',
-  male: '#B3C7F2'
+  male: '#B3C7F2',
+  unknown: '#EEEEEE'
 };
 
 export const addHclColorsDistinct = (data) => {
@@ -47,7 +48,7 @@ export const addHclColors = (data, defaultColor = '#DAE2F5') => {
       let color = defaultColor;
       if (d.name === 'gender') {
         const { value } = v;
-        color = gender[value.toLowerCase()];
+        color = gender[value];
       } else if (d.name === 'none') {
         color = defaultColor;
       } else {
