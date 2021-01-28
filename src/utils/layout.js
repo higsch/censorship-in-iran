@@ -1,4 +1,4 @@
-import { Delaunay } from 'd3';
+import { Delaunay, rollups } from 'd3';
 import { createSimulation } from './force';
 import { summitSort } from './math';
 
@@ -68,6 +68,24 @@ const layoutVoronoi = (cluster) => {
   };
 };
 
+const sortClusterDataByCategoryN = (data, selectedColor) => {
+  if (!selectedColor) return data;
+
+  const { name } = selectedColor;
+  if (!name) return data;
+
+  const orderedCategories = rollups(data, (d) => d.length, (d) => d[name])
+    .sort((a, b) => a[1] > b[1] ? 1 : -1)
+    .map((d) => d[0]);
+  
+  const orderedData = orderedCategories.reduce((acc, cur) => {
+    const filteredData = data.filter((d) => d[name] === cur);
+    return [...acc, ...filteredData];
+  }, []);
+
+  return orderedData;
+};
+
 export const batchLayoutClusters = (selectedGrouping, selectedColor, data, radiusScale) => {
   const { values, name: groupingName } = selectedGrouping;
   const clusters = values.map((v) => v.value);
@@ -76,10 +94,8 @@ export const batchLayoutClusters = (selectedGrouping, selectedColor, data, radiu
 
   const clustersData = clusters.map((cluster) => {
     const clusterData = data.filter((d) => d[groupingName] === cluster);
-    if (selectedColor) {
-      clusterData.sort((a, b) => a[selectedColor.name] < b[selectedColor.name] ? 1 : -1);
-    }
-    const { phyllotaxisData, lastId: newLastId } = layoutPhyllotaxis(clusterData, radiusScale, lastId);
+    const sortedClusterData = sortClusterDataByCategoryN(clusterData, selectedColor);
+    const { phyllotaxisData, lastId: newLastId } = layoutPhyllotaxis(sortedClusterData, radiusScale, lastId);
     lastId = newLastId;
     return phyllotaxisData;
   })

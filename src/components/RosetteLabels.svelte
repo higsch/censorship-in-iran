@@ -1,4 +1,5 @@
 <script>
+  import { tick } from 'svelte';
   import { fade } from 'svelte/transition';
   import { rollups } from 'd3';
 
@@ -14,9 +15,10 @@
   let colorControlValues = [];
   let labels = [];
   let labelElements = [];
+  let labelElementDimensions = [];
 
-  function getLabels (data, controlName, controlValues) {
-    const newLabels = rollups(data, (d) => d.length, (d) => d[controlName])
+  async function setLabels (data, controlName, controlValues) {
+    labels = rollups(data, (d) => d.length, (d) => d[controlName])
       .map((d) => {
         const value = d[0];
         const { color } = controlValues.find((v) => v.value === value);
@@ -29,7 +31,22 @@
       })
       .sort((a, b) => a.n < b.n ? 1 : -1);
 
-    return newLabels;
+    await tick();
+    
+    labelElementDimensions = labelElements.filter((l) => l).map((l, i) => {
+      const label = labels[i];
+
+      const { width = 0, height = 0 } = l ? l.getBoundingClientRect() : {};
+      const { offsetLeft: x = 0, offsetTop: y = 0} = l;
+
+      return {
+        ...label,
+        x,
+        y: y + height / 2,
+        width,
+        height
+      };
+    });
   }
 
   $: textPaneMarginLeft = 2 * cluster.r + cluster.xSpacing / 3;
@@ -45,22 +62,9 @@
 
   $: ({ name: colorControlName, values: colorControlValues } = $colorControl.find((c) => c.selected) || {});
 
-  $: if (colorControlName) labels = getLabels(data, colorControlName, colorControlValues);
-
-  $: labelElementDimensions = labelElements.map((l, i) => {
-      const label = labels[i];
-
-      const { width = 0, height = 0 } = l ? l.getBoundingClientRect() : {};
-      const { offsetLeft: x = 0, offsetTop: y = 0 } = l || {};
-
-      return {
-        ...label,
-        x,
-        y: y + height / 2,
-        width,
-        height
-      };
-    });
+  $: if (colorControlName) {
+      setLabels(data, colorControlName, colorControlValues);
+    }
 </script>
 
 <div
@@ -79,7 +83,7 @@
     class="labels-text-pane"
     use:css={{marginLeft: `${textPaneMarginLeft}px`}}
   >
-    {#each labels as { name, value, color, n }, i}
+    {#each labels as { name, value, color, n }, i (value)}
       <div
         class="label-text"
         bind:this={labelElements[i]}
