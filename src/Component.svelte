@@ -3,7 +3,7 @@
   import { csv } from 'd3-fetch';
 
   import { formatData } from './utils/format';
-  import { groupingControl, colorControl } from './stores/control';
+  import { groupControl, colorControl } from './stores/control';
   import { locale as localeStore, dict } from './stores/i18n';
   import { global as globalColor } from './utils/colors'; 
   import { css } from './actions/css';
@@ -27,7 +27,7 @@
     csv(dataPath, formatData)
       .then((res) => {
         data = res;
-        groupingControl.init(data);
+        groupControl.init(data);
         colorControl.init(data);
       });
   });
@@ -35,7 +35,8 @@
 
 <div
   class="component-wrapper"
-  use:css={{backgroundColor: globalColor.background1}}
+  use:css={{backgroundColor: globalColor.background1,
+            font: 'Roboto, Helvetica, Arial, sans-serif'}}
 >
   <Visualization
     data={data.map((d, i) => ({...d, id: i}))}
@@ -46,7 +47,7 @@
   div :global(*) {
     margin: 0;
     padding: 0;
-    font-family: Roboto, Helvetica, Arial, sans-serif;
+    font-family: var(--font);
     font-size: 16px;
     box-sizing: border-box;
   }

@@ -100,14 +100,15 @@ export const batchLayoutClusters = (selectedGrouping, selectedColor, data, radiu
     return phyllotaxisData;
   })
   .map((d, i) => {
+    const length = d.filter((d) => d.draw).length;
     return {
       id: i,
       name: clusters[i],
-      r: Math.max(...d.filter((dd) => dd.draw).map((dd) => [Math.abs(dd.x), Math.abs(dd.y)]).flat()),
+      r: Math.max(...d.filter((dd) => dd.draw).map((dd) => [Math.abs(dd.x), Math.abs(dd.y)]).flat()) * (length < 2 ? 3 : 1),
       outerR: Math.max(...d.map((dd) => [Math.abs(dd.x), Math.abs(dd.y)]).flat()),
       color: selectedGrouping.color,
       data: d,
-      length: d.filter((d) => d.draw).length
+      length
     };
   })
   .map((d) => {

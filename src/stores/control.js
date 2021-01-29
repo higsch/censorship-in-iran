@@ -94,5 +94,5 @@ const createControl = (initData, initColorPalette = false) => {
   };
 };
 
-export const groupingControl = createControl(groupingInit);
+export const groupControl = createControl(groupingInit);
 export const colorControl = createControl(colorInit, true);

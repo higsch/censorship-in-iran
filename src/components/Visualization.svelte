@@ -2,7 +2,7 @@
   import { batchLayoutClusters, layoutBar } from '../utils/layout';
   import { getMinDim } from '../utils/math';
   import { radiusScale, createRadiusScale } from '../stores/scales';
-  import { groupingControl, colorControl } from '../stores/control';
+  import { groupControl, colorControl } from '../stores/control';
 
   import ControlPane from './ControlPane.svelte';
   import RosettesCanvasPane from './Rosettes/RosettesCanvasPane.svelte';
@@ -19,7 +19,7 @@
   $: radiusScale.set(createRadiusScale(minDim));
 
   $: {
-    const selectedGrouping = $groupingControl.find((c) => c.selected);
+    const selectedGrouping = $groupControl.find((c) => c.selected);
     const selectedColor = $colorControl.find((c) => c.selected);
 
     if (selectedGrouping) {

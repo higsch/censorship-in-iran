@@ -3,18 +3,17 @@
   import { rollups } from 'd3';
 
   import { css } from '../../actions/css';
-  import { colorControl } from '../../stores/control';
   
   import RosetteLabel from './RosetteLabel.svelte';
 
   export let cluster = {};
+  export let colorControlName = 'none';
+  export let colorControlValues = [];
   export let hoveredLabel;
 
   const dispatch = createEventDispatcher();
 
   let showLabels = true;
-  let colorControlName = 'none';
-  let colorControlValues = [];
   let labels = [];
 
   function handleLabelHover(e) {
@@ -57,9 +56,7 @@
   
   $: showLabels = cluster.xSpacing > 100 && dimensions.height > 200;
 
-  $: ({ name: colorControlName, values: colorControlValues } = $colorControl.find((c) => c.selected) || {});
-
-  $: if (colorControlName) {
+  $: if (colorControlName && colorControlValues.length) {
       setLabels(data, colorControlName, colorControlValues);
     }
 </script>
