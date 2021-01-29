@@ -22,23 +22,6 @@
 </script>
 
 <div class="control-pane">
-  <!-- <div class="grouping-control-buttons">
-    {#each $groupControl as group (group.id)}
-      <ControlButton
-        control={group}
-        color={defaultColor}
-        on:click={handleGroupingButtonClick}
-      />
-    {/each}
-  </div>
-  <div class="color-control-buttons">
-    {#each $colorControl as color (color.id)}
-      <ControlButton
-        control={color}
-        on:click={handleColorButtonClick}
-      />
-    {/each}
-  </div> -->
   <div class="color-control-buttons">
     {#each buttonArray as controlName (controlName)}
       <ControlButton
