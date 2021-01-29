@@ -2,8 +2,8 @@
   import { createEventDispatcher } from 'svelte';
   import { rollups } from 'd3';
 
-  import { css } from '../actions/css';
-  import { colorControl } from '../stores/control';
+  import { css } from '../../actions/css';
+  import { colorControl } from '../../stores/control';
   
   import RosetteLabel from './RosetteLabel.svelte';
 

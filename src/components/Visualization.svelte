@@ -5,8 +5,8 @@
   import { groupingControl, colorControl } from '../stores/control';
 
   import ControlPane from './ControlPane.svelte';
-  import CanvasPane from './CanvasPane.svelte';
-  import RosetteForeground from './RosetteForeground.svelte';
+  import RosettesCanvasPane from './Rosettes/RosettesCanvasPane.svelte';
+  import RosetteForeground from './Rosettes/RosetteForeground.svelte';
 
   export let data = [];
 
@@ -43,7 +43,7 @@
       data={renderedData}
       showLabels={showLabels}
     />
-    <CanvasPane
+    <RosettesCanvasPane
       data={renderedData}
     />
   </div>

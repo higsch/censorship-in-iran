@@ -1,7 +1,7 @@
 <script>
   import { createEventDispatcher } from 'svelte';
-  import { css } from '../actions/css';
-  import { t } from '../stores/i18n';
+  import { css } from '../../actions/css';
+  import { t } from '../../stores/i18n';
 
   export let name;
   export let value;

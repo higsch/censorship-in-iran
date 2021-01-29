@@ -1,7 +1,7 @@
 <script>
-  import { hoveredLabel } from '../stores/selection';
+  import { hoveredLabel } from '../../stores/selection';
 
-  import RosetteLabels from './RosetteLabels.svelte';
+  import RosetteLabels from '../RosetteLabels/RosetteLabels.svelte';
   
   export let data = [];
   export let showLabels = false;

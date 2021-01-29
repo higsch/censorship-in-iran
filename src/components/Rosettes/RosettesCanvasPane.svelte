@@ -1,13 +1,13 @@
 <script>
-  import { selectedDatum } from '../stores/selection';
+  import { selectedDatum } from '../../stores/selection';
   import {
     selection as selectionColor,
     white,
-    getControlColor } from '../utils/colors';
-  import { colorControl } from '../stores/control';
-  import { hoveredLabel } from '../stores/selection';
+    getControlColor } from '../../utils/colors';
+  import { colorControl } from '../../stores/control';
+  import { hoveredLabel } from '../../stores/selection';
 
-  import Canvas from './Canvas.svelte';
+  import Canvas from '../Canvas.svelte';
   import Tile from './Tile.svelte';
 
   export let data = [];
