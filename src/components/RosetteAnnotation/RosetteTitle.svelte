@@ -62,4 +62,8 @@
   span {
     display: inline-block;
   }
+
+  span.number {
+    font-size: 0.8rem;
+  }
 </style>
