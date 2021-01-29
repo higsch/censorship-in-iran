@@ -71,7 +71,7 @@
     height: cluster.maxDiameter + 2 * cluster.data[0].r
   };
   
-  $: showLabels = cluster.xSpacing > 100 && dimensions.height > 200;
+  $: showLabels = cluster.xSpacing > 200 && dimensions.height > 200;
 
   $: if (colorControlName && colorControlValues.length) {
       setLabels(data, colorControlName, colorControlValues);

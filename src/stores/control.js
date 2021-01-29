@@ -6,20 +6,20 @@ const groupingInit = [
     name: 'none'
   },
   {
-    name: 'status'
-  },
-  {
-    name: 'gender'
-  },
-  {
     name: 'occupation'
   },
   {
     name: 'institutioninvestigating'
   },
+  {
+    name: 'status'
+  },
   // {
   //   name: 'province'
   // },
+  {
+    name: 'gender'
+  },
   {
     name: 'ethnicgroup'
   },
@@ -33,20 +33,20 @@ const colorInit = [
     name: 'none',
   },
   {
-    name: 'status',
-  },
-  {
-    name: 'gender',
-  },
-  {
     name: 'occupation',
   },
   {
     name: 'institutioninvestigating',
   },
+  {
+    name: 'status',
+  },
   // {
   //   name: 'province'
   // },
+  {
+    name: 'gender',
+  },
   {
     name: 'ethnicgroup'
   },
