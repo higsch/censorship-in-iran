@@ -1,7 +1,11 @@
 <script>
   import { selectedDatum } from '../stores/selection';
-  import { global as globalColor, selection as selectionColor, getControlColor } from '../utils/colors';
+  import {
+    selection as selectionColor,
+    white,
+    getControlColor } from '../utils/colors';
   import { colorControl } from '../stores/control';
+  import { hoveredLabel } from '../stores/selection';
 
   import Canvas from './Canvas.svelte';
   import Tile from './Tile.svelte';
@@ -58,9 +62,11 @@
         d={d}
         startX={Math.random() * width - width / 2}
         startY={Math.random() * height - height / 2}
-        strokeColor={globalColor.background1}
+        strokeColor={white}
         selectionColor={selectionColor.selected1}
         selected={$selectedDatum && $selectedDatum.id === d.id}
+        hovered={$hoveredLabel && d[$hoveredLabel.name] === $hoveredLabel.value}
+        anyHovered={$hoveredLabel}
       />
     {/each}
   </Canvas>

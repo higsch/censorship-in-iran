@@ -1,5 +1,5 @@
 <script>
-  import Canvas from './Canvas.svelte';
+  import Canvas from '../components/Canvas.svelte';
   import RosetteLabelLine from './RosetteLabelLine.svelte';
 
   export let cluster;
@@ -27,7 +27,6 @@
   <Canvas
     width={parentWidth}
     height={parentHeight}
-    pixelRatio={2}
     center={false}
     contextName={contextName}
   >

@@ -16,14 +16,16 @@
   export let startOpacity = 0.9;
   export let strokeColor = '#FFFFFF'
   export let selected = false;
+  export let anyHovered = false;
+  export let hovered = false;
 
   const { register, deregister, invalidate } = getContext('canvas');
-
   const flyDuration = 400 * Math.random() + 800;
+  const opacityFactor = Math.min(1.0, Math.max(Math.random(), 0.5));
 
   const opacityScale = scaleLinear()
     .domain([1, 0])
-    .range([0.3, 1]);
+    .range([0.3, 0.9]);
   
   let pathX = 0;
   let pathY = 0;
@@ -63,12 +65,13 @@
     ctx.globalAlpha = 1.0;
     ctx.translate($x, $y);
     ctx.beginPath();
-    ctx.strokeStyle = strokeColor;
-    ctx.lineWidth = 1.6;
-    ctx.stroke(p);
     ctx.fillStyle = fillBackgroundColor;
     ctx.fill(p);
-    ctx.globalAlpha = selected ? 1.0 : $opacity;
+    ctx.globalAlpha = 0.9;
+    ctx.strokeStyle = strokeColor;
+    ctx.lineWidth = 1;
+    ctx.stroke(p);
+    ctx.globalAlpha = $opacity;
     ctx.fillStyle = selected ? selectionColor : $fillColor;
     ctx.fill(p);
   }
@@ -97,5 +100,14 @@
   $: y.set(cluster.y + pathY);
 
   $: fillColor.set(d.color);
-  $: opacity.set(opacityScale(d.withinClusterIndex / cluster.length));
+  $: {
+      let o = opacityScale(opacityFactor * d.withinClusterIndex / cluster.length);
+      if (selected || hovered) {
+        o = 1.0;
+      }
+      if (anyHovered && !hovered) {
+        o = 0.2;
+      }
+      opacity.set(o);
+    }
 </script>

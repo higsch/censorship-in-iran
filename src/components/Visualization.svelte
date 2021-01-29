@@ -6,7 +6,7 @@
 
   import ControlPane from './ControlPane.svelte';
   import CanvasPane from './CanvasPane.svelte';
-  import RosetteBackground from './RosetteBackground.svelte';
+  import RosetteForeground from './RosetteForeground.svelte';
 
   export let data = [];
 
@@ -39,7 +39,7 @@
     bind:clientWidth={width}
     bind:clientHeight={height}
   >
-    <RosetteBackground
+    <RosetteForeground
       data={renderedData}
       showLabels={showLabels}
     />
