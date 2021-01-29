@@ -12,6 +12,7 @@
 
   const dispatch = createEventDispatcher();
 
+  let showLabels = true;
   let colorControlName = 'none';
   let colorControlValues = [];
   let labels = [];
@@ -44,15 +45,17 @@
   }
 
   $: textPaneMarginLeft = 2 * cluster.r + cluster.xSpacing / 10;
-
+  
   $: data = cluster.data.filter((d) => d.draw);
-
+  
   $: dimensions = {
-      x: cluster.xAbsolute - cluster.r,
-      y: cluster.yAbsolute - cluster.maxDiameter / 2 - cluster.data[0].r,
-      width: 2 * cluster.r + cluster.xSpacing,
-      height: cluster.maxDiameter + 2 * cluster.data[0].r
-    };
+    x: cluster.xAbsolute - cluster.r,
+    y: cluster.yAbsolute - cluster.maxDiameter / 2 - cluster.data[0].r,
+    width: 2 * cluster.r + cluster.xSpacing,
+    height: cluster.maxDiameter + 2 * cluster.data[0].r
+  };
+  
+  $: showLabels = cluster.xSpacing > 100 && dimensions.height > 200;
 
   $: ({ name: colorControlName, values: colorControlValues } = $colorControl.find((c) => c.selected) || {});
 
@@ -69,16 +72,18 @@
     class="labels-text-pane"
     use:css={{marginLeft: `${textPaneMarginLeft}px`}}
   >
-    {#each labels as { name, value, color, n } (`${name}.${value}`)}
-      <RosetteLabel
-        name={name}
-        value={value}
-        n={n}
-        color={color}
-        hovered={hoveredLabel && hoveredLabel.name === name && hoveredLabel.value === value}
-        on:hover={handleLabelHover}
-      />
-    {/each}
+    {#if (showLabels)}
+      {#each labels as { name, value, color, n } (`${name}.${value}`)}
+        <RosetteLabel
+          name={name}
+          value={value}
+          n={n}
+          color={color}
+          hovered={hoveredLabel && hoveredLabel.name === name && hoveredLabel.value === value}
+          on:hover={handleLabelHover}
+        />
+      {/each}
+    {/if}
   </div>
 </div>
 
@@ -92,6 +97,7 @@
     width: var(--width);
     height: var(--height);
     padding: 0 1rem 0 0;
+    overflow: hidden;
     /* border: 1px solid white; */
   }
 
@@ -100,8 +106,7 @@
     flex-direction: column;
     justify-content: center;
     height: 100%;
-    margin-left: var(--marginLeft);
-    padding: 0 1rem 0 0;
+    margin: 0 1rem 0 var(--marginLeft);
     /* border: 1px solid red; */
   }
 </style>

@@ -17,7 +17,7 @@
 </script>
 
 <div
-  class="rosette-background"
+  class="rosette-foreground"
 >
   {#if (showLabels)}
     {#each data as cluster (cluster.id)}
@@ -31,7 +31,7 @@
 </div>
 
 <style>
-  .rosette-background {
+  .rosette-foreground {
     position: absolute;
     z-index: 15;
     width: 100%;
