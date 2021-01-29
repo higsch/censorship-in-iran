@@ -1,5 +1,5 @@
 <script>
-  import { arc as d3arc } from 'd3';
+  import { fade } from 'svelte/transition';
   import { css } from '../../actions/css';
   import { t } from '../../stores/i18n';
 
@@ -7,33 +7,13 @@
   export let groupControlName = 'none';
   export let textColor = '#FFFFFF';
 
-  const arc = d3arc()
-    .startAngle((d) => d.startAngle)
-    .endAngle((d) => d.endAngle)
-    .innerRadius((d) => d.innerRadius)
-    .outerRadius((d) => d.outerRadius);
-
-  $: radiusAddition = cluster.data[0].r * 5;
-
-  $: textArc = arc({
-      startAngle: -Math.PI / 2,
-      endAngle: Math.PI / 2,
-      innerRadius: cluster.maxDiameter / 2 + radiusAddition * 0.1,
-      outerRadius: cluster.maxDiameter / 2 + radiusAddition * 0.1
-    });
-
-  $: lineArc = arc({
-    startAngle: -Math.PI / 6,
-    endAngle: Math.PI / 6,
-    innerRadius: cluster.maxDiameter / 2 + radiusAddition * 0.2,
-    outerRadius: cluster.maxDiameter / 2 + radiusAddition * 0.2
-  });
+  $: dimFactor = cluster.data[0].r * 5;
 
   $: dimensions = {
-    x: cluster.xAbsolute - cluster.maxDiameter / 2 - radiusAddition + cluster.data[0].r * 2,
-    y: cluster.yAbsolute - cluster.maxDiameter / 2 - radiusAddition,
-    width: cluster.maxDiameter + radiusAddition,
-    height: cluster.maxDiameter + radiusAddition
+    x: cluster.xAbsolute - 2 * Math.max(cluster.data[0].r * 4, cluster.r),
+    y: cluster.yAbsolute - cluster.r - dimFactor,
+    width: 4 * Math.max(cluster.data[0].r * 4, cluster.r),
+    height: 2 * cluster.r + dimFactor
   };
 </script>
 
@@ -45,40 +25,18 @@
             height: `${dimensions.height}px`,
             textColor}}
 >
-  <svg
-    width={dimensions.width}
-    height={dimensions.height}
-  >
-    <g transform="translate({dimensions.width / 2} {dimensions.height / 2 + cluster.maxDiameter / 2 - cluster.r})">
-      <!-- <path
-        class="line-arc-path"
-        d={lineArc}
-      /> -->
-      <path
-        class="text-arc-path"
-        id="cluster-title-path-{cluster.id}"
-        d={textArc}
-      />
-      <text
-        class="text-background"
-      >
-        <textPath
-          xlink:href="#cluster-title-path-{cluster.id}"
-          startOffset="25%"
-        >
-          {$t(`groupingvalues.${groupControlName}.${cluster.name}`)}
-        </textPath>
-      </text>
-      <text>
-        <textPath
-          xlink:href="#cluster-title-path-{cluster.id}"
-          startOffset="25%"
-        >
-          {$t(`groupingvalues.${groupControlName}.${cluster.name}`)}
-        </textPath>
-      </text>
-    </g>
-  </svg>
+  {#if (groupControlName && groupControlName !== 'none')}
+    <h2
+      transition:fade
+    >
+      <span class="description">
+        {$t(`groupingvalues.${groupControlName}.${cluster.name}`)}
+      </span>
+      <span class="number">
+        ({cluster.data.filter((d) => d.draw).length})
+      </span>
+    </h2>
+  {/if}
 </div>
 
 <style>
@@ -89,31 +47,19 @@
     z-index: 15;
     width: var(--width);
     height: var(--height);
-    overflow: hidden;
     /* border: 1px solid red; */
   }
 
-  .line-arc-path {
-    stroke: var(--textColor);
-    stroke-width: 1;
-    fill: none;
-  }
-
-  .text-arc-path {
-    stroke: none;
-    fill: none;
-  }
-
-  text {
-    fill: var(--textColor);
+  h2 {
+    width: 100%;
     font-family: var(--font);
     font-size: 0.9rem;
-    text-anchor: middle;
+    font-weight: normal;
+    text-align: center;
+    color: var(--textColor);
   }
 
-  text.text-background {
-    stroke: var(--backgroundColor);
-    stroke-width: 15;
-    fill: var(--backgroundColor);
+  span {
+    display: inline-block;
   }
 </style>

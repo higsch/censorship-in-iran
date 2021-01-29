@@ -69,7 +69,7 @@
     class="labels-text-pane"
     use:css={{marginLeft: `${textPaneMarginLeft}px`}}
   >
-    {#if (showLabels)}
+    {#if (showLabels && colorControlName && colorControlName !== 'none')}
       {#each labels as { name, value, color, n } (`${name}.${value}`)}
         <RosetteLabel
           name={name}
