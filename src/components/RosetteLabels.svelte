@@ -4,7 +4,8 @@
 
   import { css } from '../actions/css';
   import { colorControl } from '../stores/control';
-  import { t } from '../stores/i18n';
+  
+  import RosetteLabel from './RosetteLabel.svelte';
 
   export let cluster = {};
   export let hoveredLabel;
@@ -15,15 +16,15 @@
   let colorControlValues = [];
   let labels = [];
 
-  function handleMouseEnter(name, value) {
-    if (!name) {
-      dispatch('hover', null);
-    } else if (cluster) {
+  function handleLabelHover(e) {
+    const { detail } = e;
+    if (detail) {
       dispatch('hover', {
         clusterId: cluster.id,
-        name,
-        value
+        ...e.detail
       });
+    } else if (cluster) {
+      dispatch('hover', null);
     }
   }
 
@@ -69,16 +70,14 @@
     use:css={{marginLeft: `${textPaneMarginLeft}px`}}
   >
     {#each labels as { name, value, color, n } (`${name}.${value}`)}
-      <div
-        class="label-text"
-        class:hovered={hoveredLabel && hoveredLabel.name === name && hoveredLabel.value === value}
-        use:css={{color: color}}
-        on:mouseenter={() => handleMouseEnter(name, value)}
-        on:mouseleave={() => handleMouseEnter(null)}
-      >
-        <span class="number">{n}</span>
-        <span class="description">{$t(`groupingvalues.${name}.${value}`)}</span>
-      </div>
+      <RosetteLabel
+        name={name}
+        value={value}
+        n={n}
+        color={color}
+        hovered={hoveredLabel && hoveredLabel.name === name && hoveredLabel.value === value}
+        on:hover={handleLabelHover}
+      />
     {/each}
   </div>
 </div>
@@ -104,42 +103,5 @@
     margin-left: var(--marginLeft);
     padding: 0 1rem 0 0;
     /* border: 1px solid red; */
-  }
-
-  .label-text {
-    display: flex;
-    margin: 0.3rem 0;
-    padding: 0 0.4rem;
-    font-size: 0.9rem;
-    color: #DAE2F5;
-    pointer-events: all;
-    user-select: none;
-    cursor: pointer;
-    border-left: 2px solid transparent;
-    transition: border-left 0.2s ease-out;
-  }
-
-  .label-text.hovered {
-    border-left: 2px solid var(--color);
-  }
-
-  .label-text .number {
-    display: inline-block;
-    min-width: 1.6rem;
-    font-size: inherit;
-    font-weight: bold;
-    text-align: right;
-  }
-
-  .label-text.hovered .number {
-    color: var(--color);
-  }
-
-  .label-text .description {
-    display: inline-block;
-    margin: 0 0.2rem;
-    color: var(--color);
-    font-size: inherit;
-    opacity: 0.8;
   }
 </style>
