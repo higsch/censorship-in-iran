@@ -7,6 +7,7 @@
   import { t } from '../stores/i18n';
 
   export let cluster = {};
+  export let hoveredLabel;
 
   const dispatch = createEventDispatcher();
 
@@ -70,6 +71,7 @@
     {#each labels as { name, value, color, n } (`${name}.${value}`)}
       <div
         class="label-text"
+        class:hovered={hoveredLabel && hoveredLabel.name === name && hoveredLabel.value === value}
         use:css={{color: color}}
         on:mouseenter={() => handleMouseEnter(name, value)}
         on:mouseleave={() => handleMouseEnter(null)}
@@ -113,6 +115,12 @@
     pointer-events: all;
     user-select: none;
     cursor: pointer;
+    border-left: 2px solid transparent;
+    transition: border-left 0.2s ease-out;
+  }
+
+  .label-text.hovered {
+    border-left: 2px solid var(--color);
   }
 
   .label-text .number {
@@ -123,11 +131,12 @@
     text-align: right;
   }
 
-  .label-text:hover .number {
+  .label-text.hovered .number {
     color: var(--color);
   }
 
   .label-text .description {
+    display: inline-block;
     margin: 0 0.2rem;
     color: var(--color);
     font-size: inherit;

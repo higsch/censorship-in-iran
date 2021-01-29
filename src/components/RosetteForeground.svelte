@@ -23,6 +23,7 @@
     {#each data as cluster (cluster.id)}
       <RosetteLabels
         cluster={cluster}
+        hoveredLabel={$hoveredLabel}
         on:hover={handleLabelHover}
       />
     {/each}

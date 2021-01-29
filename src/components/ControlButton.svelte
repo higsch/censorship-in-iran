@@ -53,7 +53,6 @@
   }
 
   span {
-    display: block;
     height: 1.3em;
   }
 
