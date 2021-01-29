@@ -10,9 +10,9 @@
   $: dimFactor = cluster.data[0].r * 5;
 
   $: dimensions = {
-    x: cluster.xAbsolute - 2 * Math.max(cluster.data[0].r * 4, cluster.r),
+    x: cluster.xAbsolute - 2 * Math.max(cluster.data[0].r * 3, cluster.r),
     y: cluster.yAbsolute - cluster.r - dimFactor,
-    width: 4 * Math.max(cluster.data[0].r * 4, cluster.r),
+    width: 4 * Math.max(cluster.data[0].r * 3, cluster.r),
     height: 2 * cluster.r + dimFactor
   };
 </script>

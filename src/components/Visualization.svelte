@@ -1,6 +1,5 @@
 <script>
   import { batchLayoutClusters, layoutBar } from '../utils/layout';
-  import { getMinDim } from '../utils/math';
   import { radiusScale, createRadiusScale } from '../stores/scales';
   import { groupControl, colorControl } from '../stores/control';
 
@@ -15,8 +14,8 @@
   let renderedData = [];
   let showLabels = false;
 
-  $: minDim = getMinDim(width, height);
-  $: radiusScale.set(createRadiusScale(minDim));
+  $: maxDim = Math.min(2000, Math.max(width, height));
+  $: radiusScale.set(createRadiusScale(maxDim));
 
   $: {
     const selectedGrouping = $groupControl.find((c) => c.selected);

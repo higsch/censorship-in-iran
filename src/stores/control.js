@@ -17,9 +17,9 @@ const groupingInit = [
   {
     name: 'institutioninvestigating'
   },
-  {
-    name: 'province'
-  },
+  // {
+  //   name: 'province'
+  // },
   {
     name: 'ethnicgroup'
   },
@@ -44,16 +44,16 @@ const colorInit = [
   {
     name: 'institutioninvestigating',
   },
-  {
-    name: 'province'
-  },
+  // {
+  //   name: 'province'
+  // },
   {
     name: 'ethnicgroup'
   },
   {
     name: 'religoiusgroup'
   }
-].map((d, i) => ({...d, selected: d.name === 'institutioninvestigating', values: [], id: i}));
+].map((d, i) => ({...d, selected: d.name === 'status', values: [], id: i}));
 
 const createControl = (initData, initColorPalette = false) => {
   const { set, update, subscribe } = writable(initData);

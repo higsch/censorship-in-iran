@@ -4,6 +4,7 @@
   import { t } from '../../stores/i18n';
 
   export let name;
+  export let valueName;
   export let value;
   export let n;
   export let color;
@@ -31,7 +32,7 @@
   on:mouseleave={() => handleMouseEnter(null)}
 >
   <span class="number">{n}</span>
-  <span class="description">{$t(`groupingvalues.${name}.${value}`)}</span>
+  <span class="description">{$t(`groupingvalues.${name}.${valueName}`)}</span>
 </div>
 
 <style>

@@ -6,6 +6,7 @@
     getControlColor } from '../../utils/colors';
   import { colorControl } from '../../stores/control';
   import { hoveredLabel } from '../../stores/selection';
+  import { intersect } from '../../utils/math';
 
   import Canvas from '../Canvas.svelte';
   import Tile from './Tile.svelte';
@@ -65,7 +66,7 @@
         strokeColor={white}
         selectionColor={selectionColor.selected1}
         selected={$selectedDatum && $selectedDatum.id === d.id}
-        hovered={$hoveredLabel && d[$hoveredLabel.name] === $hoveredLabel.value}
+        hovered={$hoveredLabel && $hoveredLabel.value.includes(d[$hoveredLabel.name])}
         anyHovered={$hoveredLabel}
       />
     {/each}
