@@ -119,6 +119,29 @@ export const batchLayoutClusters = (selectedGrouping, selectedColor, data, radiu
   return clustersData;
 };
 
+export const layoutForce = (clustersData, width, height) => {
+  return new Promise((resolve) => {
+    let data = [...clustersData];
+
+    function simulationTicked() {
+      data = data.map((d) => {
+        const radius = d.r * radiusFactor;
+        return {
+          ...d,
+          x: Math.max(-width / 2 + radius, Math.min(width / 2 - radius, d.x)),
+          y: Math.max(-height / 2 + radius, Math.min(height / 2 - radius, d.y))
+        }
+      });
+    }
+
+    function simulationEnded() {
+      resolve(data);
+    }
+
+    createSimulation(clustersData, simulationTicked, simulationEnded);
+  });
+};
+
 export const layoutBar = (clustersData, width, height, showLabels = false, minSpacing = width / 2, maxSpacing = width / 3) => {
   const data = [...clustersData];
   data.sort((a, b) => a.r > b.r ? -1 : 1);
@@ -150,8 +173,8 @@ export const layoutBar = (clustersData, width, height, showLabels = false, minSp
   const xBars = bars.map((bar) => {
     const sortedClusters = summitSort(bar.clusters);
     const allDiameters = sortedClusters.reduce((acc, cur) => acc + 2 * cur.r * radiusFactor, 0);
-    const xSpacing = Math.min(maxSpacing, (width - allDiameters) / (sortedClusters.length + 1));
-    let x = xSpacing / (showLabels ? 2 : 1);
+    const xSpacing = Math.min(maxSpacing, (width - allDiameters) / (sortedClusters.length + (showLabels ? 1 : 0)));
+    let x = xSpacing / 2;
     const spacedClusters = sortedClusters.map((cluster, i, arr) => {
       if (i === 0) {
         x += cluster.r * radiusFactor;

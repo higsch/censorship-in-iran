@@ -26,7 +26,7 @@ const groupingInit = [
   {
     name: 'religoiusgroup'
   }
-].map((d, i) => ({...d, selected: d.name === 'occupation', values: [], id: i}));
+].map((d, i) => ({...d, selected: d.name === 'none', values: [], id: i}));
 
 const colorInit = [
   {
@@ -53,7 +53,7 @@ const colorInit = [
   {
     name: 'religoiusgroup'
   }
-].map((d, i) => ({...d, selected: d.name === 'status', values: [], id: i}));
+].map((d, i) => ({...d, selected: d.name === 'none', values: [], id: i}));
 
 const createControl = (initData, initColorPalette = false) => {
   const { set, update, subscribe } = writable(initData);

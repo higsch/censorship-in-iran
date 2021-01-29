@@ -3,7 +3,7 @@
   import { radiusScale, createRadiusScale } from '../stores/scales';
   import { groupControl, colorControl } from '../stores/control';
 
-  import ControlPane from './ControlPane.svelte';
+  import ControlPane from './Controls/ControlPane.svelte';
   import RosettesCanvasPane from './Rosettes/RosettesCanvasPane.svelte';
   import RosetteForeground from './Rosettes/RosetteForeground.svelte';
 

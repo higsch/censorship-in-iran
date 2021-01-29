@@ -4,6 +4,7 @@
   export let color = '#000000';
   export let strokeWidth = '0.6em';
   export let filled = false;
+  export let turn = 0;
 
   const margin = 10;
 </script>
@@ -11,6 +12,7 @@
 <svg
   viewBox="{-margin} {-margin} {100 + 2 * margin} {100 + 2 * margin}"
   use:css={{color, strokeWidth, fill: filled ? color : 'none'}}
+  transform="rotate({turn})"
 >
   <path
     d="M0 50L50 0L100 50L50 100Z"
