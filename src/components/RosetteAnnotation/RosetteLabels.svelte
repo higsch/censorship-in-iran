@@ -80,11 +80,10 @@
 
 <div
   class="rosette-labels"
-  use:css={{x: `${dimensions.x}px`, y: `${dimensions.y}px`, width: `${dimensions.width}px`, height: `${dimensions.height}px`}}
+  use:css={{x: `${dimensions.x}px`, y: `${dimensions.y}px`, width: `${dimensions.width}px`, height: `${dimensions.height}px`, marginLeft: `${textPaneMarginLeft}px`}}
 >
   <div
     class="labels-text-pane"
-    use:css={{marginLeft: `${textPaneMarginLeft}px`}}
   >
     {#if (showLabels && colorControlName && colorControlName !== 'none')}
       {#each labels as { name, valueName, value, color, n }, i (`${name}.${valueName}.${i}`)}
@@ -120,7 +119,7 @@
     display: flex;
     flex-direction: column;
     justify-content: center;
-    height: 100%;
+    /* height: 100%; */
     margin: 0 1rem 0 var(--marginLeft);
     /* border: 1px solid red; */
   }

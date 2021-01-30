@@ -1,6 +1,5 @@
 <script>
   import { groupControl, colorControl } from '../../stores/control';
-  import { defaultColor } from '../../utils/colors';
 
   import ControlButton from './ControlButton.svelte';
 
@@ -18,7 +17,7 @@
     }
   }
 
-  $: buttonArray = [...new Set([...$groupControl, ...$colorControl].map((d) => d.name))];
+  $: buttonArray = [...new Set([...$groupControl, ...$colorControl].filter((d) => d.show).map((d) => d.name))];
 </script>
 
 <div class="control-pane">

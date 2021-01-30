@@ -38,20 +38,13 @@
 <style>
   .label-text {
     display: flex;
-    margin: 0.3rem 0;
-    padding: 0 0.1rem;
+    padding: 0.3rem 0.1rem;
     font-size: 0.9rem;
     color: #DAE2F5;
     pointer-events: all;
     user-select: none;
     cursor: pointer;
     border-left: 2px solid transparent;
-    transition: border-left 0.2s ease-out 0.2s;
-  }
-
-  .label-text.hovered {
-    border-left: 2px solid var(--color);
-    transition: border-left 0.2s ease-out 0s;
   }
 
   .label-text .number {
@@ -60,6 +53,7 @@
     font-size: inherit;
     font-weight: bold;
     text-align: right;
+    transition: color 0.2s ease-out;
   }
 
   .label-text.hovered .number {

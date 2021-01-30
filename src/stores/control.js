@@ -26,7 +26,13 @@ const groupingInit = [
   {
     name: 'religoiusgroup'
   }
-].map((d, i) => ({...d, selected: d.name === 'none', values: [], id: i}));
+].map((d, i) => ({
+  ...d,
+  selected: d.name === 'none',
+  show: d.name !== 'none',
+  values: [],
+  id: i
+}));
 
 const colorInit = [
   {
@@ -53,7 +59,13 @@ const colorInit = [
   {
     name: 'religoiusgroup'
   }
-].map((d, i) => ({...d, selected: d.name === 'none', values: [], id: i}));
+].map((d, i) => ({
+  ...d,
+  selected: d.name === 'none',
+  show: d.name !== 'none',
+  values: [],
+  id: i
+}));
 
 const createControl = (initData, initColorPalette = false) => {
   const { set, update, subscribe } = writable(initData);
@@ -78,12 +90,18 @@ const createControl = (initData, initColorPalette = false) => {
   const reset = () => update((d) => ({...d, selected: false}));
 
   const select = (name) => {
-    update((s) => s.map((d) => {
-      return {
-        ...d,
-        selected: d.name === name
-      };
-    }));
+    update((s) => {
+      let tmpName = 'none';
+      const { name: currentName } = s.find((d) => d.selected) || {};
+      console.log(name, currentName)
+      if (currentName !== name) tmpName = name;
+      return s.map((d) => {
+        return {
+          ...d,
+          selected: d.name === tmpName
+        };
+      });
+    });
   };
 
   return {
