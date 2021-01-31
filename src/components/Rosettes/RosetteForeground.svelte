@@ -31,7 +31,7 @@
   class="rosette-foreground"
 >
   {#if (showClusterTitles)}
-    {#each data as cluster (cluster.id)}
+    {#each data as cluster (cluster.name)}
       <RosetteTitle
         cluster={cluster}
         groupControlName={groupControlName}
