@@ -13,10 +13,10 @@
   const dispatch = createEventDispatcher();
 
   function handleClick(type) {
-    type.forEach((t) => dispatch('click', {
-      type: t,
+    dispatch('click', {
+      type,
       name
-    }));
+    });
   }
 </script>
 
@@ -29,7 +29,7 @@
   >
     <span
       class="group-diamond-wrapper"
-      on:click={() => handleClick(['group'])}
+      on:click={() => handleClick('group')}
     >
       <Diamond
         color={color}
@@ -39,7 +39,7 @@
     </span>
     <span
       class="color-diamond-wrapper"
-      on:click={() => handleClick(['color'])}
+      on:click={() => handleClick('color')}
     >
       <Diamond
         color={color}
@@ -48,7 +48,7 @@
     </span>
     <span
       class="name"
-      on:click={() => handleClick(['group', 'color'])}  
+      on:click={() => handleClick('all')}  
     >
       {$t(`grouping.${name}`)}
     </span>

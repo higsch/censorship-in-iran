@@ -89,11 +89,11 @@ const createControl = (initData, initColorPalette = false) => {
 
   const reset = () => update((d) => ({...d, selected: false}));
 
-  const select = (name) => {
+  const select = (name, force) => {
     update((s) => {
       let tmpName = 'none';
       const { name: currentName } = s.find((d) => d.selected) || {};
-      if (currentName !== name) tmpName = name;
+      if (force || currentName !== name) tmpName = name;
       return s.map((d) => {
         return {
           ...d,

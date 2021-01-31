@@ -14,6 +14,10 @@
       case 'color':
         colorControl.select(name);
         break;
+      case 'all':
+        groupControl.select(name, true);
+        colorControl.select(name, true);
+        break;
     }
   }
 
