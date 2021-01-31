@@ -72,7 +72,7 @@
     ctx.lineWidth = 1;
     ctx.stroke(p);
     ctx.globalAlpha = $opacity;
-    ctx.fillStyle = selected ? selectionColor : $fillColor;
+    ctx.fillStyle = $fillColor;
     ctx.fill(p);
   }
 
@@ -87,21 +87,14 @@
 
 	afterUpdate(invalidate);
 	onDestroy(invalidate);
-  
-  $: cluster = d.cluster || {x: 0, y: 0};
 
-  $: {
-    let tmpPath;
-    [ tmpPath, pathX, pathY ] = relativePath(d.voronoiPath);
-    path.set(tmpPath);
-  }
-
-  $: x.set(cluster.x + pathX);
-  $: y.set(cluster.y + pathY);
+  $: path.set(d.path)
+  $: x.set(d.x);
+  $: y.set(d.y);
 
   $: fillColor.set(d.color);
   $: {
-      let o = opacityScale(opacityFactor * d.withinClusterIndex / cluster.length);
+      let o = opacityScale(opacityFactor * d.withinClusterIndex / d.cluster.length);
       if (selected || hovered) {
         o = 1.0;
       }

@@ -2,6 +2,7 @@
   import { batchLayoutClusters, layoutBar } from '../utils/layout';
   import { radiusScale, createRadiusScale } from '../stores/scales';
   import { groupControl, colorControl } from '../stores/control';
+  import { selectedDatum } from '../stores/selection';
 
   import ControlPane from './Controls/ControlPane.svelte';
   import RosettesCanvasPane from './Rosettes/RosettesCanvasPane.svelte';
@@ -12,20 +13,21 @@
   let width = 0;
   let height = 0;
   let renderedData = [];
+  let showClusterTitles = true;
   let showLabels = false;
 
   $: maxDim = Math.min(2000, Math.max(width, height));
   $: radiusScale.set(createRadiusScale(maxDim));
 
   $: {
-    const selectedGrouping = $groupControl.find((c) => c.selected);
+    const selectedGroup = $groupControl.find((c) => c.selected);
     const selectedColor = $colorControl.find((c) => c.selected);
 
-    if (selectedGrouping) {
-      showLabels = selectedColor && selectedColor.name !== 'none';
-      const clustersData = batchLayoutClusters(selectedGrouping, selectedColor, data, $radiusScale);
-      renderedData = layoutBar(clustersData, width, height, showLabels);
-    }
+    showClusterTitles = !$selectedDatum && selectedGroup && selectedGroup.show
+    showLabels = !$selectedDatum && selectedColor && selectedColor.show
+
+    const clustersData = batchLayoutClusters(selectedGroup, selectedColor, data, $radiusScale);
+    renderedData = layoutBar(clustersData, width, height, showLabels);
   }
 </script>
 
@@ -40,6 +42,7 @@
   >
     <RosetteForeground
       data={renderedData}
+      showClusterTitles={showClusterTitles}
       showLabels={showLabels}
     />
     <RosettesCanvasPane

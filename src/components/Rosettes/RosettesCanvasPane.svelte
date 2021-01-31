@@ -6,7 +6,8 @@
     getControlColor } from '../../utils/colors';
   import { colorControl } from '../../stores/control';
   import { hoveredLabel } from '../../stores/selection';
-  import { intersect } from '../../utils/math';
+  import { relativePath } from '../../utils/path';
+  import { layoutForce } from '../../utils/layout';
 
   import Canvas from '../Canvas.svelte';
   import Tile from './Tile.svelte';
@@ -31,20 +32,28 @@
   }
 
   $: {
-    const selectedColor = $colorControl.find((c) => c.selected);
-    
-    flatData = [];
+    let tmpFlatData = [];
     data.forEach((c) => {
       c.data.forEach((d) => {
         if (d.draw) {
-          flatData = [...flatData, {
+          const [ path, pathX, pathY ] = relativePath(d.voronoiPath);
+          tmpFlatData = [...tmpFlatData, {
             ...d,
             cluster: c,
-            color: getControlColor(d, selectedColor)
+            color: getControlColor(d, $colorControl.find((c) => c.selected)),
+            path,
+            x: c.x + pathX,
+            y: c.y + pathY
           }];
         }
       });
     });
+
+    if ($selectedDatum) {
+      layoutForce(tmpFlatData, width, height).then((res) => tmpFlatData = res);
+    }
+
+    flatData = tmpFlatData;
   }
 </script>
 

@@ -8,6 +8,7 @@
   import RosetteLabel from './RosetteLabel.svelte';
 
   export let cluster = {};
+  export let groupControlName = 'none';
   export let colorControlName = 'none';
   export let colorControlValues = [];
   export let hoveredLabel;
@@ -85,7 +86,7 @@
   <div
     class="labels-text-pane"
   >
-    {#if (showLabels && colorControlName && colorControlName !== 'none')}
+    {#if (showLabels && colorControlName && colorControlName !== 'none' && groupControlName !== colorControlName)}
       {#each labels as { name, valueName, value, color, n }, i (`${name}.${valueName}.${i}`)}
         <RosetteLabel
           name={name}

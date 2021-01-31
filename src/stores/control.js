@@ -93,7 +93,6 @@ const createControl = (initData, initColorPalette = false) => {
     update((s) => {
       let tmpName = 'none';
       const { name: currentName } = s.find((d) => d.selected) || {};
-      console.log(name, currentName)
       if (currentName !== name) tmpName = name;
       return s.map((d) => {
         return {

@@ -25,18 +25,16 @@
             height: `${dimensions.height}px`,
             textColor}}
 >
-  {#if (groupControlName && groupControlName !== 'none')}
-    <h2
-      transition:fade
-    >
-      <span class="description">
-        {$t(`groupingvalues.${groupControlName}.${cluster.name}`)}
-      </span>
-      <span class="number">
-        ({cluster.data.filter((d) => d.draw).length})
-      </span>
-    </h2>
-  {/if}
+  <h2
+    transition:fade
+  >
+    <span class="description">
+      {$t(`groupingvalues.${groupControlName}.${cluster.name}`)}
+    </span>
+    <span class="number">
+      ({cluster.data.filter((d) => d.draw).length})
+    </span>
+  </h2>
 </div>
 
 <style>

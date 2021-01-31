@@ -43,6 +43,7 @@
     {#each data as cluster (cluster.id)}
       <RosetteLabels
         cluster={cluster}
+        groupControlName={groupControlName}
         colorControlName={colorControlName}
         colorControlValues={colorControlValues}
         hoveredLabel={$hoveredLabel}

@@ -1,5 +1,5 @@
 import { Delaunay, rollups } from 'd3';
-import { createSimulation } from './force';
+import { forceSimulation, forceRadial } from 'd3-force';
 import { summitSort } from './math';
 
 const goldenRatio = (1 + Math.sqrt(5)) / 2;
@@ -208,4 +208,20 @@ export const layoutBar = (clustersData, width, height, showLabels = false, minSp
   });
 
   return result;
+};
+
+export const layoutForce = (data, width, height) => {
+  return new Promise((resolve) => {
+    let dataCopy = [...data];
+
+    const radius = 0.9 * Math.min(width, height) / 2;
+    const x = 0;
+    const y = 0;
+
+    forceSimulation()
+      .nodes(dataCopy)
+      .force('center', forceRadial().radius((_, i) => radius + 10 * (i % 10)).x(x).y(y))
+      .on('end', () => resolve(dataCopy))
+      .tick(300);
+  });
 };
