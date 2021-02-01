@@ -214,7 +214,7 @@ export const layoutForce = (data, width, height) => {
   return new Promise((resolve) => {
     let dataCopy = [...data];
 
-    const radius = 0.9 * Math.min(width, height) / 2;
+    const radius = 0.9 * Math.max(width, height) / 2;
     const x = 0;
     const y = 0;
 

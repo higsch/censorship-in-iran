@@ -23,8 +23,8 @@
     const selectedGroup = $groupControl.find((c) => c.selected);
     const selectedColor = $colorControl.find((c) => c.selected);
 
-    showClusterTitles = !$selectedDatum && selectedGroup && selectedGroup.show
-    showLabels = !$selectedDatum && selectedColor && selectedColor.show
+    showClusterTitles = !$selectedDatum && selectedGroup && selectedGroup.show;
+    showLabels = !$selectedDatum && selectedColor && selectedColor.show && selectedGroup.name !== selectedColor.name;
 
     const clustersData = batchLayoutClusters(selectedGroup, selectedColor, data, $radiusScale);
     renderedData = layoutBar(clustersData, width, height, showLabels);
