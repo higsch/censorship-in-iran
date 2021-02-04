@@ -118,6 +118,7 @@
           n={n}
           color={color}
           hovered={hoveredLabel && hoveredLabel.name === name && intersect(value, hoveredLabel.value)}
+          anyHovered={hoveredLabel}
           bind:element={labelElements[i]}
           on:hover={handleLabelHover}
         />

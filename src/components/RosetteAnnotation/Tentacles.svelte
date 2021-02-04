@@ -25,9 +25,9 @@
         x2: offsetLeft,
         y2,
         x3: d.x,
-        y3: d.y - d.height / 20,
+        y3: d.y - d.height / 30,
         x4: d.x,
-        y4: d.y + d.height / 20,
+        y4: d.y + d.height / 30,
         color
       }
     });
@@ -60,7 +60,7 @@
           class="tentacle"
           use:css={{color: pos.color}}
           in:fade={{duration: 400, delay: 1000}}
-          out:fade={{duration: 10, delay: 0}}
+          out:fade={{duration: 0, delay: 0}}
         >
           <path
             d={tentaclePath(pos)}

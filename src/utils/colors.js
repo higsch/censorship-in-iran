@@ -32,7 +32,7 @@ export const addHclColorsDistinct = (data) => {
   return coloredData;
 };
 
-export const addHclColors = (data, defaultColor = '#DAE2F5') => {
+export const addHclColors = (data, defaultColor = '#a9bbe8') => {
   const coloredData = data.map((d) => {
     const coloredValues = d.values.map((v, i, arr) => {
       let color = defaultColor;

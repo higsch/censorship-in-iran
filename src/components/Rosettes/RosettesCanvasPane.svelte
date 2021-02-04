@@ -31,7 +31,7 @@
   }
 
   function handleHover(e) {
-    const { detail: {x, y} } = e;
+    const { detail: { x, y } = {} } = e || {};
     const hovered = findDelaunay(x, y);
     hoveredDatum.set(hovered);
   }
@@ -70,6 +70,7 @@
 
 <div
   class="canvas-pane-wrapper"
+  class:hovered={$hoveredDatum}
   bind:clientWidth={width}
   bind:clientHeight={height}
 >
@@ -101,5 +102,9 @@
     width: 100%;
     height: 100%;
     overflow: hidden;
+  }
+
+  .hovered {
+    cursor: pointer;
   }
 </style>

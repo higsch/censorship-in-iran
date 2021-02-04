@@ -9,6 +9,7 @@
   export let n;
   export let color;
   export let hovered = false;
+  export let anyHovered = false;
   export let element = undefined;
 
   const dispatch = createEventDispatcher();
@@ -28,6 +29,7 @@
 <div
   class="label-text"
   class:hovered={hovered}
+  class:faded={anyHovered && !hovered}
   bind:this={element}
   use:css={{color: color}}
   on:mouseenter={() => handleMouseEnter(name, value)}
@@ -47,6 +49,7 @@
     user-select: none;
     cursor: pointer;
     border-left: 2px solid transparent;
+    transition: opacity 0.2s ease-out;
   }
 
   .label-text .number {
@@ -68,5 +71,9 @@
     color: var(--color);
     font-size: inherit;
     opacity: 0.8;
+  }
+
+  .label-text.faded {
+    opacity: 0.3;
   }
 </style>
