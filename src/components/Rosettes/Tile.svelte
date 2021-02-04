@@ -5,8 +5,6 @@
   import { interpolate as flubberInterpolate } from 'flubber';
   import { interpolateHcl, scaleLinear } from 'd3';
 
-  import { relativePath } from '../../utils/path';
-
   export let d = {};
   export let startX = 0;
   export let startY = 0;

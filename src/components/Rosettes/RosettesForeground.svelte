@@ -1,6 +1,7 @@
 <script>
   import { hoveredLabel } from '../../stores/selection';
   import { groupControl, colorControl } from '../../stores/control';
+  import { labelDimensions } from '../../stores/labels'; 
   import { defaultColor } from '../../utils/colors';
 
   import RosetteTitle from '../RosetteAnnotation/RosetteTitle.svelte';
@@ -21,6 +22,12 @@
     } else {
       hoveredLabel.set(null);
     }
+  }
+
+  function handleLabelsChanged(e) {
+    const { detail: { clusterId, dimensions} = {}} = e;
+    if (clusterId === undefined) return;
+    labelDimensions.update((store) => ({...store, [clusterId]: dimensions}));
   }
 
   $: ({ name: groupControlName } = $groupControl.find((c) => c.selected) || {});
@@ -48,6 +55,7 @@
         colorControlValues={colorControlValues}
         hoveredLabel={$hoveredLabel}
         on:hover={handleLabelHover}
+        on:labelschanged={handleLabelsChanged}
       />
     {/each}
   {/if}

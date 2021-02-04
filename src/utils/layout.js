@@ -201,7 +201,13 @@ export const layoutBar = (clustersData, width, height, showLabels = false, minSp
           xAbsolute: cluster.x,
           yAbsolute: bar.y,
           ySpacing: bar.ySpacing,
-          maxDiameter: bar.maxDiameter
+          maxDiameter: bar.maxDiameter,
+          paneDimensions: {
+            x: cluster.x - cluster.r,
+            y: bar.y - bar.maxDiameter / 2 - cluster.data[0].r,
+            width: 2 * cluster.r + cluster.xSpacing,
+            height: bar.maxDiameter + 2 * cluster.data[0].r
+          }
         };
       })
     ];

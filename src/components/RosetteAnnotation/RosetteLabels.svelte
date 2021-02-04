@@ -1,5 +1,5 @@
 <script>
-  import { createEventDispatcher } from 'svelte';
+  import { onDestroy, createEventDispatcher, tick } from 'svelte';
   import { rollups } from 'd3';
 
   import { css } from '../../actions/css';
@@ -17,6 +17,7 @@
 
   let showLabels = true;
   let labels = [];
+  let labelElements = [];
 
   function handleLabelHover(e) {
     const { detail } = e;
@@ -30,7 +31,25 @@
     }
   }
 
-  function setLabels (data, controlName, controlValues) {
+  function fireLabelElements() {
+    labelElements = labelElements.filter((l) => l);
+
+    const dimensions = labelElements.map((l, i) => {
+      const { width = 0, height = 0 } = l.getBoundingClientRect();
+      const { offsetLeft: x = 0, offsetTop: y = 0} = l;
+      return {
+        x,
+        y: y + height / 2,
+        width,
+        height,
+        label: labels[i]
+      };
+    });
+
+    dispatch('labelschanged', { clusterId: cluster.id, dimensions});
+  }
+
+  async function setLabels (data, controlName, controlValues) {
     const allLabels = rollups(data, (d) => d.length, (d) => d[controlName])
       .map((d) => {
         const value = d[0];
@@ -59,18 +78,22 @@
     }
     
     labels = [...allLabels, ...otherLabel];
+
+    await tick();
+    
+    fireLabelElements();
   }
+
+  onDestroy(() => {
+    labelElements = [];
+    fireLabelElements();
+  });
 
   $: textPaneMarginLeft = 2 * cluster.r + cluster.xSpacing / 10;
   
   $: data = cluster.data.filter((d) => d.draw);
   
-  $: dimensions = {
-    x: cluster.xAbsolute - cluster.r,
-    y: cluster.yAbsolute - cluster.maxDiameter / 2 - cluster.data[0].r,
-    width: 2 * cluster.r + cluster.xSpacing,
-    height: cluster.maxDiameter + 2 * cluster.data[0].r
-  };
+  $: dimensions = cluster.paneDimensions;
   
   $: showLabels = cluster.xSpacing > 200 && dimensions.height > 200;
 
@@ -95,6 +118,7 @@
           n={n}
           color={color}
           hovered={hoveredLabel && hoveredLabel.name === name && intersect(value, hoveredLabel.value)}
+          bind:element={labelElements[i]}
           on:hover={handleLabelHover}
         />
       {/each}

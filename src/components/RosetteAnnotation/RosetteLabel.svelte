@@ -9,6 +9,7 @@
   export let n;
   export let color;
   export let hovered = false;
+  export let element = undefined;
 
   const dispatch = createEventDispatcher();
 
@@ -27,6 +28,7 @@
 <div
   class="label-text"
   class:hovered={hovered}
+  bind:this={element}
   use:css={{color: color}}
   on:mouseenter={() => handleMouseEnter(name, value)}
   on:mouseleave={() => handleMouseEnter(null)}
