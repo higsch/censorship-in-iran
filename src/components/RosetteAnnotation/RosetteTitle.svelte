@@ -1,4 +1,6 @@
 <script>
+  import { tweened } from 'svelte/motion';
+  import { cubicOut } from 'svelte/easing';
   import { fade } from 'svelte/transition';
   import { css } from '../../actions/css';
   import { t } from '../../stores/i18n';
@@ -7,22 +9,32 @@
   export let groupControlName = 'none';
   export let textColor = '#FFFFFF';
 
+  const movingDuration = 1000;
+
+  const x = tweened(null, {
+    duration: movingDuration,
+    easing: cubicOut
+  });
+
+  const y = tweened(null, {
+    duration: movingDuration,
+    easing: cubicOut
+  });
+
   $: dimFactor = cluster.data[0].r * 5;
 
-  $: dimensions = {
-    x: cluster.xAbsolute - 2 * Math.max(cluster.data[0].r * 3, cluster.r),
-    y: cluster.yAbsolute - cluster.r - dimFactor,
-    width: 4 * Math.max(cluster.data[0].r * 3, cluster.r),
-    height: 2 * cluster.r + dimFactor
-  };
+  $: x.set(cluster.xAbsolute - 2 * Math.max(cluster.data[0].r * 3, cluster.r));
+  $: y.set(cluster.yAbsolute - cluster.r - dimFactor);
+  $: width = 4 * Math.max(cluster.data[0].r * 3, cluster.r);
+  $: height = 2 * cluster.r + dimFactor;
 </script>
 
 <div
   class="rosette-title"
-  use:css={{left: `${dimensions.x}px`,
-            top: `${dimensions.y}px`,
-            width: `${dimensions.width}px`,
-            height: `${dimensions.height}px`,
+  use:css={{left: `${$x}px`,
+            top: `${$y}px`,
+            width: `${width}px`,
+            height: `${height}px`,
             textColor}}
 >
   <h2

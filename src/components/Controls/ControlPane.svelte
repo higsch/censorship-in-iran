@@ -26,11 +26,12 @@
 
 <div class="control-pane">
   <div class="color-control-buttons">
-    {#each buttonArray as controlName (controlName)}
+    {#each buttonArray as controlName, i (controlName)}
       <ControlButton
         name={controlName}
         groupControl={$groupControl.find((d) => d.name === controlName)}
         colorControl={$colorControl.find((d) => d.name === controlName)}
+        showExplanation={i === 0}
         on:click={handleButtonClick}
       />
     {/each}

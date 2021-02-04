@@ -1,8 +1,8 @@
 import { hcl } from 'd3';
 
 export const defaultColor = '#DAE2F5';
-
 export const white = '#FFFFFF';
+export const yellow = '#FAB243';
 
 export const grouping = {
   shade1: '#80FFDB',
