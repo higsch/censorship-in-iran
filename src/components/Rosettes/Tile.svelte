@@ -12,9 +12,9 @@
   export let startY = 0;
   export let startFillColor = '#000000';
   export let fillBackgroundColor = '#FFFFFF';
-  export let selectionColor = 'red';
   export let startOpacity = 0.9;
   export let strokeColor = '#FFFFFF'
+  export let selectColor = '#000000';
   export let selected = false;
   export let anyHovered = false;
   export let hovered = false;
@@ -92,10 +92,10 @@
   $: x.set(d.x);
   $: y.set(d.y);
 
-  $: fillColor.set(d.color);
+  $: fillColor.set(selected ? selectColor : d.color);
   $: {
       let o = opacityScale(opacityFactor * d.withinClusterIndex / d.cluster.length);
-      if (selected || hovered) {
+      if (hovered) {
         o = 1.0;
       }
       if (anyHovered && !hovered) {

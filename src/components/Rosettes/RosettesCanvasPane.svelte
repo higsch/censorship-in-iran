@@ -1,8 +1,8 @@
 <script>
-  import { selectedDatum } from '../../stores/selection';
+  import { hoveredDatum, selectedDatum } from '../../stores/selection';
   import {
-    selection as selectionColor,
     white,
+    background,
     getControlColor } from '../../utils/colors';
   import { colorControl } from '../../stores/control';
   import { hoveredLabel } from '../../stores/selection';
@@ -19,15 +19,26 @@
 
   let flatData = [];
 
-  function handleClick(e) {
-    const { detail: {x, y} } = e;
-    const selected = data.map((cluster) => {
+  function findDelaunay(x, y) {
+    const found = data.map((cluster) => {
       const index = cluster.delaunay.find(x - cluster.x, y - cluster.y);
       const datum = cluster.data[index];
       return datum;
     })
     .find((d) => d.draw);
 
+    return found ? found : null;
+  }
+
+  function handleHover(e) {
+    const { detail: {x, y} } = e;
+    const hovered = findDelaunay(x, y);
+    hoveredDatum.set(hovered);
+  }
+
+  function handleClick(e) {
+    const { detail: {x, y} } = e;
+    const selected = findDelaunay(x, y);
     selectedDatum.set(selected);
   }
 
@@ -65,6 +76,7 @@
   <Canvas
     width={width}
     height={height}
+    on:mousemove={handleHover}
     on:click={handleClick}
   >
     {#each flatData as d (d.id)}
@@ -73,8 +85,8 @@
         startX={Math.random() * width - width / 2}
         startY={Math.random() * height - height / 2}
         strokeColor={white}
-        selectionColor={selectionColor.selected1}
-        selected={$selectedDatum && $selectedDatum.id === d.id}
+        selectColor={background}
+        selected={$hoveredDatum && $hoveredDatum.id === d.id}
         hovered={$hoveredLabel && $hoveredLabel.value.includes(d[$hoveredLabel.name])}
         anyHovered={$hoveredLabel}
       />
@@ -89,6 +101,5 @@
     width: 100%;
     height: 100%;
     overflow: hidden;
-    cursor: pointer;
   }
 </style>

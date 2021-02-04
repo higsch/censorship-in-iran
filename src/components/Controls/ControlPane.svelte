@@ -45,6 +45,7 @@
     align-items: center;
     justify-content: center;
     width: 100%;
+    margin: 0 0 0.5em 0;
   }
 
   .control-pane > div {

@@ -103,6 +103,7 @@
 
   .explanation {
     position: relative;
+    top: -0.2em;
   }
 
   .group-explanation-line {

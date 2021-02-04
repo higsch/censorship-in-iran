@@ -1,5 +1,5 @@
 import { writable } from 'svelte/store';
-import { grouping as color, addHclColors} from '../utils/colors';
+import { addHclColors} from '../utils/colors';
 
 const groupingInit = [
   {

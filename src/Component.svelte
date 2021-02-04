@@ -5,7 +5,7 @@
   import { formatData } from './utils/format';
   import { groupControl, colorControl } from './stores/control';
   import { locale as localeStore, dict } from './stores/i18n';
-  import { global as globalColor } from './utils/colors'; 
+  import { background } from './utils/colors'; 
   import { css } from './actions/css';
 
   import Visualization from './components/Visualization.svelte';
@@ -35,7 +35,7 @@
 
 <div
   class="component-wrapper"
-  use:css={{backgroundColor: globalColor.background1,
+  use:css={{backgroundColor: background,
             font: 'Roboto, Helvetica, Arial, sans-serif'}}
 >
   <Visualization

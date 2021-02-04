@@ -31,15 +31,15 @@
 		}
   });
 
-  function handleClick(e) {
+  function handleMouseMoveClick(e, type) {
     const { layerX: x, layerY: y } = e;
     if (center) {
-      dispatch('click', {
+      dispatch(type, {
         x: x - width / 2,
         y: y - height / 2
       });
     } else {
-      dispatch('click', {
+      dispatch(type, {
         x,
         y
       });
@@ -75,6 +75,7 @@
 
 <canvas
   bind:this={canvas}
-  on:click={handleClick}
+  on:mousemove={(e) => handleMouseMoveClick(e, 'mousemove')}
+  on:click={(e) => handleMouseMoveClick(e, 'click')}
 />
 <slot />

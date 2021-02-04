@@ -1,23 +1,9 @@
 import { hcl } from 'd3';
 
+export const background = '#242B2E';
 export const defaultColor = '#DAE2F5';
 export const white = '#FFFFFF';
 export const yellow = '#FAB243';
-
-export const grouping = {
-  shade1: '#80FFDB',
-  shade2: '#72EFDD',
-  shade3: '#64DFDF',
-  shade4: '#56CFE1'
-};
-
-export const global = {
-  background1: '#242B2E'
-};
-
-export const selection = {
-  selected1: '#BA181B'
-};
 
 const gender = {
   female: '#F6B5C1',

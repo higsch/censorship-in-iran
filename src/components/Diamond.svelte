@@ -11,7 +11,7 @@
 
 <svg
   viewBox="{-margin} {-margin} {100 + 2 * margin} {100 + 2 * margin}"
-  use:css={{color, strokeWidth, fill: filled ? color : 'none', fillOpacity}}
+  use:css={{color, strokeWidth, fill: color, fillOpacity: filled ? fillOpacity : 0.0}}
 >
   <path
     d="M0 50L50 0L100 50L50 100Z"
@@ -24,5 +24,9 @@
     stroke-width: var(--strokeWidth);
     fill: var(--fill);
     fill-opacity: var(--fillOpacity);
+  }
+
+  svg:hover path {
+    fill-opacity: 0.5;
   }
 </style>

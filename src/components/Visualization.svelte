@@ -5,8 +5,9 @@
   import { selectedDatum } from '../stores/selection';
 
   import ControlPane from './Controls/ControlPane.svelte';
+  import RosettesBackground from './Rosettes/RosettesBackground.svelte';
   import RosettesCanvasPane from './Rosettes/RosettesCanvasPane.svelte';
-  import RosetteForeground from './Rosettes/RosetteForeground.svelte';
+  import RosettesForeground from './Rosettes/RosettesForeground.svelte';
 
   export let data = [];
 
@@ -40,13 +41,15 @@
     bind:clientWidth={width}
     bind:clientHeight={height}
   >
-    <RosetteForeground
-      data={renderedData}
-      showClusterTitles={showClusterTitles}
-      showLabels={showLabels}
+    <RosettesBackground
     />
     <RosettesCanvasPane
       data={renderedData}
+    />
+    <RosettesForeground
+      data={renderedData}
+      showClusterTitles={showClusterTitles}
+      showLabels={showLabels}
     />
   </div>
 </div>
