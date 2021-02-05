@@ -22,10 +22,16 @@
   function findDelaunay(x, y) {
     const found = data.map((cluster) => {
       const index = cluster.delaunay.find(x - cluster.x, y - cluster.y);
-      const datum = cluster.data[index];
-      return datum;
+      const d = cluster.data[index];
+      return {
+        d,
+        pos: {
+          x: x + cluster.xAbsolute,
+          y: y + cluster.yAbsolute
+        }
+      };
     })
-    .find((d) => d.draw);
+    .find((d) => d && d.d.draw);
 
     return found ? found : null;
   }
@@ -87,7 +93,7 @@
         startY={Math.random() * height - height / 2}
         strokeColor={white}
         selectColor={background}
-        selected={$hoveredDatum && $hoveredDatum.id === d.id}
+        selected={$hoveredDatum && $hoveredDatum.d.id === d.id}
         hovered={$hoveredLabel && $hoveredLabel.value.includes(d[$hoveredLabel.name])}
         anyHovered={$hoveredLabel}
       />

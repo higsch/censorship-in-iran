@@ -2,12 +2,13 @@
   import { batchLayoutClusters, layoutBar } from '../utils/layout';
   import { radiusScale, createRadiusScale } from '../stores/scales';
   import { groupControl, colorControl } from '../stores/control';
-  import { selectedDatum } from '../stores/selection';
+  import { hoveredDatum, selectedDatum } from '../stores/selection';
 
   import ControlPane from './Controls/ControlPane.svelte';
   import RosettesBackground from './Rosettes/RosettesBackground.svelte';
   import RosettesCanvasPane from './Rosettes/RosettesCanvasPane.svelte';
   import RosettesForeground from './Rosettes/RosettesForeground.svelte';
+  import DatumTooltip from './RosetteAnnotation/DatumTooltip.svelte';
 
   export let data = [];
 
@@ -52,6 +53,13 @@
       showClusterTitles={showClusterTitles}
       showLabels={showLabels}
     />
+    {#if ($hoveredDatum)}
+      <!-- <DatumTooltip
+        tooltip={$hoveredDatum}
+        parentWidth={width}
+        parentHeight={height}
+      /> -->
+    {/if}
   </div>
 </div>
 

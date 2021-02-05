@@ -10,7 +10,7 @@
     if (!dim) return [];
 
     const topOffset = (dimensions.height - height) / 2;
-    const totalN = dim.reduce((acc, cur) => acc + cur.label.n, 0);
+    const { length: totalN = 0 } = cluster;
 
     let cumulativeN = 0;
     const pos = dim.map((d, i) => {
@@ -50,12 +50,12 @@
       height={dimensions.height}
     >
       {#each tentaclePositions as pos (pos.id)}
-        <def>
+        <defs>
           <linearGradient id="tentacle-gradient-{cluster.id}-{pos.id}">
             <stop offset="50%" stop-color={pos.color} stop-opacity="1.0" />
             <stop offset="100%" stop-color={pos.color} stop-opacity="0.3" />
           </linearGradient>
-        </def>
+        </defs>
         <g
           class="tentacle"
           use:css={{color: pos.color}}
