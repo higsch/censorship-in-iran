@@ -17,7 +17,6 @@
 
   let showLabels = true;
   let labels = [];
-  let labelElements = [];
 
   function handleLabelHover(e) {
     const { detail } = e;
@@ -31,25 +30,9 @@
     }
   }
 
-  function fireLabelElements() {
-    labelElements = labelElements.filter((l) => l);
+  function setLabels (data, controlName, controlValues) {
+    if (!colorControlName || colorControlValues.length === 0) return;
 
-    const dimensions = labelElements.map((l, i) => {
-      const { width = 0, height = 0 } = l.getBoundingClientRect();
-      const { offsetLeft: x = 0, offsetTop: y = 0} = l;
-      return {
-        x,
-        y: y + height / 2,
-        width,
-        height,
-        label: labels[i]
-      };
-    });
-
-    dispatch('labelschanged', { clusterId: cluster.id, dimensions});
-  }
-
-  async function setLabels (data, controlName, controlValues) {
     const allLabels = rollups(data, (d) => d.length, (d) => d[controlName])
       .map((d) => {
         const value = d[0];
@@ -78,16 +61,7 @@
     }
     
     labels = [...allLabels, ...otherLabel];
-
-    await tick();
-    
-    fireLabelElements();
   }
-
-  onDestroy(() => {
-    labelElements = [];
-    fireLabelElements();
-  });
 
   $: textPaneMarginLeft = 2 * cluster.r + cluster.xSpacing / 10;
   
@@ -97,9 +71,7 @@
   
   $: showLabels = cluster.xSpacing > 200 && dimensions.height > 200;
 
-  $: if (colorControlName && colorControlValues.length) {
-      setLabels(data, colorControlName, colorControlValues);
-    }
+  $: setLabels(data, colorControlName, colorControlValues);
 </script>
 
 <div
@@ -119,7 +91,6 @@
           color={color}
           hovered={hoveredLabel && hoveredLabel.name === name && intersect(value, hoveredLabel.value)}
           anyHovered={hoveredLabel}
-          bind:element={labelElements[i]}
           on:hover={handleLabelHover}
         />
       {/each}
@@ -130,6 +101,8 @@
 <style>
   .rosette-labels {
     position: absolute;
+    left: 0;
+    top: 0;
     z-index: 6;
     left: var(--x);
     top: var(--y);

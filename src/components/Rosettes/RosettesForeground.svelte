@@ -24,12 +24,6 @@
     }
   }
 
-  function handleLabelsChanged(e) {
-    const { detail: { clusterId, dimensions} = {}} = e;
-    if (clusterId === undefined) return;
-    labelDimensions.update((store) => ({...store, [clusterId]: dimensions}));
-  }
-
   $: ({ name: groupControlName } = $groupControl.find((c) => c.selected) || {});
   $: ({ name: colorControlName, values: colorControlValues } = $colorControl.find((c) => c.selected) || {});
 </script>
@@ -55,7 +49,6 @@
         colorControlValues={colorControlValues}
         hoveredLabel={$hoveredLabel}
         on:hover={handleLabelHover}
-        on:labelschanged={handleLabelsChanged}
       />
     {/each}
   {/if}
@@ -64,6 +57,8 @@
 <style>
   .rosette-foreground {
     position: absolute;
+    left: 0;
+    top: 0;
     z-index: 15;
     width: 100%;
     height: 100%;

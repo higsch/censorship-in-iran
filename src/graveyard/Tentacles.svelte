@@ -1,7 +1,7 @@
 <script>
   import { fade } from 'svelte/transition';
-  import { tentaclePath } from '../../utils/path';
-  import { css } from '../../actions/css';
+  import { tentaclePath } from '../utils/path';
+  import { css } from '../actions/css';
 
   export let cluster;
   export let labelDimensions;

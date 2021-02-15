@@ -99,9 +99,9 @@
 <style>
   .rosette-labels {
     position: absolute;
-    z-index: 6;
     left: var(--x);
     top: var(--y);
+    z-index: 6;
     display: flex;
     width: var(--width);
     height: var(--height);
