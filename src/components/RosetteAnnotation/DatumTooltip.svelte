@@ -52,6 +52,7 @@
     <div
       class="tooltip-body"
     >
+      <div class="tooltip-body-overlay"></div>
       {#if (datum[`intro_${$locale}`])}
         <p>
           {datum[`intro_${$locale}`]}
@@ -109,10 +110,21 @@
   }
 
   .tooltip-body {
+    position: relative;
     max-height: 200px;
     padding: 0.5em 0;
     font-size: 0.85em;
     overflow: hidden;
+  }
+
+  .tooltip-body-overlay {
+    position: absolute;
+    top: 0;
+    left: 0;
+    z-index: 40;
+    width: 100%;
+    height: 100%;
+    background: linear-gradient(rgba(0, 0, 0, 0) 0px, rgba(0, 0, 0, 0) 160px, var(--defaultColor) 200px);   
   }
 
   .tooltip-footer {
