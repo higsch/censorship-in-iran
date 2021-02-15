@@ -73,6 +73,7 @@
     font-weight: 300;
     text-align: center;
     color: var(--textColor);
+    opacity: 0.5;
   }
 
   span {

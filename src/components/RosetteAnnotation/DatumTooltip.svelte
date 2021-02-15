@@ -21,7 +21,7 @@
 
   $: ({ d: datum, pos } = tooltip);
 
-  $: yOffset = Math.min(30, parentHeight / 20);
+  $: yOffset = Math.min(50, parentHeight / 10);
   $: leftPos = Math.min(parentWidth - width - margin.right, Math.max(margin.left, pos.x - width / 2));
   $: topPos = pos.y + (parentHeight / 2 < pos.y ? -height - yOffset / 2 : yOffset);
 
@@ -109,7 +109,7 @@
   }
 
   .tooltip-body {
-    max-height: 300px;
+    max-height: 200px;
     padding: 0.5em 0;
     font-size: 0.85em;
     overflow: hidden;
