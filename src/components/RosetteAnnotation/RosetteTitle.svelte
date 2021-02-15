@@ -21,11 +21,16 @@
     easing: cubicOut
   });
 
+  const h2bottom = tweened(null, {
+    duration: movingDuration,
+    easing: cubicOut
+  });
+
   $: width = 4 * Math.max(cluster.data[0].r * 3, cluster.r);
   $: height = 2 * cluster.r + 2 * cluster.data[0].r;
   $: x.set(cluster.xAbsolute - 2 * Math.max(cluster.data[0].r * 3, cluster.r));
   $: y.set(cluster.yAbsolute - cluster.r - 2 * cluster.data[0].r);
-  $: h2bottom = 2 * cluster.r + 2 * cluster.data[0].r;
+  $: h2bottom.set(2 * cluster.r + 2 * cluster.data[0].r);
 </script>
 
 <div
@@ -34,7 +39,7 @@
             top: `${$y}px`,
             width: `${width}px`,
             height: `${height}px`,
-            h2bottom: `${h2bottom}px`,
+            h2bottom: `${$h2bottom}px`,
             textColor}}
 >
   <h2
