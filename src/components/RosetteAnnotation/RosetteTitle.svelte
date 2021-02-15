@@ -70,7 +70,7 @@
     width: 100%;
     font-family: var(--font);
     font-size: 0.9em;
-    font-weight: normal;
+    font-weight: 300;
     text-align: center;
     color: var(--textColor);
   }
@@ -80,6 +80,6 @@
   }
 
   span.number {
-    font-weight: bold;
+    font-weight: 500;
   }
 </style>

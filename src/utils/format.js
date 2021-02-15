@@ -36,6 +36,7 @@ export const formatData = (d) => {
     institutioninvestigating: tmp.institutioninvestigating === 'N/A' ? 'unknown' : tmp.institutioninvestigating.replace(/\s/g, '_').toLowerCase(),
     province: tmp.province === 'N/A' ? 'unknown' : tmp.province.replace(/\s/g, '_').toLowerCase(),
     ethnicgroup: tmp.ethnicgroup === 'N/A' ? 'unknown' : tmp.ethnicgroup.replace(/\s/g, '_').toLowerCase(),
-    religoiusgroup: tmp.religoiusgroup === 'N/A' ? 'unknown' : tmp.religoiusgroup.replace(/\s/g, '_').toLowerCase()
+    religoiusgroup: tmp.religoiusgroup === 'N/A' ? 'unknown' : tmp.religoiusgroup.replace(/\s/g, '_').toLowerCase(),
+    intro_en: tmp.intro_en === 'N/A' ? null : tmp.intro_en
   }
 };

@@ -18,12 +18,15 @@
   let showClusterTitles = true;
   let showLabels = false;
 
+  let selectedGroup;
+  let selectedColor;
+
   $: maxDim = Math.min(2000, Math.max(width, height));
   $: radiusScale.set(createRadiusScale(maxDim));
 
   $: {
-    const selectedGroup = $groupControl.find((c) => c.selected);
-    const selectedColor = $colorControl.find((c) => c.selected);
+    selectedGroup = $groupControl.find((c) => c.selected);
+    selectedColor = $colorControl.find((c) => c.selected);
 
     showClusterTitles = !$selectedDatum && selectedGroup && selectedGroup.show;
     showLabels = !$selectedDatum && selectedColor && selectedColor.show && selectedGroup.name !== selectedColor.name;
@@ -54,11 +57,12 @@
       showLabels={showLabels}
     />
     {#if ($hoveredDatum)}
-      <!-- <DatumTooltip
+      <DatumTooltip
         tooltip={$hoveredDatum}
         parentWidth={width}
         parentHeight={height}
-      /> -->
+        selectedColor={selectedColor}
+      />
     {/if}
   </div>
 </div>

@@ -56,7 +56,7 @@
     display: inline-block;
     min-width: 1.6rem;
     font-size: inherit;
-    font-weight: bold;
+    font-weight: 500;
     text-align: right;
     transition: color 0.2s ease-out;
   }

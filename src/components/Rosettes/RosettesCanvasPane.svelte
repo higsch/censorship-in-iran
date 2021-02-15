@@ -26,8 +26,8 @@
       return {
         d,
         pos: {
-          x: x + cluster.xAbsolute,
-          y: y + cluster.yAbsolute
+          x: d.x + cluster.xAbsolute,
+          y: d.y + cluster.yAbsolute
         }
       };
     })
@@ -43,7 +43,7 @@
   }
 
   function handleClick(e) {
-    const { detail: {x, y} } = e;
+    const { detail: { x, y } } = e;
     const selected = findDelaunay(x, y);
     selectedDatum.set(selected);
   }

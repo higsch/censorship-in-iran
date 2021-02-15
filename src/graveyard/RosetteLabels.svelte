@@ -130,7 +130,7 @@
   .label-text .number {
     display: inline-block;
     font-size: inherit;
-    font-weight: bold;
+    font-weight: 500;
   }
 
   .label-text .description {
