@@ -9,6 +9,7 @@
   import RosettesCanvasPane from './Rosettes/RosettesCanvasPane.svelte';
   import RosettesForeground from './Rosettes/RosettesForeground.svelte';
   import DatumTooltip from './RosetteAnnotation/DatumTooltip.svelte';
+  import Profile from './Profile/Profile.svelte';
 
   export let data = [];
 
@@ -20,6 +21,10 @@
 
   let selectedGroup;
   let selectedColor;
+
+  function handleProfileClose() {
+    $selectedDatum = null;
+  }
 
   $: maxDim = Math.min(2000, Math.max(width, height));
   $: radiusScale.set(createRadiusScale(maxDim));
@@ -34,6 +39,8 @@
     const clustersData = batchLayoutClusters(selectedGroup, selectedColor, data, $radiusScale);
     renderedData = layoutBar(clustersData, width, height, showLabels);
   }
+
+  $: if ($selectedDatum) $hoveredDatum = null;
 </script>
 
 <div
@@ -62,6 +69,12 @@
         parentWidth={width}
         parentHeight={height}
         selectedColor={selectedColor}
+      />
+    {/if}
+    {#if ($selectedDatum)}
+      <Profile
+        datum={$selectedDatum}
+        on:close={handleProfileClose}
       />
     {/if}
   </div>

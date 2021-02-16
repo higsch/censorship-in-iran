@@ -1,4 +1,5 @@
 <script>
+  import { fade } from 'svelte/transition';
   import { t, locale } from '../../stores/i18n';
   import { css } from '../../actions/css';
   import { background, defaultColor } from '../../utils/colors';
@@ -35,6 +36,7 @@
   use:css={{left: `${leftPos}px`, top: `${topPos}px`, defaultColor, defaultColorTransparent: `${defaultColor}00`, color, background}}
   bind:clientWidth={width}
   bind:clientHeight={height}
+  transition:fade={{duration: 200}}
 >
   <div
     class="tooltip-content"
