@@ -32,7 +32,7 @@
 
 <div
   class="province-tooltip"
-  use:css={{left: `${leftPos}px`, top: `${topPos}px`, defaultColor, color, background}}
+  use:css={{left: `${leftPos}px`, top: `${topPos}px`, defaultColor, defaultColorTransparent: `${defaultColor}00`, color, background}}
   bind:clientWidth={width}
   bind:clientHeight={height}
 >
@@ -124,7 +124,10 @@
     z-index: 40;
     width: 100%;
     height: 100%;
-    background: linear-gradient(rgba(0, 0, 0, 0) 0px, rgba(0, 0, 0, 0) 160px, var(--defaultColor) 200px);   
+    background: linear-gradient(
+      var(--defaultColorTransparent) 0px,
+      var(--defaultColorTransparent) 160px,
+      var(--defaultColor) 200px);   
   }
 
   .tooltip-footer {
