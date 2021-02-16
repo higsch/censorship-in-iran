@@ -50,3 +50,5 @@ export const dir = derived(localizedDict, ($localizedDict) => {
   if (!$localizedDict) return document.dir;
   return $localizedDict.$dir;
 });
+
+export const addLocale = derived(locale, $locale => attr => `${attr}_${$locale}`);

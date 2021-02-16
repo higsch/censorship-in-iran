@@ -33,11 +33,13 @@
     selectedGroup = $groupControl.find((c) => c.selected);
     selectedColor = $colorControl.find((c) => c.selected);
 
-    showClusterTitles = !$selectedDatum && selectedGroup && selectedGroup.show;
-    showLabels = !$selectedDatum && selectedColor && selectedColor.show && selectedGroup.name !== selectedColor.name;
-
     const clustersData = batchLayoutClusters(selectedGroup, selectedColor, data, $radiusScale);
     renderedData = layoutBar(clustersData, width, height, showLabels);
+    
+    if (renderedData.length) $selectedDatum = {d: renderedData[0].data[3], pos: []};
+
+    showClusterTitles = !$selectedDatum && selectedGroup && selectedGroup.show;
+    showLabels = !$selectedDatum && selectedColor && selectedColor.show && selectedGroup.name !== selectedColor.name;
   }
 
   $: if ($selectedDatum) $hoveredDatum = null;
@@ -73,7 +75,7 @@
     {/if}
     {#if ($selectedDatum)}
       <Profile
-        datum={$selectedDatum}
+        datum={$selectedDatum.d}
         on:close={handleProfileClose}
       />
     {/if}
@@ -82,6 +84,7 @@
 
 <style>
   .visualization-wrapper {
+    position: relative;
     display: flex;
     flex-direction: column;
     width: 100%;
@@ -89,9 +92,13 @@
   }
 
   .draw-wrapper {
-    position: relative;
+    position: absolute;
+    top: 0;
+    left: 0;
+    z-index: 0;
     flex: 1;
     width: 100%;
+    height: 100%;
     overflow: hidden;
   }
 </style>

@@ -1,5 +1,7 @@
 <script>
   import { groupControl, colorControl } from '../../stores/control';
+  import { background } from '../../utils/colors';
+  import { css } from '../../actions/css';
 
   import ControlButton from './ControlButton.svelte';
 
@@ -24,7 +26,10 @@
   $: buttonArray = [...new Set([...$groupControl, ...$colorControl].filter((d) => d.show).map((d) => d.name))];
 </script>
 
-<div class="control-pane">
+<div
+  class="control-pane"
+  use:css={{background}}
+>
   <div class="color-control-buttons">
     {#each buttonArray as controlName, i (controlName)}
       <ControlButton
@@ -40,6 +45,10 @@
 
 <style>
   .control-pane {
+    position: absolute;
+    left: 0;
+    top: 0;
+    z-index: 100;
     display: flex;
     flex-direction: column;
     align-items: center;
@@ -52,6 +61,11 @@
     display: flex;
     align-items: center;
     justify-content: center;
-    width: 100%;
+    padding: 0 3em 1.1em 3em;
+    background-color: var(--background);
+    opacity: 0.8;
+    border: none;
+    border-bottom-left-radius: 0.2em;
+    border-bottom-right-radius: 0.2em;
   }
 </style>
