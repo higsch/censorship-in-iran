@@ -63,12 +63,16 @@ import Canvas from '../Canvas.svelte';
     <div class="profile-body">
       <div class="sidebar"></div>
       <div class="bio">
-        <p class="intro">
-          {datum[$addLocale('intro')]}
-        </p>
-        <p class="main">
-          {datum[$addLocale('bio')]}
-        </p>
+        {#if (datum[$addLocale('intro')])}
+          <p class="intro">
+            {datum[$addLocale('intro')]}
+          </p>
+        {/if}
+        {#if (datum[$addLocale('bio')])}
+          <p class="main">
+            {datum[$addLocale('bio')]}
+          </p>
+        {/if}
       </div>
     </div>
   </div>

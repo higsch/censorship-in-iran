@@ -36,7 +36,7 @@
     const clustersData = batchLayoutClusters(selectedGroup, selectedColor, data, $radiusScale);
     renderedData = layoutBar(clustersData, width, height, showLabels);
     
-    if (renderedData.length) $selectedDatum = {d: renderedData[0].data[3], pos: []};
+    // if (renderedData.length) $selectedDatum = {d: renderedData[0].data[3], pos: []};
 
     showClusterTitles = !$selectedDatum && selectedGroup && selectedGroup.show;
     showLabels = !$selectedDatum && selectedColor && selectedColor.show && selectedGroup.name !== selectedColor.name;

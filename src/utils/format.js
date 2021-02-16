@@ -38,6 +38,9 @@ export const formatData = (d) => {
     ethnicgroup: tmp.ethnicgroup === 'N/A' ? 'unknown' : tmp.ethnicgroup.replace(/\s/g, '_').toLowerCase(),
     religoiusgroup: tmp.religoiusgroup === 'N/A' ? 'unknown' : tmp.religoiusgroup.replace(/\s/g, '_').toLowerCase(),
     intro_en: tmp.intro_en === 'N/A' ? null : tmp.intro_en,
+    intro_fa: tmp.intro_fa === 'N/A' ? null : tmp.intro_fa,
+    bio_en: tmp.bio_en === 'N/A' ? null : tmp.bio_en,
+    bio_fa: tmp.bio_fa === 'N/A' ? null : tmp.bio_fa,
     twitter: tmp.twitter === 'N/A' ? null : tmp.twitter.replace(/@/g, ''),
     blog_link: tmp.blog_link === 'N/A' ? null : tmp.blog_link
   }
