@@ -1,11 +1,10 @@
 <script>
-  import { hoveredDatum, selectedDatum } from '../../stores/selection';
+  import { hoveredDatum, selectedDatum, hoveredLabel } from '../../stores/selection';
   import {
     white,
     background,
     getControlColor } from '../../utils/colors';
   import { colorControl } from '../../stores/control';
-  import { hoveredLabel } from '../../stores/selection';
   import { relativePath } from '../../utils/path';
   import { layoutForce } from '../../utils/layout';
 
@@ -93,8 +92,9 @@
         startY={Math.random() * height - height / 2}
         strokeColor={white}
         selectColor={background}
-        selected={$hoveredDatum && $hoveredDatum.d.id === d.id}
-        hovered={$hoveredLabel && $hoveredLabel.value.includes(d[$hoveredLabel.name])}
+        selected={$selectedDatum && $selectedDatum.d.id === d.id}
+        hovered={$hoveredDatum && $hoveredDatum.d.id === d.id}
+        labelHovered={$hoveredLabel && $hoveredLabel.value.includes(d[$hoveredLabel.name])}
         anyHovered={$hoveredLabel}
       />
     {/each}

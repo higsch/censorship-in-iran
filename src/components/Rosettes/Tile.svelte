@@ -14,8 +14,9 @@
   export let strokeColor = '#FFFFFF'
   export let selectColor = '#000000';
   export let selected = false;
-  export let anyHovered = false;
   export let hovered = false;
+  export let labelHovered = false;
+  export let anyHovered = false;
 
   const { register, deregister, invalidate } = getContext('canvas');
   const flyDuration = 400 * Math.random() + 800;
@@ -24,9 +25,6 @@
   const opacityScale = scaleLinear()
     .domain([1, 0])
     .range([0.3, 0.9]);
-  
-  let pathX = 0;
-  let pathY = 0;
   
   let x = tweened(startX, {
     duration: flyDuration,
@@ -44,7 +42,7 @@
     interpolate: flubberInterpolate
   });
 
-  let fillColor = tweened(startFillColor, {
+  let fillColor = tweened(null, {
     duration: flyDuration,
     easing: cubicOut,
     interpolate: interpolateHcl
@@ -90,13 +88,14 @@
   $: x.set(d.x);
   $: y.set(d.y);
 
-  $: fillColor.set(selected ? selectColor : d.color);
+  $: fillColor.set(hovered ? selectColor : d.color);
+
   $: {
       let o = opacityScale(opacityFactor * d.withinClusterIndex / d.cluster.length);
-      if (hovered) {
+      if (labelHovered) {
         o = 1.0;
       }
-      if (anyHovered && !hovered) {
+      if (anyHovered && !labelHovered) {
         o = 0.2;
       }
       opacity.set(o);
