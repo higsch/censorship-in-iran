@@ -304,6 +304,10 @@
     margin: 0.25em 0;
   }
 
+  .intro {
+    margin-bottom: 1.6em;
+  }
+
   .profile-footer {
     width: 100%;
     min-height: 30%;

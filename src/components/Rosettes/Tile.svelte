@@ -8,12 +8,10 @@
   export let d = {};
   export let startX = 0;
   export let startY = 0;
-  export let startFillColor = '#000000';
   export let fillBackgroundColor = '#FFFFFF';
   export let startOpacity = 0.9;
   export let strokeColor = '#FFFFFF'
   export let selectColor = '#000000';
-  export let selected = false;
   export let hovered = false;
   export let labelHovered = false;
   export let anyHovered = false;
