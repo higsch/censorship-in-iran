@@ -66,7 +66,10 @@
       </ul>
     </div>
     <div class="profile-body">
-      <ul class="sidebar">
+      <ul
+        class="sidebar"
+        class:center={!datum[$addLocale('intro')] && !datum[$addLocale('bio')]}  
+      >
         {#if (datum[$addLocale('career')] && datum[$addLocale('career')].toLowerCase() !== datum.occupation.toLowerCase())}
           <li class="career">
             <h3>{$t('other.career')}</h3>
@@ -110,18 +113,20 @@
           </li>
         {/if}
       </ul>
-      <div class="bio">
-        {#if (datum[$addLocale('intro')])}
-          <p class="intro">
-            {datum[$addLocale('intro')]}
-          </p>
-        {/if}
-        {#if (datum[$addLocale('bio')])}
-          <p class="main">
-            {datum[$addLocale('bio')]}
-          </p>
-        {/if}
-      </div>
+      {#if (datum[$addLocale('intro')] && datum[$addLocale('bio')])}
+        <div class="bio">
+          {#if (datum[$addLocale('intro')])}
+            <p class="intro">
+              {datum[$addLocale('intro')]}
+            </p>
+          {/if}
+          {#if (datum[$addLocale('bio')])}
+            <p class="main">
+              {datum[$addLocale('bio')]}
+            </p>
+          {/if}
+        </div>
+      {/if}
     </div>
     <div class="profile-footer">
       {#if (datum.last_updated)}
@@ -211,6 +216,7 @@
   }
 
   h2.name .occupation {
+    margin: 0.2em 0 0 0;
     font-size: 0.6em;
     font-weight: 300;
   }
@@ -249,7 +255,7 @@
   .profile-body {
     flex-shrink: 0;
     display: flex;
-    width: 100%;
+    /* width: 100%; */
     font-weight: 300;
   }
 
@@ -262,6 +268,11 @@
     display: flex;
     flex-direction: column;
     opacity: 0.7;
+  }
+
+  ul.sidebar.center {
+    text-align: left;
+    justify-content: center;
   }
 
   ul.sidebar li {
