@@ -19,6 +19,7 @@
     bottom: 10,
     left: 10
   };
+  const _url = 'https://journalismisnotacrime.com/media/profile/nasrin_vaziri.jpg.400x400_q85_bw_crop.jpg';
 
   $: ({ d: datum, pos } = tooltip);
 
@@ -44,12 +45,17 @@
     <div
       class="tooltip-title"
     >
-      <h2>
-        {datum[`name_${$locale}`]}
-      </h2>
-      <p>
-        {datum.status === 'unknown' ? 'Status unknown' : $t(`groupingvalues.status.${datum.status}`)}
-      </p>
+      <div class="title-text">
+        <h2>
+          {datum[`name_${$locale}`]}
+        </h2>
+        <p>
+          {datum.status === 'unknown' ? 'Status unknown' : $t(`groupingvalues.status.${datum.status}`)}
+        </p>
+      </div>
+      <div class="title-image">
+        <img src={_url} alt="Profile image of {datum.name_en}" />
+      </div>
     </div>
     <div
       class="tooltip-body"
@@ -98,8 +104,25 @@
   }
 
   .tooltip-title {
+    display: flex;
+    justify-content: space-between;
     padding: 0.2em 0;
     border-bottom: 0.17em solid var(--color);
+  }
+
+  .title-text {
+    display: flex;
+    flex-direction: column;
+  }
+
+  .title-image {
+    margin: 0 0 0 0.2em;
+  }
+
+  .title-image img {
+    height: 3em;
+    border: none;
+    border-radius: 0.2em;
   }
 
   h2 {

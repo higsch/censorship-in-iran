@@ -75,7 +75,7 @@
       showClusterTitles={showClusterTitles}
       showLabels={showLabels}
     />
-    {#if ($hoveredDatum)}
+    {#if ($hoveredDatum && !$selectedDatum)}
       <DatumTooltip
         tooltip={$hoveredDatum}
         parentWidth={width}
