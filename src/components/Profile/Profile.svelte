@@ -48,7 +48,11 @@
       </h2>
       <ul class="social-media">
         {#if (datum.twitter)}
-          <a href="https://twitter.com/{datum.twitter}" target="_blank">
+          <a  
+            href="https://twitter.com/{datum.twitter}"
+            target="_blank"
+            on:click|stopPropagation
+          >
             <li>
               <Icon data={twitter}/>
               <span>{datum.twitter}</span>

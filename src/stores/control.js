@@ -61,7 +61,7 @@ const colorInit = [
   }
 ].map((d, i) => ({
   ...d,
-  selected: d.name === 'occupation',
+  selected: d.name === 'none',
   show: d.name !== 'none',
   values: [],
   id: i
