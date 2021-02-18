@@ -1,5 +1,5 @@
 <script>
-  import { onDestroy, createEventDispatcher, tick } from 'svelte';
+  import { createEventDispatcher } from 'svelte';
   import { rollups } from 'd3';
 
   import { css } from '../../actions/css';
@@ -92,6 +92,7 @@
           hovered={hoveredLabel && hoveredLabel.name === name && intersect(value, hoveredLabel.value)}
           anyHovered={hoveredLabel}
           on:hover={handleLabelHover}
+          on:click
         />
       {/each}
     {/if}

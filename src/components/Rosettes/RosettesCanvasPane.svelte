@@ -92,7 +92,6 @@
         startY={Math.random() * height - height / 2}
         strokeColor={white}
         selectColor={background}
-        selected={$selectedDatum && $selectedDatum.d.id === d.id}
         hovered={$hoveredDatum && $hoveredDatum.d.id === d.id}
         labelHovered={$hoveredLabel && $hoveredLabel.value.includes(d[$hoveredLabel.name])}
         anyHovered={$hoveredLabel}

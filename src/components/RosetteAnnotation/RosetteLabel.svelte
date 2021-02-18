@@ -24,6 +24,11 @@
       });
     }
   }
+
+  function handleClick() {
+    handleMouseEnter(null);
+    dispatch('click', {name});
+  }
 </script>
 
 <div
@@ -34,6 +39,7 @@
   use:css={{color: color}}
   on:mouseenter={() => handleMouseEnter(name, value)}
   on:mouseleave={() => handleMouseEnter(null)}
+  on:click={handleClick}
 >
   <span class="number">{n}</span>
   <span class="description">{$t(`groupingvalues.${name}.${valueName}`)}</span>

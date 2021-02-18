@@ -1,7 +1,6 @@
 <script>
   import { hoveredLabel } from '../../stores/selection';
   import { groupControl, colorControl } from '../../stores/control';
-  import { labelDimensions } from '../../stores/labels'; 
   import { defaultColor } from '../../utils/colors';
 
   import RosetteTitle from '../RosetteAnnotation/RosetteTitle.svelte';
@@ -21,6 +20,13 @@
       hoveredLabel.set(detail);
     } else {
       hoveredLabel.set(null);
+    }
+  }
+
+  function handleClick(e) {
+    const { detail: { name } = {}} = e || {};
+    if (name) {
+      groupControl.select(name);
     }
   }
 
@@ -49,6 +55,7 @@
         colorControlValues={colorControlValues}
         hoveredLabel={$hoveredLabel}
         on:hover={handleLabelHover}
+        on:click={handleClick}
       />
     {/each}
   {/if}
