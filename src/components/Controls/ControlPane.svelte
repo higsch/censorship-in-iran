@@ -5,6 +5,8 @@
 
   import ControlButton from './ControlButton.svelte';
 
+  export let height = 0;
+
   let buttonArray = [];
 
   function handleButtonClick(e) {
@@ -28,6 +30,7 @@
 
 <div
   class="control-pane"
+  bind:clientHeight={height}
   use:css={{background}}
 >
   <div class="color-control-buttons">

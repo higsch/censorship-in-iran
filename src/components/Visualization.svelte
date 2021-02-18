@@ -15,6 +15,7 @@
 
   let width = 0;
   let height = 0;
+  let controlPaneHeight = 0;
   let renderedData = [];
   let showClusterTitles = true;
   let showLabels = false;
@@ -29,12 +30,19 @@
   $: maxDim = Math.min(2000, Math.max(width, height));
   $: radiusScale.set(createRadiusScale(maxDim));
 
+  $: drawMargin = {
+      top: controlPaneHeight,
+      right: 0,
+      bottom: 0,
+      left: 0
+    };
+
   $: {
     selectedGroup = $groupControl.find((c) => c.selected);
     selectedColor = $colorControl.find((c) => c.selected);
 
     const clustersData = batchLayoutClusters(selectedGroup, selectedColor, data, $radiusScale);
-    renderedData = layoutBar(clustersData, width, height, showLabels);
+    renderedData = layoutBar(clustersData, width, height, drawMargin, showLabels);
     
     // if (renderedData.length) $selectedDatum = {d: renderedData[0].data[3], pos: []};
 
@@ -48,7 +56,9 @@
 <div
   class="visualization-wrapper"
 >
-  <ControlPane />
+  <ControlPane
+    bind:height={controlPaneHeight}
+  />
   <div
     class="draw-wrapper"
     bind:clientWidth={width}

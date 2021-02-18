@@ -119,7 +119,15 @@ export const batchLayoutClusters = (selectedGrouping, selectedColor, data, radiu
   return clustersData;
 };
 
-export const layoutBar = (clustersData, width, height, showLabels = false, minSpacing = width / 2, maxSpacing = width / 3) => {
+export const layoutBar = (
+    clustersData,
+    width,
+    height,
+    margin,
+    showLabels = false,
+    minSpacing = width / 2,
+    maxSpacing = width / 3
+  ) => {
   const data = [...clustersData];
   data.sort((a, b) => a.r > b.r ? -1 : 1);
 
@@ -173,8 +181,8 @@ export const layoutBar = (clustersData, width, height, showLabels = false, minSp
   });
 
   // set y coordinates
-  const ySpacing = (height - xBars.reduce((acc, cur) => acc + cur.maxDiameter, 0)) / (xBars.length + 1);
-  let y = 0;
+  const ySpacing = (height - margin.top - margin.bottom - xBars.reduce((acc, cur) => acc + cur.maxDiameter, 0)) / (xBars.length + 1);
+  let y = margin.top;
   const xyBars = xBars.map((bar, i, arr) => {
     if (i === 0) {
       y += ySpacing + bar.maxDiameter / 2;
