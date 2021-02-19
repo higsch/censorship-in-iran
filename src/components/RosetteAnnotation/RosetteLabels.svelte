@@ -4,6 +4,7 @@
 
   import { css } from '../../actions/css';
   import { intersect } from '../../utils/math';
+  import { dir } from '../../stores/i18n';
   
   import RosetteLabel from './RosetteLabel.svelte';
 
@@ -63,7 +64,7 @@
     labels = [...allLabels, ...otherLabel];
   }
 
-  $: textPaneMarginLeft = 2 * cluster.r + cluster.xSpacing / 10;
+  $: textPaneMarginHorizontal = 2 * cluster.r + cluster.xSpacing / 10;
   
   $: data = cluster.data.filter((d) => d.draw);
   
@@ -76,10 +77,10 @@
 
 <div
   class="rosette-labels"
-  use:css={{x: `${dimensions.x}px`, y: `${dimensions.y}px`, width: `${dimensions.width}px`, height: `${dimensions.height}px`, marginLeft: `${textPaneMarginLeft}px`}}
+  use:css={{x: `${dimensions.x}px`, y: `${dimensions.y}px`, width: `${dimensions.width}px`, height: `${dimensions.height}px`, marginHorizontal: `${textPaneMarginHorizontal}px`}}
 >
   <div
-    class="labels-text-pane"
+    class="labels-text-pane {$dir}"
   >
     {#if (showLabels && colorControlName && colorControlName !== 'none' && groupControlName !== colorControlName)}
       {#each labels as { name, valueName, value, color, n }, i (`${name}.${valueName}.${i}`)}
@@ -119,8 +120,14 @@
     display: flex;
     flex-direction: column;
     justify-content: center;
-    /* height: 100%; */
-    margin: 0 1rem 0 var(--marginLeft);
     /* border: 1px solid red; */
+  }
+
+  .labels-text-pane.ltr {
+    margin: 0 1.5em 0 var(--marginHorizontal);
+  }
+
+  .labels-text-pane.rtl {
+    margin: 0 var(--marginHorizontal) 0 1.5em;
   }
 </style>

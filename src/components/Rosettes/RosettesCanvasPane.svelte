@@ -7,6 +7,7 @@
   import { colorControl } from '../../stores/control';
   import { relativePath } from '../../utils/path';
   import { layoutForce } from '../../utils/layout';
+  import { dir } from '../../stores/i18n';
 
   import Canvas from '../Canvas.svelte';
   import Tile from './Tile.svelte';

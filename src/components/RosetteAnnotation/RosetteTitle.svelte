@@ -3,7 +3,7 @@
   import { cubicOut } from 'svelte/easing';
   import { fade } from 'svelte/transition';
   import { css } from '../../actions/css';
-  import { t } from '../../stores/i18n';
+  import { t, dir } from '../../stores/i18n';
 
   export let cluster;
   export let groupControlName = 'none';

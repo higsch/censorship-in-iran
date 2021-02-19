@@ -1,6 +1,6 @@
 <script>
   import { createEventDispatcher } from 'svelte';
-  import { t } from '../../stores/i18n';
+  import { t, dir } from '../../stores/i18n';
   import { css } from '../../actions/css';
   import { defaultColor, yellow } from '../../utils/colors';
 

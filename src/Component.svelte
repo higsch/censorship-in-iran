@@ -4,7 +4,7 @@
 
   import { formatData } from './utils/format';
   import { groupControl, colorControl } from './stores/control';
-  import { locale as localeStore, dict } from './stores/i18n';
+  import { locale as localeStore, dict, dir } from './stores/i18n';
   import { background } from './utils/colors'; 
   import { css } from './actions/css';
 

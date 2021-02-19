@@ -26,118 +26,120 @@
   on:click={closeProfile}
   transition:fade={{duration: 200}}
 >
-  <div class="profile-content-overlay"></div>
-  <div class="profile-content">
-    <div class="profile-header">
-      <div class="profile-image">
-        <img
-          src={_url}
-          alt="Profile image of {datum.name_en}"
-        />
-      </div>
-      <div class="status">
-        {$t(`groupingvalues.status.${datum.status}`)}
-      </div>
-      <h2 class="name">
-        <span>{datum[$addLocale('name')]}</span>
-        {#if (datum.occupation)}
-          <span class="occupation">
-            ({$t(`groupingvalues.occupation.${datum.occupation}`)})
-          </span>
-        {/if}
-      </h2>
-      <ul class="social-media">
-        {#if (datum.twitter)}
-          <a  
-            href="https://twitter.com/{datum.twitter}"
-            target="_blank"
-            on:click|stopPropagation
-          >
-            <li>
-              <Icon data={twitter}/>
-              <span>{datum.twitter}</span>
-            </li>
-          </a>
-        {/if}
-        {#if (datum.blog_link)}
-          <a href={datum.blog_link} target="_blank">
-            <li>
-              <Icon data={square}/>
-              <span>Blog</span>
-            </li>
-          </a>
-        {/if}
-      </ul>
-    </div>
-    <div class="profile-body">
-      <ul
-        class="sidebar"
-        class:center={!datum[$addLocale('intro')] && !datum[$addLocale('bio')]}  
-      >
-        {#if (datum[$addLocale('career')] && datum[$addLocale('career')].toLowerCase() !== datum.occupation.toLowerCase())}
-          <li class="career">
-            <h3>{$t('other.career')}</h3>
-            <p>{datum[$addLocale('career')]}</p>
-          </li>
-        {/if}
-        {#if (datum[$addLocale('sentence')])}
-          <li class="sentence">
-            <h3>{$t('other.sentence')}</h3>
-            <p>{datum[$addLocale('sentence')]}</p>
-          </li>
-        {/if}
-        {#if (datum.institutioninvestigating)}
-          <li class="institutioninvestigating">
-            <h3>{$t('grouping.institutioninvestigating')}</h3>
-            <p>{$t(`groupingvalues.institutioninvestigating.${datum.institutioninvestigating}`)}</p>
-          </li>
-        {/if}
-        {#if (datum[$addLocale('oranisation_name')])}
-          <li class="organisation">
-            <h3>{$t('other.organisation')}</h3>
-            <p>{datum[$addLocale('oranisation_name')]}</p>
-          </li>
-        {/if}
-        {#if (datum.province)}
-          <li class="province">
-            <h3>{$t('grouping.province')}</h3>
-            <p>{$t(`groupingvalues.province.${datum.province}`)}</p>
-          </li>
-        {/if}
-        {#if (datum.ethnicgroup)}
-          <li class="ethnicgroup">
-            <h3>{$t('grouping.ethnicgroup')}</h3>
-            <p>{$t(`groupingvalues.ethnicgroup.${datum.ethnicgroup}`)}</p>
-          </li>
-        {/if}
-        {#if (datum.religoiusgroup)}
-          <li class="religiousgroup">
-            <h3>{$t('grouping.religoiusgroup')}</h3>
-            <p>{$t(`groupingvalues.religoiusgroup.${datum.religoiusgroup}`)}</p>
-          </li>
-        {/if}
-      </ul>
-      {#if (datum[$addLocale('intro')] && datum[$addLocale('bio')])}
-        <div class="bio">
-          {#if (datum[$addLocale('intro')])}
-            <p class="intro">
-              {datum[$addLocale('intro')]}
-            </p>
-          {/if}
-          {#if (datum[$addLocale('bio')])}
-            <p class="main">
-              {datum[$addLocale('bio')]}
-            </p>
-          {/if}
+<div class="profile-content-overlay"></div>
+  <div class="profile-content-scroll-wrapper">
+    <div class="profile-content">
+      <div class="profile-header">
+        <div class="profile-image">
+          <img
+            src={_url}
+            alt="Profile image of {datum.name_en}"
+          />
         </div>
-      {/if}
-    </div>
-    <div class="profile-footer">
-      {#if (datum.last_updated)}
-        <p>Last updated: {formatDate(datum.last_updated)}</p>
-      {:else if (datum.modified_date)}
-        <p>Last modified: {formatDate(datum.modified_date)}</p>
-      {/if}
+        <div class="status">
+          {$t(`groupingvalues.status.${datum.status}`)}
+        </div>
+        <h2 class="name">
+          <span>{datum[$addLocale('name')]}</span>
+          {#if (datum.occupation)}
+            <span class="occupation">
+              ({$t(`groupingvalues.occupation.${datum.occupation}`)})
+            </span>
+          {/if}
+        </h2>
+        <ul class="social-media">
+          {#if (datum.twitter)}
+            <a  
+              href="https://twitter.com/{datum.twitter}"
+              target="_blank"
+              on:click|stopPropagation
+            >
+              <li>
+                <Icon data={twitter}/>
+                <span>{datum.twitter}</span>
+              </li>
+            </a>
+          {/if}
+          {#if (datum.blog_link)}
+            <a href={datum.blog_link} target="_blank">
+              <li>
+                <Icon data={square}/>
+                <span>Blog</span>
+              </li>
+            </a>
+          {/if}
+        </ul>
+      </div>
+      <div class="profile-body">
+        <ul
+          class="sidebar"
+          class:center={!datum[$addLocale('intro')] && !datum[$addLocale('bio')]}  
+        >
+          {#if (datum[$addLocale('career')] && datum[$addLocale('career')].toLowerCase() !== datum.occupation.toLowerCase())}
+            <li class="career">
+              <h3>{$t('other.career')}</h3>
+              <p>{datum[$addLocale('career')]}</p>
+            </li>
+          {/if}
+          {#if (datum[$addLocale('sentence')])}
+            <li class="sentence">
+              <h3>{$t('other.sentence')}</h3>
+              <p>{datum[$addLocale('sentence')]}</p>
+            </li>
+          {/if}
+          {#if (datum.institutioninvestigating)}
+            <li class="institutioninvestigating">
+              <h3>{$t('grouping.institutioninvestigating')}</h3>
+              <p>{$t(`groupingvalues.institutioninvestigating.${datum.institutioninvestigating}`)}</p>
+            </li>
+          {/if}
+          {#if (datum[$addLocale('oranisation_name')])}
+            <li class="organisation">
+              <h3>{$t('other.organisation')}</h3>
+              <p>{datum[$addLocale('oranisation_name')]}</p>
+            </li>
+          {/if}
+          {#if (datum.province)}
+            <li class="province">
+              <h3>{$t('grouping.province')}</h3>
+              <p>{$t(`groupingvalues.province.${datum.province}`)}</p>
+            </li>
+          {/if}
+          {#if (datum.ethnicgroup)}
+            <li class="ethnicgroup">
+              <h3>{$t('grouping.ethnicgroup')}</h3>
+              <p>{$t(`groupingvalues.ethnicgroup.${datum.ethnicgroup}`)}</p>
+            </li>
+          {/if}
+          {#if (datum.religoiusgroup)}
+            <li class="religiousgroup">
+              <h3>{$t('grouping.religoiusgroup')}</h3>
+              <p>{$t(`groupingvalues.religoiusgroup.${datum.religoiusgroup}`)}</p>
+            </li>
+          {/if}
+        </ul>
+        {#if (datum[$addLocale('intro')] && datum[$addLocale('bio')])}
+          <div class="bio">
+            {#if (datum[$addLocale('intro')])}
+              <p class="intro">
+                {datum[$addLocale('intro')]}
+              </p>
+            {/if}
+            {#if (datum[$addLocale('bio')])}
+              <p class="main">
+                {datum[$addLocale('bio')]}
+              </p>
+            {/if}
+          </div>
+        {/if}
+      </div>
+      <div class="profile-footer">
+        {#if (datum.last_updated)}
+          <p>Last updated: {formatDate(datum.last_updated)}</p>
+        {:else if (datum.modified_date)}
+          <p>Last modified: {formatDate(datum.modified_date)}</p>
+        {/if}
+      </div>
     </div>
   </div>
 </div>
@@ -155,6 +157,13 @@
     width: 100%;
     height: 100%;
     background: linear-gradient(var(--backgroundTransparent) 0%, var(--background) 90%);
+  }
+
+  .profile-content-scroll-wrapper {
+    position: relative;
+    width: 100%;
+    height: 100%;
+    overflow-y: scroll;
   }
 
   .profile-content-overlay {
@@ -177,11 +186,11 @@
     max-width: 820px;
     height: 90%;
     max-height: 90%;
-    padding: 2em 0 0 0;
+    margin: 0 auto;
+    padding: 4em 0 0 0;
     color: var(--color);
     border: none;
     border-radius: 0.2em;
-    overflow-y: scroll;
   }
 
   .profile-header {

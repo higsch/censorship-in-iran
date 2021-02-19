@@ -1,11 +1,14 @@
 <script>
   import Component from './Component.svelte';
+  // document.dir = 'rtl';
+  document.dir = 'ltr';
 </script>
 
 <div class="app-wrapper">
   <Component
     dataPath="data/data.csv"
     dictionaryPath="data/dictionary.json"
+    locale="en"
   />
 </div>
 

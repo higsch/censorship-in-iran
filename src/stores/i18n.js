@@ -47,7 +47,7 @@ export const n = derived(locale, $locale => {
 });
 
 export const dir = derived(localizedDict, ($localizedDict) => {
-  if (!$localizedDict) return document.dir;
+  if (!$localizedDict || !$localizedDict.$dir) return document.dir;
   return $localizedDict.$dir;
 });
 

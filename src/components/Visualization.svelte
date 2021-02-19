@@ -3,6 +3,7 @@
   import { radiusScale, createRadiusScale } from '../stores/scales';
   import { groupControl, colorControl } from '../stores/control';
   import { hoveredDatum, selectedDatum } from '../stores/selection';
+  import { dir } from '../stores/i18n';
 
   import ControlPane from './Controls/ControlPane.svelte';
   import RosettesBackground from './Rosettes/RosettesBackground.svelte';
@@ -41,13 +42,13 @@
     selectedGroup = $groupControl.find((c) => c.selected);
     selectedColor = $colorControl.find((c) => c.selected);
 
-    const clustersData = batchLayoutClusters(selectedGroup, selectedColor, data, $radiusScale);
-    renderedData = layoutBar(clustersData, width, height, drawMargin, showLabels);
-    
     // if (renderedData.length) $selectedDatum = {d: renderedData[0].data[21], pos: []};
-
-    showClusterTitles = !$selectedDatum && selectedGroup && selectedGroup.show;
-    showLabels = !$selectedDatum && selectedColor && selectedColor.show && selectedGroup.name !== selectedColor.name;
+    
+    showClusterTitles = !$selectedDatum && selectedGroup.show;
+    showLabels = !$selectedDatum && selectedColor.show && selectedGroup.name !== selectedColor.name;
+    
+    const clustersData = batchLayoutClusters(selectedGroup, selectedColor, data, $radiusScale);
+    renderedData = layoutBar(clustersData, width, height, drawMargin, $dir, showLabels);
   }
 
   $: if ($selectedDatum) $hoveredDatum = null;
