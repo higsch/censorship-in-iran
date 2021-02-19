@@ -48,6 +48,7 @@
     margin: 0;
     padding: 0;
     font-family: var(--font);
+    opacity: 1;
     box-sizing: border-box;
   }
 

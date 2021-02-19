@@ -10,6 +10,7 @@
   import { twitter, square } from 'svelte-awesome/icons';
 
   export let datum;
+  export let topOffset = 0;
 
   const _url = 'https://journalismisnotacrime.com/media/profile/nasrin_vaziri.jpg.400x400_q85_bw_crop.jpg';
   const dispatch = createEventDispatcher();
@@ -22,7 +23,7 @@
 
 <div
   class="profile"
-  use:css={{background, backgroundTransparent: `${background}00`, color: defaultColor, yellow}}
+  use:css={{background, backgroundTransparent: `${background}00`, color: defaultColor, yellow, topOffset: `${topOffset}px`}}
   on:click={closeProfile}
   transition:fade={{duration: 200}}
 >
@@ -75,7 +76,7 @@
           class="sidebar"
           class:center={!datum[$addLocale('intro')] && !datum[$addLocale('bio')]}  
         >
-          {#if (datum[$addLocale('career')] && datum[$addLocale('career')].toLowerCase() !== datum.occupation.toLowerCase())}
+          {#if (datum[$addLocale('career')])}
             <li class="career">
               <h3>{$t('other.career')}</h3>
               <p>{datum[$addLocale('career')]}</p>
@@ -135,9 +136,9 @@
       </div>
       <div class="profile-footer">
         {#if (datum.last_updated)}
-          <p>Last updated: {formatDate(datum.last_updated)}</p>
+          <p>{$t('profile.last_updated')} {formatDate(datum.last_updated)}</p>
         {:else if (datum.modified_date)}
-          <p>Last modified: {formatDate(datum.modified_date)}</p>
+          <p>{$t('profile.last_modified')} {formatDate(datum.modified_date)}</p>
         {/if}
       </div>
     </div>
@@ -187,7 +188,7 @@
     height: 90%;
     max-height: 90%;
     margin: 0 auto;
-    padding: 4em 0 0 0;
+    padding: calc(2em + var(--topOffset)) 0 0 0;
     color: var(--color);
     border: none;
     border-radius: 0.2em;

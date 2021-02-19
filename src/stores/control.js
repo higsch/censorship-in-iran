@@ -89,7 +89,7 @@ const createControl = (initData, initColorPalette = false) => {
 
   const reset = () => update((d) => ({...d, selected: false}));
 
-  const select = (name, force) => {
+  const select = (name, force = false) => {
     update((s) => {
       let tmpName = 'none';
       const { name: currentName } = s.find((d) => d.selected) || {};

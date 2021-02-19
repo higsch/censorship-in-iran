@@ -1,11 +1,8 @@
 <script>
   import { groupControl, colorControl } from '../../stores/control';
-  import { background } from '../../utils/colors';
-  import { css } from '../../actions/css';
+  import { hoveredLabel, selectedDatum } from '../../stores/selection';
 
   import ControlButton from './ControlButton.svelte';
-
-  export let height = 0;
 
   let buttonArray = [];
 
@@ -23,6 +20,8 @@
         colorControl.select(name, true);
         break;
     }
+    hoveredLabel.set(null);
+    selectedDatum.set(null);
   }
 
   $: buttonArray = [...new Set([...$groupControl, ...$colorControl].filter((d) => d.show).map((d) => d.name))];
@@ -30,8 +29,6 @@
 
 <div
   class="control-pane"
-  bind:clientHeight={height}
-  use:css={{background}}
 >
   <div class="color-control-buttons">
     {#each buttonArray as controlName, i (controlName)}
@@ -48,16 +45,13 @@
 
 <style>
   .control-pane {
-    position: absolute;
-    left: 0;
-    top: 0;
-    z-index: 100;
+    position: relative;
     display: flex;
     flex-direction: column;
     align-items: center;
     justify-content: center;
     width: 100%;
-    margin: 0 0 0.5em 0;
+    margin: 0.5em 0;
   }
 
   .control-pane > div {
@@ -65,10 +59,5 @@
     align-items: center;
     justify-content: center;
     padding: 0 3em 1.1em 3em;
-    background-color: var(--background);
-    opacity: 0.8;
-    border: none;
-    border-bottom-left-radius: 0.2em;
-    border-bottom-right-radius: 0.2em;
   }
 </style>

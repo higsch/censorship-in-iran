@@ -5,6 +5,7 @@
   import { hoveredDatum, selectedDatum } from '../stores/selection';
   import { dir } from '../stores/i18n';
 
+  import TitleBar from './TitleBar/TitleBar.svelte';
   import ControlPane from './Controls/ControlPane.svelte';
   import RosettesBackground from './Rosettes/RosettesBackground.svelte';
   import RosettesCanvasPane from './Rosettes/RosettesCanvasPane.svelte';
@@ -16,7 +17,7 @@
 
   let width = 0;
   let height = 0;
-  let controlPaneHeight = 0;
+  let headerHeight = 0;
   let renderedData = [];
   let showClusterTitles = true;
   let showLabels = false;
@@ -32,7 +33,7 @@
   $: radiusScale.set(createRadiusScale(maxDim));
 
   $: drawMargin = {
-      top: controlPaneHeight,
+      top: headerHeight + 10,
       right: 0,
       bottom: 0,
       left: 0
@@ -57,9 +58,15 @@
 <div
   class="visualization-wrapper"
 >
-  <ControlPane
-    bind:height={controlPaneHeight}
-  />
+  <div
+    class="visualization-header"
+    bind:clientHeight={headerHeight}  
+  >
+    <TitleBar
+      data={data}
+    />
+    <ControlPane />
+  </div>
   <div
     class="draw-wrapper"
     bind:clientWidth={width}
@@ -87,6 +94,7 @@
     {#if ($selectedDatum)}
       <Profile
         datum={$selectedDatum.d}
+        topOffset={headerHeight}
         on:close={handleProfileClose}
       />
     {/if}
@@ -100,6 +108,14 @@
     flex-direction: column;
     width: 100%;
     height: 100%;
+  }
+
+  .visualization-header {
+    position: absolute;
+    top: 0;
+    left: 0;
+    z-index: 100;
+    width: 100%;
   }
 
   .draw-wrapper {

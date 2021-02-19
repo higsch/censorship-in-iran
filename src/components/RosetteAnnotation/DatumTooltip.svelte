@@ -71,7 +71,7 @@
       class="tooltip-footer"
     >
       <p>
-        Click to read more.
+        {$t('tooltip.click_to_read_more')}
       </p>
     </div>
   </div>
