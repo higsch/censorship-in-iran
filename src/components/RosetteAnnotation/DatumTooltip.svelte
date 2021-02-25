@@ -1,5 +1,7 @@
 <script>
   import { fade } from 'svelte/transition';
+  import { tweened } from 'svelte/motion';
+  import { cubicOut } from 'svelte/easing';
   import { t, locale } from '../../stores/i18n';
   import { css } from '../../actions/css';
   import { background, defaultColor } from '../../utils/colors';
@@ -19,12 +21,18 @@
     bottom: 10,
     left: 10
   };
+
   const _url = 'https://journalismisnotacrime.com/media/profile/nasrin_vaziri.jpg.400x400_q85_bw_crop.jpg';
+
+  const leftPos = tweened(null, {
+    duration: 300,
+    easing: cubicOut
+  });
 
   $: ({ d: datum, pos } = tooltip);
 
   $: yOffset = Math.min(50, parentHeight / 10);
-  $: leftPos = Math.min(parentWidth - width - margin.right, Math.max(margin.left, pos.x - width / 2));
+  $: $leftPos = Math.min(parentWidth - width - margin.right, Math.max(margin.left, pos.x - width / 2));
   $: topPos = pos.y + (parentHeight / 2 < pos.y ? -height - yOffset / 2 : yOffset);
 
   $: if (selectedColor) {
@@ -34,7 +42,7 @@
 
 <div
   class="province-tooltip"
-  use:css={{left: `${leftPos}px`, top: `${topPos}px`, defaultColor, defaultColorTransparent: `${defaultColor}00`, color, background}}
+  use:css={{left: `${$leftPos}px`, top: `${topPos}px`, defaultColor, defaultColorTransparent: `${defaultColor}00`, color, background}}
   bind:clientWidth={width}
   bind:clientHeight={height}
   transition:fade={{duration: 200}}

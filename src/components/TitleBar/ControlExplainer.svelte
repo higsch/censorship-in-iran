@@ -9,7 +9,7 @@ import TitleBar from './TitleBar.svelte';
 
 <div
   class="control-explainer"
-  use:css={{defaultColor, squareOffsetX: document.dir === 'ltr' ? '-0.2em' : '0.2em'}}
+  use:css={{defaultColor}}
 >
   <p class="grouping">{$t('titlebar.controlexplainer.square')}<span class="turned"><Diamond color={defaultColor} hoverEnabled={false} /></span>.</p><p>{$t('titlebar.controlexplainer.diamond')}<span><Diamond color={yellow} hoverEnabled={false} /></span>.</p>
 </div>
@@ -41,6 +41,6 @@ import TitleBar from './TitleBar.svelte';
   }
 
   .turned {
-    transform: rotate(45deg) translateX(var(--squareOffsetX)) translateY(0.3em);
+    transform: rotate(45deg) translateX(0.2em) translateY(0.3em);
   }
 </style>

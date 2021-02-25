@@ -28,7 +28,7 @@ const groupingInit = [
   }
 ].map((d, i) => ({
   ...d,
-  selected: d.name === 'none',
+  selected: d.name === 'status',
   show: d.name !== 'none',
   values: [],
   id: i

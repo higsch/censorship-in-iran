@@ -31,6 +31,8 @@
   $: x.set(cluster.xAbsolute - 2 * Math.max(cluster.data[0].r * 3, cluster.r));
   $: y.set(cluster.yAbsolute - cluster.r - 2 * cluster.data[0].r);
   $: h2bottom.set(2 * cluster.r + 2 * cluster.data[0].r);
+
+  $: number = cluster.data.filter((d) => d.draw).length;
 </script>
 
 <div
@@ -45,9 +47,11 @@
   <h2
     transition:fade
   >
-    <span class="number">
-      {cluster.data.filter((d) => d.draw).length}
-    </span>
+    {#if (number > 0)}
+      <span class="number">
+        {number}
+      </span>
+    {/if}
     <span class="description">
       {$t(`groupingvalues.${groupControlName}.${cluster.name}`)}
     </span>
@@ -69,11 +73,11 @@
     bottom: var(--h2bottom);
     width: 100%;
     font-family: var(--font);
-    font-size: 0.9em;
+    font-size: 0.8em;
     font-weight: 300;
     text-align: center;
     color: var(--textColor);
-    opacity: 0.5;
+    opacity: 0.7;
   }
 
   span {
@@ -82,5 +86,9 @@
 
   span.number {
     font-weight: 500;
+  }
+
+  span.description {
+    white-space: pre;
   }
 </style>
