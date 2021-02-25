@@ -23,11 +23,17 @@
 
 <div
   class="profile"
-  use:css={{background, backgroundTransparent: `${background}00`, color: defaultColor, yellow, topOffset: `${topOffset}px`}}
+  use:css={{background,
+            backgroundTransparent: `${background}00`,
+            color: defaultColor, yellow,
+            topOffset: `${topOffset}px`,
+            decreasedTopOffset: `${topOffset / 1.3}px`,
+            increasedTopOffset: `${topOffset * 1.3}px`}}
   on:click={closeProfile}
   transition:fade={{duration: 200}}
 >
-<div class="profile-content-overlay"></div>
+  <div class="profile-content-overlay"></div>
+  <div class="profile-content-reduced-overlay"></div>
   <div class="profile-content-scroll-wrapper">
     <div class="profile-content">
       <div class="profile-header">
@@ -174,7 +180,28 @@
     z-index: 70;
     width: 100%;
     height: 100%;
-    background: linear-gradient(var(--backgroundTransparent) 0%, var(--backgroundTransparent) 80%, var(--background) 90%);
+    background: linear-gradient(
+                  var(--backgroundTransparent) 0%,
+                  var(--backgroundTransparent) 80%,
+                  var(--background) 90%
+                );
+    pointer-events: none;
+  }
+
+  .profile-content-reduced-overlay {
+    position: absolute;
+    top: 0;
+    z-index: 80;
+    width: 100%;
+    max-width: 820px;
+    height: 100%;
+    margin: 0 auto;
+    background: linear-gradient(
+                  var(--background) 0%,
+                  var(--background) var(--decreasedTopOffset),
+                  var(--backgroundTransparent) var(--increasedTopOffset),
+                  var(--backgroundTransparent) 100%
+                );
     pointer-events: none;
   }
 

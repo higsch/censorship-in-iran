@@ -52,10 +52,11 @@
         class="info-title"
         on:click={handleClick}
       >
-        <h2>
+        <h3>
+          <span>{$t('titlebar.infotitles.explore')}</span>
           <span>{title.number}</span>
-          <span>{$t(`infotitles.${title.text}`)}</span>
-        </h2>
+          <span>{$t(`titlebar.infotitles.${title.text}`)}</span>
+        </h3>
       </div>
     {/key}
   {/if}
@@ -71,16 +72,17 @@
   .info-title {
     width: 100%;
     cursor: pointer;
+    transition: color 0.2s;
   }
 
   .info-title:hover {
     color: var(--yellow);
   }
 
-  .info-title h2 {
+  .info-title h3 {
     width: 100%;
-    font-size: 1.4em;
-    font-weight: 400;
+    font-size: 1em;
+    font-weight: 300;
     text-align: center;
   }
 </style>

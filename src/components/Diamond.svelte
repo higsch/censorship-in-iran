@@ -5,12 +5,14 @@
   export let fillOpacity = 1.0;
   export let strokeWidth = '0.6em';
   export let filled = false;
+  export let hoverEnabled = true;
 
   const margin = 10;
 </script>
 
 <svg
   viewBox="{-margin} {-margin} {100 + 2 * margin} {100 + 2 * margin}"
+  class:hoverEnabled
   use:css={{color, strokeWidth, fill: color, fillOpacity: filled ? fillOpacity : 0.0}}
 >
   <path
@@ -26,7 +28,7 @@
     fill-opacity: var(--fillOpacity);
   }
 
-  svg:hover path {
+  svg.hoverEnabled:hover path {
     fill-opacity: 0.5;
   }
 </style>

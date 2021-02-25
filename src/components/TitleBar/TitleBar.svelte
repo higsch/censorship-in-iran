@@ -1,7 +1,10 @@
 <script>
   import { groupControl, colorControl } from '../../stores/control';
   import { hoveredLabel } from '../../stores/selection';
+  import { defaultColor, background } from '../../utils/colors';
+  import { css } from '../../actions/css';
 
+  import Heading from './Heading.svelte';
   import ControlExplainer from './ControlExplainer.svelte';
   import InfoTitles from './InfoTitles.svelte';
 
@@ -30,13 +33,17 @@
 
 <div
   class="title-bar"
+  use:css={{defaultColor, background}}
 >
   <div class="title-bar-content">
+    <Heading />
+    <!-- <div class="separator"></div> -->
     <ControlExplainer />
     <InfoTitles
       data={data}
       on:click={handleInfoTitlesClick}
     />
+    <div class="separator"></div>
   </div>
 </div>
 
@@ -47,10 +54,26 @@
 
   .title-bar-content {
     display: flex;
+    flex-direction: column;
     width: 100%;
     max-width: 1000px;
     height: 100%;
     margin: 0 auto;
-    padding: 0 2em;
+    padding: 0.3em 2em;
+    font-size: 0.9em;
+  }
+
+  .separator {
+    width: 70%;
+    max-width: 400px;
+    height: 1px;
+    margin: 0.3em auto 0 auto;
+    background: linear-gradient(
+                  90deg,
+                  var(--background) 0%,
+                  var(--defaultColor) 10%,
+                  var(--defaultColor) 90%,
+                  var(--background) 100%
+                );
   }
 </style>
