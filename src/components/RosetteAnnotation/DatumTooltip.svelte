@@ -9,10 +9,12 @@
   export let tooltip;
   export let parentWidth = 0;
   export let parentHeight = 0;
+  export let selectedGroup;
   export let selectedColor;
 
   let width = 0;
   let height = 0;
+  let headerGroup, headerColor;
   let color = background;
 
   const margin = {
@@ -35,7 +37,18 @@
   $: $leftPos = Math.min(parentWidth - width - margin.right, Math.max(margin.left, pos.x - width / 2));
   $: topPos = pos.y + (parentHeight / 2 < pos.y ? -height - yOffset / 2 : yOffset);
 
+  $: if (selectedGroup) {
+    headerGroup = null;
+    if (selectedGroup.name !== 'none' && datum[selectedGroup.name] !== 'unknown') {
+      headerGroup = $t(`groupingvalues.${selectedGroup.name}.${datum[selectedGroup.name]}`);
+    }
+  }
+
   $: if (selectedColor) {
+    headerColor = null;
+    if (selectedColor.name !== 'none' && datum[selectedColor.name] !== 'unknown') {
+      headerColor = $t(`groupingvalues.${selectedColor.name}.${datum[selectedColor.name]}`);
+    }
     ({ color } = selectedColor.values.find((d) => d.value === datum[selectedColor.name]));
   }
 </script>
@@ -57,14 +70,22 @@
         <h2>
           {datum[`name_${$locale}`]}
         </h2>
-        <p>
-          {datum.status === 'unknown' ? 'Status unknown' : $t(`groupingvalues.status.${datum.status}`)}
-        </p>
+        {#if (headerGroup)}
+          <p>
+            {headerGroup}
+          </p>
+        {/if}
+        {#if (headerColor)}
+          <p>
+            {headerColor}
+          </p>
+        {/if}
       </div>
       <div class="title-image">
         <img src={_url} alt="Profile image of {datum.name_en}" />
       </div>
     </div>
+    <div class="separator"></div>
     <div
       class="tooltip-body"
     >
@@ -115,7 +136,6 @@
     display: flex;
     justify-content: space-between;
     padding: 0.2em 0;
-    border-bottom: 0.17em solid var(--color);
   }
 
   .title-text {
@@ -140,6 +160,12 @@
 
   .tooltip-title p {
     font-size: 0.85em;
+  }
+
+  .separator {
+    width: 100%;
+    height: 2px;
+    background-color: var(--color);
   }
 
   .tooltip-body {

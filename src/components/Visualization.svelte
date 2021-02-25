@@ -94,6 +94,7 @@
         tooltip={$hoveredDatum}
         parentWidth={width}
         parentHeight={height}
+        selectedGroup={selectedGroup}
         selectedColor={selectedColor}
       />
     {/if}
