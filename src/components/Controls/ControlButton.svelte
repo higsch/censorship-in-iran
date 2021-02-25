@@ -148,7 +148,7 @@
   }
 
   .grouping-button.ltr .color-explanation-line {
-    left: 2.2em;
+    left: 2.6em;
     border-left: 1px solid var(--color2);
   }
 
