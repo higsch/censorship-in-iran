@@ -81,9 +81,16 @@
   }
 
   .info-title h3 {
+    display: flex;
+    align-items: center;
+    justify-content: center;
     width: 100%;
     font-size: 1em;
     font-weight: 300;
     text-align: center;
+  }
+
+  .info-title h3 span {
+    margin: 0 0.2em;
   }
 </style>

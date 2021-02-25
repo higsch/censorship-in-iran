@@ -1,19 +1,24 @@
 <script>
   import { defaultColor, yellow } from '../../utils/colors';
   import { css } from '../../actions/css';
+  import { t } from '../../stores/i18n';
 
   import Diamond from '../Diamond.svelte';
+import TitleBar from './TitleBar.svelte';
 </script>
 
 <div
   class="control-explainer"
-  use:css={{defaultColor}}
+  use:css={{defaultColor, squareOffsetX: document.dir === 'ltr' ? '-0.2em' : '0.2em'}}
 >
-  <p class="grouping">Create rosettes with the square <span class="turned"><Diamond color={defaultColor} hoverEnabled={false} /></span>and color them with the diamond <span><Diamond color={yellow} hoverEnabled={false} /></span>.</p>
+  <p class="grouping">{$t('titlebar.controlexplainer.square')}<span class="turned"><Diamond color={defaultColor} hoverEnabled={false} /></span>.</p><p>{$t('titlebar.controlexplainer.diamond')}<span><Diamond color={yellow} hoverEnabled={false} /></span>.</p>
 </div>
 
 <style>
   .control-explainer {
+    display: flex;
+    align-items: center;
+    justify-content: center;
     width: 100%;
     height: 100%;
     color: var(--defaultColor);
@@ -21,7 +26,7 @@
   }
 
   p {
-    width: 100%;
+    margin: 0 0.2em;
     font-size: 1em;
     font-weight: 300;
     text-align: center;
@@ -36,6 +41,6 @@
   }
 
   .turned {
-    transform: rotate(45deg) translateX(0.2em) translateY(0.3em);
+    transform: rotate(45deg) translateX(var(--squareOffsetX)) translateY(0.3em);
   }
 </style>

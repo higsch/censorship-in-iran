@@ -23,6 +23,8 @@
 
 <div
   class="grouping-button"
+  class:ltr={$dir === 'ltr'}
+  class:rtl={$dir === 'rtl'}
   use:css={{color1: defaultColor, color2: yellow}}
 >
   <div
@@ -95,6 +97,7 @@
 
   .name {
     margin: 0 0.2rem;
+    white-space: pre;
   }
 
   .turned {
@@ -109,11 +112,19 @@
   .group-explanation-line {
     position: absolute;
     display: inline-block;
-    left: 0.6em;
     width: 0.5em;
     height: 0.5em;
-    border-right: 1px solid var(--color1);
     border-bottom: 1px solid var(--color1);
+  }
+
+  .grouping-button.ltr .group-explanation-line {
+    left: 0.6em;
+    border-right: 1px solid var(--color1);
+  }
+
+  .grouping-button.rtl .group-explanation-line {
+    right: 0.5em;
+    border-left: 1px solid var(--color1);
   }
 
   .group-explanation-label {
@@ -124,14 +135,26 @@
     font-size: 0.8em;
   }
 
+  .grouping-button.rtl .group-explanation-label {
+    right: -4.3em;
+  }
+
   .color-explanation-line {
     position: absolute;
     display: inline-block;
-    left: 2.6em;
     width: 0.5em;
     height: 0.5em;
-    border-left: 1px solid var(--color2);
     border-bottom: 1px solid var(--color2);
+  }
+
+  .grouping-button.ltr .color-explanation-line {
+    left: 2.2em;
+    border-left: 1px solid var(--color2);
+  }
+
+  .grouping-button.rtl .color-explanation-line {
+    right: 2.55em;
+    border-right: 1px solid var(--color2);
   }
 
   .color-explanation-label {
@@ -140,5 +163,9 @@
     left: 0.7em;
     color: var(--color2);
     font-size: 0.8em;
+  }
+
+  .grouping-button.rtl .color-explanation-label {
+    right: 0.7em;
   }
 </style>
