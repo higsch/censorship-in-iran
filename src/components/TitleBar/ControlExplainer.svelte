@@ -17,6 +17,7 @@
     width: 100%;
     height: 100%;
     color: var(--defaultColor);
+    opacity: 0.7;
   }
 
   p {

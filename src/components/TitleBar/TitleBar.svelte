@@ -37,7 +37,6 @@
 >
   <div class="title-bar-content">
     <Heading />
-    <!-- <div class="separator"></div> -->
     <ControlExplainer />
     <InfoTitles
       data={data}
@@ -65,7 +64,7 @@
 
   .separator {
     width: 70%;
-    max-width: 400px;
+    max-width: 200px;
     height: 1px;
     margin: 0.3em auto 0 auto;
     background: linear-gradient(

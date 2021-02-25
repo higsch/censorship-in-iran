@@ -67,6 +67,7 @@
     width: 100%;
     margin: 0.5em 0;
     color: var(--defaultColor);
+    opacity: 0.7;
   }
 
   .info-title {
