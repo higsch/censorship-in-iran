@@ -78,9 +78,7 @@
     bind:clientWidth={width}
     bind:clientHeight={height}
   >
-    <RosettesBackground
-      data={renderedData}
-    />
+    <RosettesBackground />
     <RosettesCanvasPane
       data={renderedData}
     />

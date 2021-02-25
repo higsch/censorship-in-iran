@@ -1,5 +1,4 @@
 <script>
-  export let data = [];
 </script>
 
 <div class="rosette-background"></div>

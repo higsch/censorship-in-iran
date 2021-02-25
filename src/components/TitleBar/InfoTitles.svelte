@@ -7,7 +7,6 @@
   import titles from '../../inputs/infoTitles';
 
   export let data = [];
-  export let interval = 3000;
 
   const dispatch = createEventDispatcher();
 
