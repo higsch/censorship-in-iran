@@ -49,7 +49,7 @@
   .label-text {
     display: flex;
     padding: 0.3rem 0.1rem;
-    font-size: 0.9rem;
+    font-size: 0.8rem;
     color: #DAE2F5;
     pointer-events: all;
     user-select: none;

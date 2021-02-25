@@ -50,6 +50,8 @@
     </span>
     <span
       class="name"
+      class:grouped={groupControl.selected}
+      class:colored={colorControl.selected}
       on:click={() => handleClick('all')}  
     >
       {$t(`grouping.${name}`)}
@@ -97,7 +99,16 @@
 
   .name {
     margin: 0 0.2rem;
+    font-weight: 300;
     white-space: pre;
+  }
+
+  .name.grouped {
+    text-shadow: 0px 0px 0.1em var(--color1);
+  }
+
+  .name.colored {
+    color: var(--color2);
   }
 
   .turned {
@@ -133,6 +144,7 @@
     right: 0.7em;
     color: var(--color1);
     font-size: 0.8em;
+    font-weight: 300;
   }
 
   .grouping-button.rtl .group-explanation-label {
@@ -163,6 +175,7 @@
     left: 0.7em;
     color: var(--color2);
     font-size: 0.8em;
+    font-weight: 300;
   }
 
   .grouping-button.rtl .color-explanation-label {
