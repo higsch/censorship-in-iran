@@ -1,5 +1,5 @@
 <script>
-  import { hoveredLabel } from '../../stores/selection';
+  import { hoveredLabel, hoveredClusterId } from '../../stores/selection';
   import { groupControl, colorControl } from '../../stores/control';
   import { defaultColor } from '../../utils/colors';
 
@@ -43,6 +43,7 @@
         cluster={cluster}
         groupControlName={groupControlName}
         textColor={defaultColor}
+        hovered={$hoveredClusterId !== null && $hoveredClusterId === cluster.id}
       />
     {/each}
   {/if}

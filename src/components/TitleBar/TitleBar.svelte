@@ -13,7 +13,6 @@
   function handleInfoTitlesClick(e) {
     const { detail: { selectGroup, selectColor, hoverColor } = {} } = e || {};
 
-    console.log($groupControl.find((d) => d.selected))
     if (selectGroup && selectGroup !== $groupControl.find((d) => d.selected).name) {
       groupControl.select(selectGroup);
     }

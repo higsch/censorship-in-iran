@@ -3,11 +3,12 @@
   import { cubicOut } from 'svelte/easing';
   import { fade } from 'svelte/transition';
   import { css } from '../../actions/css';
-  import { t, dir } from '../../stores/i18n';
+  import { t } from '../../stores/i18n';
 
   export let cluster;
   export let groupControlName = 'none';
   export let textColor = '#FFFFFF';
+  export let hovered = false;
 
   const movingDuration = 1000;
 
@@ -37,6 +38,7 @@
 
 <div
   class="rosette-title"
+  class:hovered
   use:css={{left: `${$x}px`,
             top: `${$y}px`,
             width: `${width}px`,
@@ -78,6 +80,11 @@
     text-align: center;
     color: var(--textColor);
     opacity: 0.7;
+    transition: opacity 0.2s;
+  }
+
+  .rosette-title.hovered h2 {
+    opacity: 1.0;
   }
 
   span {
@@ -86,9 +93,5 @@
 
   span.number {
     font-weight: 500;
-  }
-
-  span.description {
-    white-space: pre;
   }
 </style>

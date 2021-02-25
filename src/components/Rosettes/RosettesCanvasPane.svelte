@@ -25,6 +25,7 @@
       const d = cluster.data[index];
       return {
         d,
+        clusterId: cluster.id,
         pos: {
           x: d.x + cluster.xAbsolute,
           y: d.y + cluster.yAbsolute
