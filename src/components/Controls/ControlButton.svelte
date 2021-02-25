@@ -60,10 +60,10 @@
   {#if (showExplanation)}
     <div class="explanation">
       <span class="group-explanation-line">
-        <span class="group-explanation-label">Grouping</span>
+        <span class="group-explanation-label">{$t('controlpane.grouping')}</span>
       </span>
       <span class="color-explanation-line">
-        <span class="color-explanation-label">Coloring</span>
+        <span class="color-explanation-label">{$t('controlpane.coloring')}</span>
       </span>
     </div>
   {/if}
