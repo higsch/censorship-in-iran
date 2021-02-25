@@ -26,7 +26,11 @@
   let selectedColor;
 
   function handleProfileClose() {
-    $selectedDatum = null;
+    selectedDatum.set(null);
+  }
+
+  function handleKeydown(e) {
+    if (e.keyCode === 27) handleProfileClose();
   }
 
   $: maxDim = Math.min(2000, Math.max(width, height));
@@ -54,6 +58,8 @@
 
   $: if ($selectedDatum) $hoveredDatum = null;
 </script>
+
+<svelte:window on:keydown={handleKeydown}/>
 
 <div
   class="visualization-wrapper"
