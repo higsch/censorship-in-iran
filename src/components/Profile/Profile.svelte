@@ -4,7 +4,7 @@
   import { fade } from 'svelte/transition';
   import { css } from '../../actions/css';
   import { background, defaultColor, yellow } from '../../utils/colors';
-  import { addLocale, t } from '../../stores/i18n';
+  import { addLocale, t, locale } from '../../stores/i18n';
 
   import Icon from 'svelte-awesome';
   import { twitter, square } from 'svelte-awesome/icons';
@@ -142,9 +142,9 @@
       </div>
       <div class="profile-footer">
         {#if (datum.last_updated)}
-          <p>{$t('profile.last_updated')} {formatDate(datum.last_updated)}</p>
+          <p>{$t('profile.last_updated')} {datum.last_updated.toLocaleDateString($locale + '-GB')}</p>
         {:else if (datum.modified_date)}
-          <p>{$t('profile.last_modified')} {formatDate(datum.modified_date)}</p>
+          <p>{$t('profile.last_modified')} {datum.modified_date.toLocaleDateString($locale + '-GB')}</p>
         {/if}
       </div>
     </div>
