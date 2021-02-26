@@ -6,7 +6,7 @@
   <Component
     dataPath="data/data.csv"
     dictionaryPath="data/dictionary.json"
-    locale="fa"
+    locale="en"
   />
 </div>
 
