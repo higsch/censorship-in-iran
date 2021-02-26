@@ -9,12 +9,18 @@
   import { css } from './actions/css';
 
   import Visualization from './components/Visualization.svelte';
+  import LocaleSelector from './components/LocaleSelector.svelte';
 
   export let dataPath = 'data/data.csv';
   export let dictionaryPath = 'data/dictionary.json';
   export let locale = 'en';
 
   let data = [];
+
+  function selectLocale(e) {
+    const { detail: selectedLocale } = e;
+    localeStore.set(selectedLocale);
+  }
 
   onMount(() => {
     localeStore.set(locale);
@@ -36,10 +42,15 @@
 <div
   class="component-wrapper"
   use:css={{backgroundColor: background,
-            font: 'Roboto, Helvetica, Arial, sans-serif'}}
+            font: 'Roboto, Helvetica, Arial, sans-serif',
+            fontSize: locale === 'fa' ? '18px' : '16px'}}
 >
   <Visualization
     data={data.map((d, i) => ({...d, id: i}))}
+  />
+  <LocaleSelector
+    locale={$localeStore}
+    on:localeselected={selectLocale}
   />
 </div>
 
@@ -55,7 +66,7 @@
   .component-wrapper {
     width: 100%;
     height: 100%;
-    font-size: 16px;
+    font-size: var(--fontSize);
     background-color: var(--backgroundColor);
     overflow: hidden;
   }

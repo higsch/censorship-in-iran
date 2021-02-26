@@ -148,7 +148,8 @@
   }
 
   .grouping-button.rtl .group-explanation-label {
-    right: -4.3em;
+    left: 0.9em;
+    right: auto;
   }
 
   .color-explanation-line {
@@ -179,6 +180,7 @@
   }
 
   .grouping-button.rtl .color-explanation-label {
-    right: 0.7em;
+    left: auto;
+    right: 0.9em;
   }
 </style>
