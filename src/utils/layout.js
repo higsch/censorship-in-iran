@@ -1,6 +1,7 @@
 import { Delaunay, rollups } from 'd3';
 import { forceSimulation, forceRadial } from 'd3-force';
 import { summitSort } from './math';
+import { statusOrder } from '../inputs/orders';
 
 const goldenRatio = (1 + Math.sqrt(5)) / 2;
 const irrational2 = 1 + Math.sqrt(2);
@@ -73,10 +74,15 @@ const sortClusterDataByCategoryN = (data, selectedColor) => {
 
   const { name } = selectedColor;
   if (!name) return data;
-
-  const orderedCategories = rollups(data, (d) => d.length, (d) => d[name])
-    .sort((a, b) => a[1] > b[1] ? 1 : -1)
-    .map((d) => d[0]);
+  
+  let orderedCategories = [];
+  if (name === 'status') {
+    orderedCategories = statusOrder;
+  } else {
+    orderedCategories = rollups(data, (d) => d.length, (d) => d[name])
+      .sort((a, b) => a[1] > b[1] ? 1 : -1)
+      .map((d) => d[0]);
+  }
   
   const orderedData = orderedCategories.reduce((acc, cur) => {
     const filteredData = data.filter((d) => d[name] === cur);

@@ -45,13 +45,20 @@
           n: d[1],
           color
         };
-      })
-      .sort((a, b) => a.n < b.n ? 1 : -1);
+      });
+      // .sort((a, b) => a.n < b.n ? 1 : -1);
+      
+    const colorOrder = [...new Set(cluster.data.map((d) => d[colorControlName]))].reverse();
+
+    const allLabelsSorted = colorOrder.reduce((acc, cur) => {
+      const filteredData = allLabels.filter((d) => d.valueName === cur);
+      return [...acc, ...filteredData];
+    }, []);
     
     let otherLabel = [];
     const maxLabels = Math.max(5, cluster.length / 40);
-    if (allLabels.length > maxLabels) {
-      const lastLabels = allLabels.splice(maxLabels);
+    if (allLabelsSorted.length > maxLabels) {
+      const lastLabels = allLabelsSorted.splice(maxLabels);
       otherLabel = [{
         name: controlName,
         valueName: 'other',
@@ -61,7 +68,7 @@
       }];
     }
     
-    labels = [...allLabels, ...otherLabel];
+    labels = [...allLabelsSorted, ...otherLabel];
   }
 
   $: textPaneMarginHorizontal = 2 * cluster.r + cluster.xSpacing / 10;
