@@ -40,10 +40,9 @@
 </script>
 
 <div
-  class="component-wrapper"
+  class="component-wrapper {locale}"
   use:css={{backgroundColor: background,
-            font: 'Roboto, Helvetica, Arial, sans-serif',
-            fontSize: locale === 'fa' ? '18px' : '16px'}}
+            font: 'Roboto, Helvetica, Arial, sans-serif'}}
 >
   <Visualization
     data={data.map((d, i) => ({...d, id: i}))}
@@ -66,8 +65,32 @@
   .component-wrapper {
     width: 100%;
     height: 100%;
-    font-size: var(--fontSize);
+    font-size: 12px;
     background-color: var(--backgroundColor);
     overflow: hidden;
+  }
+
+  @media (min-width: 600px) {
+    .component-wrapper {
+      font-size: 15px;
+    }
+  }
+
+  @media (min-width: 980px) {
+    .component-wrapper {
+      font-size: 17px;
+    }
+  }
+
+  @media (min-width: 1260px) {
+    .component-wrapper {
+      font-size: 18px;
+    }
+  }
+
+  @media (min-width: 1950px) {
+    .component-wrapper {
+      font-size: 20px;
+    }
   }
 </style>
