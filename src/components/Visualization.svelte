@@ -33,7 +33,7 @@
     if (e.keyCode === 27) handleProfileClose();
   }
 
-  $: maxDim = Math.min(2000, Math.max(width, height));
+  $: maxDim = Math.sqrt(width * height);
   $: radiusScale.set(createRadiusScale(maxDim));
 
   $: drawMargin = {

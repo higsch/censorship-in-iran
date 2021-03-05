@@ -7,7 +7,8 @@
 
   export let cluster;
   export let groupControlName = 'none';
-  export let textColor = '#FFFFFF';
+  export let textColor = '#000000';
+  export let backgroundColor = '#FFFFFF';
   export let hovered = false;
 
   const movingDuration = 1000;
@@ -44,7 +45,8 @@
             width: `${width}px`,
             height: `${height}px`,
             h2bottom: `${$h2bottom}px`,
-            textColor}}
+            textColor,
+            backgroundColor}}
 >
   <h2
     transition:fade
@@ -66,20 +68,25 @@
     left: var(--left);
     top: var(--top);
     z-index: 15;
+    display: flex;
+    justify-content: center;
     width: var(--width);
     height: var(--height);
   }
 
   h2 {
     position: absolute;
+    padding: 0.1em 0.4em;
     bottom: var(--h2bottom);
-    width: 100%;
     font-family: var(--font);
     font-size: 0.8em;
     font-weight: 300;
     text-align: center;
     color: var(--textColor);
     opacity: 0.7;
+    background-color: var(--backgroundColor);
+    border: none;
+    border-radius: 2px;
     transition: opacity 0.2s;
   }
 

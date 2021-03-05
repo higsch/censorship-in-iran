@@ -1,7 +1,7 @@
 <script>
   import { hoveredLabel, hoveredClusterId } from '../../stores/selection';
   import { groupControl, colorControl } from '../../stores/control';
-  import { defaultColor } from '../../utils/colors';
+  import { defaultColor, background } from '../../utils/colors';
 
   import RosetteTitle from '../RosetteAnnotation/RosetteTitle.svelte';
   import RosetteLabels from '../RosetteAnnotation/RosetteLabels.svelte';
@@ -42,7 +42,8 @@
       <RosetteTitle
         cluster={cluster}
         groupControlName={groupControlName}
-        textColor={defaultColor}
+        textColor={background}
+        backgroundColor={defaultColor}
         hovered={$hoveredClusterId !== null && $hoveredClusterId === cluster.id}
       />
     {/each}
