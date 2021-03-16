@@ -132,7 +132,8 @@ export const layoutBar = (
     margin,
     dir,
     showLabels = false,
-    minSpacing = width / 2
+    minXSpacing = width / 2,
+    maxYSpacing = 100
   ) => {
   // copy and sort data by radius
   const data = [...clustersData];
@@ -151,7 +152,7 @@ export const layoutBar = (
   let bar = createBar();
   data.forEach((cluster) => {
     const diameter = 2 * cluster.r * radiusFactor;
-    if (width - bar.occupiedWidth < diameter + minSpacing) {
+    if (width - bar.occupiedWidth < diameter + minXSpacing) {
       bars.push({...bar});
       bar = createBar();
     }
@@ -189,7 +190,7 @@ export const layoutBar = (
   });
 
   // set y coordinates
-  const ySpacing = 1.2 * (height - margin.top - margin.bottom - xBars.reduce((acc, cur) => acc + cur.maxDiameter, 0)) / xBars.length;
+  const ySpacing = Math.min(maxYSpacing, 1.2 * (height - margin.top - margin.bottom - xBars.reduce((acc, cur) => acc + cur.maxDiameter, 0)) / xBars.length);
   let y = margin.top;
   const xyBars = xBars.map((bar, i, arr) => {
     if (i === 0) {
