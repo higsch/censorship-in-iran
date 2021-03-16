@@ -80,7 +80,7 @@
 
   @media (min-width: 980px) {
     .component-wrapper {
-      font-size: 17px;
+      font-size: 16px;
     }
   }
 

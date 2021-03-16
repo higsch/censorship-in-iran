@@ -28,9 +28,9 @@
     easing: cubicOut
   });
 
-  $: width = 4 * Math.max(cluster.data[0].r * 3, cluster.r);
+  $: width = 5 * Math.max(cluster.data[0].r * 3, cluster.r);
   $: height = 2 * cluster.r + 2 * cluster.data[0].r;
-  $: x.set(cluster.xAbsolute - 2 * Math.max(cluster.data[0].r * 3, cluster.r));
+  $: x.set(cluster.xAbsolute - width / 2);
   $: y.set(cluster.yAbsolute - cluster.r - 2 * cluster.data[0].r);
   $: h2bottom.set(2 * cluster.r + 2 * cluster.data[0].r);
 
@@ -96,13 +96,15 @@
     border: none;
     border-radius: 2px;
     transition: opacity 0.2s;
+    text-shadow: 0px 0px 1px var(--backgroundColor);
   }
 
   h2.background {
     color: #000000;
     font-size: 3em;
-    opacity: 0.3;
+    opacity: 0.5;
     transform: translateY(0.4em);
+    text-shadow: none;
   }
 
   .rosette-title.hovered h2 {

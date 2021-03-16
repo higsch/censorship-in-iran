@@ -61,6 +61,7 @@
   .label-text .number {
     display: inline-block;
     min-width: 1.6rem;
+    margin-right: 0.3em;
     font-size: inherit;
     font-weight: 500;
     text-align: right;
