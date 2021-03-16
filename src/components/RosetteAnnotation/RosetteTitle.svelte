@@ -3,7 +3,7 @@
   import { cubicOut } from 'svelte/easing';
   import { fade } from 'svelte/transition';
   import { css } from '../../actions/css';
-  import { t } from '../../stores/i18n';
+  import { t, availableLanguages as languages } from '../../stores/i18n';
 
   export let cluster;
   export let groupControlName = 'none';
@@ -47,15 +47,21 @@
             h2bottom: `${$h2bottom}px`,
             textColor,
             backgroundColor}}
+  transition:fade
 >
   <h2
-    transition:fade
+    class="background"
   >
-    {#if (number > 0)}
+    {$t(`groupingvalues.${groupControlName}.${cluster.name}`, 'fa').split(' ')[0]}
+  </h2>
+  <h2
+    class="foreground"
+  >
+    <!-- {#if (number > 0)}
       <span class="number">
         {number}
       </span>
-    {/if}
+    {/if} -->
     <span class="description">
       {$t(`groupingvalues.${groupControlName}.${cluster.name}`)}
     </span>
@@ -74,20 +80,29 @@
     height: var(--height);
   }
 
+  h2, h2 span {
+    font-family: var(--font01);
+  }
+
   h2 {
     position: absolute;
     padding: 0.1em 0.4em;
     bottom: var(--h2bottom);
-    font-family: var(--font);
-    font-size: 0.8em;
+    font-size: 0.9em;
     font-weight: 300;
     text-align: center;
-    color: var(--textColor);
+    color: var(--backgroundColor);
     opacity: 0.7;
-    background-color: var(--backgroundColor);
     border: none;
     border-radius: 2px;
     transition: opacity 0.2s;
+  }
+
+  h2.background {
+    color: #000000;
+    font-size: 3em;
+    opacity: 0.3;
+    transform: translateY(0.4em);
   }
 
   .rosette-title.hovered h2 {

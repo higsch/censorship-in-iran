@@ -1,7 +1,7 @@
 <script>
-  import { defaultColor } from '../../utils/colors';
-  import { css } from '../../actions/css';
-  import { t } from '../../stores/i18n';
+  import { defaultColor } from '../utils/colors';
+  import { css } from '../actions/css';
+  import { t } from '../stores/i18n';
 </script>
 
 <div
@@ -19,7 +19,8 @@
 
   h2 {
     width: 100%;
-    font-size: 2em;
+    font-family: var(--font01);
+    font-size: 4em;
     font-weight: 500;
     text-align: center;
   }

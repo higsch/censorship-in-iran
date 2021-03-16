@@ -37,7 +37,7 @@
   $: radiusScale.set(createRadiusScale(maxDim));
 
   $: drawMargin = {
-      top: headerHeight + 25,
+      top: headerHeight + 35,
       right: 0,
       bottom: 5,
       left: 0

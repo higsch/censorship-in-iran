@@ -8,6 +8,7 @@
   import { background } from './utils/colors'; 
   import { css } from './actions/css';
 
+  import Heading from './components/Heading.svelte';
   import Visualization from './components/Visualization.svelte';
   import LocaleSelector from './components/LocaleSelector.svelte';
 
@@ -42,8 +43,10 @@
 <div
   class="component-wrapper {locale}"
   use:css={{backgroundColor: background,
-            font: 'Roboto, Helvetica, Arial, sans-serif'}}
+            font01: '"Shippori Mincho B1", serif',
+            font02: 'Roboto, Helvetica, Arial, sans-serif'}}
 >
+  <Heading />
   <Visualization
     data={data.map((d, i) => ({...d, id: i}))}
   />
@@ -57,7 +60,7 @@
   div :global(*) {
     margin: 0;
     padding: 0;
-    font-family: var(--font);
+    font-family: var(--font02);
     opacity: 1;
     box-sizing: border-box;
   }

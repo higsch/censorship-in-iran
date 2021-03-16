@@ -4,7 +4,6 @@
   import { defaultColor, background } from '../../utils/colors';
   import { css } from '../../actions/css';
 
-  import Heading from './Heading.svelte';
   import ControlExplainer from './ControlExplainer.svelte';
   import InfoTitles from './InfoTitles.svelte';
 
@@ -35,7 +34,6 @@
   use:css={{defaultColor, background}}
 >
   <div class="title-bar-content">
-    <Heading />
     <ControlExplainer />
     <InfoTitles
       data={data}

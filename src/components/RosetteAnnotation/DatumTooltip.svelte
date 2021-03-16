@@ -122,7 +122,7 @@
     height: 100%;
     padding: 0.6em;
     color: var(--background);
-    font-family: var(--font);
+    font-family: var(--font02);
     background-color: var(--defaultColor);
     border: none;
     border-radius: 0.2em;

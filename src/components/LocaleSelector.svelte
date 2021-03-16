@@ -1,23 +1,21 @@
 <script>
   import { createEventDispatcher } from 'svelte';
+  import { availableLanguages as languages } from '../stores/i18n';
 
   export let locale = 'en';
 
   const dispatch = createEventDispatcher();
-  const languages = {
-    en: 'English',
-    fa: 'فارسی'
-  };
 
   function handleClick(selectedLocale) {
     dispatch('localeselected', selectedLocale);
   }
 
-  $: otherLocale = Object.keys(languages).find((d) => d !== locale);
+  $: console.log($languages)
+  $: otherLocale = Object.keys($languages).find((d) => d !== locale);
 </script>
 
 <div class="locale-selector">
-  <button on:click={() => handleClick(otherLocale)}>{languages[otherLocale]}</button>
+  <button on:click={() => handleClick(otherLocale)}>{$languages[otherLocale]}</button>
 </div>
 
 <style>
@@ -30,7 +28,7 @@
 
   button {
     padding: 0.2em 0.5em;
-    font-family: var(--font);
+    font-family: var(--font02);
     font-size: 0.8em;
     outline: none;
     border: 1px solid white;
