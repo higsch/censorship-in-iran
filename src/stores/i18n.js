@@ -17,8 +17,9 @@ const toFarsiNumber = (n) => {
   return tmp;
 };
 
-const getMessageFromLocalizedDict = (id, localizedDict) => {
-  if (!localizedDict) return id;
+const getMessageFromDict = (id, dict, customLocale) => {
+  if (!dict || !customLocale) return id;
+  const localizedDict = dict[customLocale];
 
   const splitId = id.split('.');
   const message = splitId.reduce((acc, cur) => acc ? acc[cur] : id, {...localizedDict});
@@ -26,15 +27,11 @@ const getMessageFromLocalizedDict = (id, localizedDict) => {
   return message || id;
 };
 
-const createMessageFormatter = (localizedDict) => (id) => getMessageFromLocalizedDict(id, localizedDict);
+const createMessageFormatter = (dict, locale) => (id, customLocale = locale) => getMessageFromDict(id, dict, customLocale);
 
-const localizedDict = derived([dict, locale], ([$dict, $locale]) => {
-  if (!$dict || !$locale) return;
-  return $dict[$locale];
-});
 
-export const t = derived(localizedDict, ($localizedDict) => {
-  return createMessageFormatter($localizedDict);
+export const t = derived([dict, locale], ([$dict, $locale]) => {
+  return createMessageFormatter($dict, $locale);
 });
 
 export const n = derived(locale, $locale => {
@@ -46,10 +43,19 @@ export const n = derived(locale, $locale => {
   }
 });
 
-export const dir = derived(localizedDict, ($localizedDict) => {
-  if (!$localizedDict || !$localizedDict.$dir) return document.dir;
-  document.dir =  $localizedDict.$dir;
-  return $localizedDict.$dir;
+export const dir = derived([dict, locale], ([$dict, $locale]) => {
+  if (!$dict || !$locale) return document.dir;
+  const localizedDict = $dict[$locale];
+  if (!localizedDict || !localizedDict.$dir) return document.dir;
+  document.dir =  localizedDict.$dir;
+  return localizedDict.$dir;
 });
 
-export const addLocale = derived(locale, $locale => attr => `${attr}_${$locale}`);
+export const addLocale = derived(locale, ($locale) => attr => `${attr}_${$locale}`);
+
+export const availableLanguages = derived(dict, ($dict) => {
+  if (!$dict) return {};
+  return Object.keys($dict)
+    .map((d) => ({[$dict[d].meta.locale]: $dict[d].meta.name}))
+    .reduce((acc, cur) => ({...acc, ...cur}), {});
+});
