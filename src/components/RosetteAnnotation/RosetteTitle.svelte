@@ -88,7 +88,7 @@
     position: absolute;
     padding: 0.1em 0.4em;
     bottom: var(--h2bottom);
-    font-size: 0.9em;
+    font-size: 1em;
     font-weight: 300;
     text-align: center;
     color: var(--backgroundColor);
