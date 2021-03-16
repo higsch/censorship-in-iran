@@ -132,8 +132,7 @@ export const layoutBar = (
     margin,
     dir,
     showLabels = false,
-    minSpacing = width / 2,
-    maxSpacing = width / 3
+    minSpacing = width / 2
   ) => {
   // copy and sort data by radius
   const data = [...clustersData];
@@ -166,8 +165,7 @@ export const layoutBar = (
   const xBars = bars.map((bar) => {
     const sortedClusters = summitSort(bar.clusters);
     const allDiameters = sortedClusters.reduce((acc, cur) => acc + 2 * cur.r * radiusFactor, 0);
-    const xSpacing = Math.min(maxSpacing, (width - allDiameters) / (sortedClusters.length + 1));
-
+    const xSpacing = (width - allDiameters) / (sortedClusters.length + 1);
     let x = xSpacing;
 
     const spacedClusters = sortedClusters.map((cluster, i, arr) => {
@@ -191,11 +189,12 @@ export const layoutBar = (
   });
 
   // set y coordinates
-  const ySpacing = (height - margin.top - margin.bottom - xBars.reduce((acc, cur) => acc + cur.maxDiameter, 0)) / (xBars.length + 1);
+  const ySpacing = 1.2 * (height - margin.top - margin.bottom - xBars.reduce((acc, cur) => acc + cur.maxDiameter, 0)) / xBars.length;
   let y = margin.top;
+  console.log(height)
   const xyBars = xBars.map((bar, i, arr) => {
     if (i === 0) {
-      y += ySpacing + bar.maxDiameter / 2;
+      y += bar.maxDiameter / 2;
     } else {
       y += (arr[i - 1].maxDiameter + bar.maxDiameter) / 2 + ySpacing;
     }
