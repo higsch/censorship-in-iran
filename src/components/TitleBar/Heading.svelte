@@ -1,7 +1,7 @@
 <script>
-  import { defaultColor } from '../utils/colors';
-  import { css } from '../actions/css';
-  import { t } from '../stores/i18n';
+  import { defaultColor } from '../../utils/colors';
+  import { css } from '../../actions/css';
+  import { t } from '../../stores/i18n';
 </script>
 
 <div
