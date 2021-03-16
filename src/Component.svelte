@@ -63,6 +63,7 @@
   }
 
   .component-wrapper {
+    position: relative;
     width: 100%;
     height: 120vh;
     font-size: 12px;
