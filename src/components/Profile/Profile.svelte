@@ -12,7 +12,7 @@
   export let datum;
   export let topOffset = 0;
 
-  const _url = 'https://journalismisnotacrime.com/media/profile/nasrin_vaziri.jpg.400x400_q85_bw_crop.jpg';
+  // const _url = 'https://journalismisnotacrime.com/media/profile/nasrin_vaziri.jpg.400x400_q85_bw_crop.jpg';
   const dispatch = createEventDispatcher();
   const formatDate = timeFormat('%d %B %Y');
 
@@ -39,7 +39,7 @@
       <div class="profile-header">
         <div class="profile-image">
           <img
-            src={_url}
+            src={datum.profile_url}
             alt="Profile image of {datum.name_en}"
           />
         </div>
@@ -68,7 +68,11 @@
             </a>
           {/if}
           {#if (datum.blog_link)}
-            <a href={datum.blog_link} target="_blank">
+            <a
+              href={datum.blog_link}
+              target="_blank"
+              on:click|stopPropagation  
+            >
               <li>
                 <Icon data={square}/>
                 <span>Blog</span>
@@ -235,29 +239,37 @@
 
   .profile-header .status {
     margin: 0.6em 0 0.2em 0;
+    font-size: 0.9em;
   }
 
   .profile-image {
+    display: flex;
+    justify-content: center;
     width: 100%;
     max-width: 200px;
   }
 
   .profile-image img {
-    width: 100%;
     height: 100%;
-    border: 0.2em solid var(--color);
-    border-radius: 50%;
+    max-height: 200px;
+    /* border: 2px solid var(--color); */
+    border-radius: 3px;
   }
 
   h2.name {
     display: flex;
     flex-direction: column;
-    font-size: 1.4em;
+    font-size: 1.5em;
     text-align: center;
+  }
+
+  h2.name span {
+    font-family: var(--font01);
   }
 
   h2.name .occupation {
     margin: 0.2em 0 0 0;
+    font-family: var(--font02);
     font-size: 0.6em;
     font-weight: 300;
   }

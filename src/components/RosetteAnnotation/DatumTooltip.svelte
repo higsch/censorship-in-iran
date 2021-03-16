@@ -2,7 +2,7 @@
   import { fade } from 'svelte/transition';
   import { tweened } from 'svelte/motion';
   import { cubicOut } from 'svelte/easing';
-  import { t, locale } from '../../stores/i18n';
+  import { t, locale, dir } from '../../stores/i18n';
   import { css } from '../../actions/css';
   import { background, defaultColor } from '../../utils/colors';
 
@@ -23,8 +23,8 @@
     bottom: 10,
     left: 10
   };
-
-  const _url = 'https://journalismisnotacrime.com/media/profile/nasrin_vaziri.jpg.400x400_q85_bw_crop.jpg';
+  
+  const excludedUrls = [];
 
   const leftPos = tweened(null, {
     duration: 300,
@@ -75,15 +75,15 @@
             {headerGroup}
           </p>
         {/if}
-        {#if (headerColor)}
+        {#if (headerColor && headerColor !== headerGroup)}
           <p>
             {headerColor}
           </p>
         {/if}
       </div>
-      <div class="title-image">
-        <img src={_url} alt="Profile image of {datum.name_en}" />
-      </div>
+      {#if (datum.profile_url && !excludedUrls.includes(datum.profile_url))}
+        <div class="title-image {$dir}" use:css={{backgroundUrl: `url('${datum.profile_url}')`}}></div>
+      {/if}
     </div>
     <div class="separator"></div>
     <div
@@ -144,13 +144,19 @@
   }
 
   .title-image {
-    margin: 0 0 0 0.2em;
+    width: 3em;
+    height: 3em;
+    margin: 0 0 0 0.5em;
+    background-image: var(--backgroundUrl);
+    background-size: cover;
+    background-repeat: no-repeat;
+    background-position: center;
+    border: none;
+    border-radius: 3px;
   }
 
-  .title-image img {
-    height: 3em;
-    border: none;
-    border-radius: 0.2em;
+  .title-image.rtl {
+    margin: 0 0.5em 0 0;
   }
 
   h2 {
@@ -159,7 +165,7 @@
   }
 
   .tooltip-title p {
-    font-size: 0.85em;
+    font-size: 0.8em;
   }
 
   .separator {

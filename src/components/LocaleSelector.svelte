@@ -10,7 +10,6 @@
     dispatch('localeselected', selectedLocale);
   }
 
-  $: console.log($languages)
   $: otherLocale = Object.keys($languages).find((d) => d !== locale);
 </script>
 
