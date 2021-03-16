@@ -191,7 +191,6 @@ export const layoutBar = (
   // set y coordinates
   const ySpacing = 1.2 * (height - margin.top - margin.bottom - xBars.reduce((acc, cur) => acc + cur.maxDiameter, 0)) / xBars.length;
   let y = margin.top;
-  console.log(height)
   const xyBars = xBars.map((bar, i, arr) => {
     if (i === 0) {
       y += bar.maxDiameter / 2;

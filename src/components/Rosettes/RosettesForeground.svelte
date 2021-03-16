@@ -1,13 +1,10 @@
 <script>
-  import { hoveredLabel, hoveredClusterId } from '../../stores/selection';
+  import { hoveredLabel } from '../../stores/selection';
   import { groupControl, colorControl } from '../../stores/control';
-  import { defaultColor, background } from '../../utils/colors';
 
-  import RosetteTitle from '../RosetteAnnotation/RosetteTitle.svelte';
   import RosetteLabels from '../RosetteAnnotation/RosetteLabels.svelte';
   
   export let data = [];
-  export let showClusterTitles = true;
   export let showLabels = false;
 
   let groupControlName;
@@ -37,17 +34,6 @@
 <div
   class="rosette-foreground"
 >
-  {#if (showClusterTitles)}
-    {#each data as cluster (cluster.id)}
-      <RosetteTitle
-        cluster={cluster}
-        groupControlName={groupControlName}
-        textColor={background}
-        backgroundColor={defaultColor}
-        hovered={$hoveredClusterId !== null && $hoveredClusterId === cluster.id}
-      />
-    {/each}
-  {/if}
   {#if (showLabels)}
     {#each data as cluster (cluster.id)}
       <RosetteLabels

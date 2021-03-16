@@ -78,13 +78,15 @@
     bind:clientWidth={width}
     bind:clientHeight={height}
   >
-    <RosettesBackground />
+    <RosettesBackground
+      data={renderedData}
+      showClusterTitles={showClusterTitles}
+    />
     <RosettesCanvasPane
       data={renderedData}
     />
     <RosettesForeground
       data={renderedData}
-      showClusterTitles={showClusterTitles}
       showLabels={showLabels}
     />
     {#if ($hoveredDatum && !$selectedDatum)}
