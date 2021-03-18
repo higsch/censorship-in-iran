@@ -89,15 +89,6 @@
       data={renderedData}
       showLabels={showLabels}
     />
-    {#if ($hoveredDatum && !$selectedDatum)}
-      <DatumTooltip
-        tooltip={$hoveredDatum}
-        parentWidth={width}
-        parentHeight={height}
-        selectedGroup={selectedGroup}
-        selectedColor={selectedColor}
-      />
-    {/if}
     {#if ($selectedDatum)}
       <Profile
         datum={$selectedDatum.d}
@@ -106,6 +97,15 @@
       />
     {/if}
   </div>
+  {#if ($hoveredDatum && !$selectedDatum)}
+    <DatumTooltip
+      tooltip={$hoveredDatum}
+      parentWidth={width}
+      parentHeight={height}
+      selectedGroup={selectedGroup}
+      selectedColor={selectedColor}
+    />
+  {/if}
 </div>
 
 <style>
@@ -121,7 +121,7 @@
     position: absolute;
     top: 0;
     left: 0;
-    z-index: 100;
+    z-index: 90;
     width: 100%;
   }
 

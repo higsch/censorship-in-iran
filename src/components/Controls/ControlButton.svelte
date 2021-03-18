@@ -71,6 +71,7 @@
 
 <style>
   .grouping-button {
+    position: relative;
     height: 2em;
     margin: 0 0.3em;
     cursor: pointer;
@@ -145,11 +146,13 @@
     color: var(--color1);
     font-size: 0.8em;
     font-weight: 300;
+    text-align: right;
   }
 
   .grouping-button.rtl .group-explanation-label {
     left: 0.9em;
     right: auto;
+    text-align: left;
   }
 
   .color-explanation-line {

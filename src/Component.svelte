@@ -42,7 +42,8 @@
 <div
   class="component-wrapper {locale}"
   use:css={{backgroundColor: background,
-            font01: '"Shippori Mincho B1", serif',
+            font01: 'Roboto, Helvetica, Arial, sans-serif',
+            // font01: '"Shippori Mincho B1", serif',
             font02: 'Roboto, Helvetica, Arial, sans-serif'}}
 >
   <Visualization
