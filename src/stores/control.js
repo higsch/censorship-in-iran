@@ -28,7 +28,7 @@ const groupingInit = [
   }
 ].map((d, i) => ({
   ...d,
-  selected: d.name === 'status',
+  selected: d.name === 'none',
   show: d.name !== 'none',
   values: [],
   id: i
@@ -61,7 +61,7 @@ const colorInit = [
   }
 ].map((d, i) => ({
   ...d,
-  selected: d.name === 'institutioninvestigating',
+  selected: d.name === 'none',
   show: d.name !== 'none',
   values: [],
   id: i
