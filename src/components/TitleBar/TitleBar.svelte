@@ -1,6 +1,6 @@
 <script>
   import { groupControl, colorControl } from '../../stores/control';
-  import { hoveredLabel } from '../../stores/selection';
+  import { hoveredLabel, selectedDatum } from '../../stores/selection';
   import { defaultColor, background } from '../../utils/colors';
   import { css } from '../../actions/css';
 
@@ -15,10 +15,12 @@
 
     if (selectGroup && selectGroup !== $groupControl.find((d) => d.selected).name) {
       groupControl.select(selectGroup);
+      selectedDatum.set(null);
     }
 
     if (selectColor && selectColor !== $colorControl.find((d) => d.selected).name) {
       colorControl.select(selectColor);
+      selectedDatum.set(null);
     }
 
     if (hoverColor) {
