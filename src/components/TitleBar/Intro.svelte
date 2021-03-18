@@ -9,7 +9,7 @@
   use:css={{defaultColor}}
 >
   <div class="title">
-    <img src="img/rosette_01.jpg" alt="White rosette" />
+    <img src="img/rosette_01_t.png" alt="White rosette" />
     <div class="title-text">
       <h1>{$t('intro.heading')}</h1>
       <h2>{$t('intro.subheading')}</h2>
