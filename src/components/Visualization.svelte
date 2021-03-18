@@ -39,7 +39,7 @@
   $: drawMargin = {
       top: headerHeight + 35,
       right: 0,
-      bottom: 5,
+      bottom: 30,
       left: 0
     };
 

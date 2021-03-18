@@ -27,8 +27,8 @@
             backgroundTransparent: `${background}00`,
             color: defaultColor, yellow,
             topOffset: `${topOffset}px`,
-            decreasedTopOffset: `${topOffset / 1.3}px`,
-            increasedTopOffset: `${topOffset * 1.3}px`}}
+            decreasedTopOffset: `${topOffset / 1.1}px`,
+            increasedTopOffset: `${topOffset * 1.1}px`}}
   on:click={closeProfile}
   transition:fade={{duration: 200}}
 >

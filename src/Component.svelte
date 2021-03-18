@@ -10,6 +10,7 @@
 
   import Visualization from './components/Visualization.svelte';
   import LocaleSelector from './components/LocaleSelector.svelte';
+  import Footer from './components/Footer.svelte';
 
   export let dataPath = 'data/data.csv';
   export let dictionaryPath = 'data/dictionary.json';
@@ -55,6 +56,7 @@
     locale={$localeStore}
     on:localeselected={selectLocale}
   />
+  <Footer />
 </div>
 
 <style>
