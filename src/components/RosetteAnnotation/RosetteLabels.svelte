@@ -4,7 +4,8 @@
 
   import { css } from '../../actions/css';
   import { intersect } from '../../utils/math';
-  import { dir } from '../../stores/i18n';
+  import { t, dir } from '../../stores/i18n';
+  import { defaultColor, background } from '../../utils/colors';
   
   import RosetteLabel from './RosetteLabel.svelte';
 
@@ -84,12 +85,20 @@
 
 <div
   class="rosette-labels"
-  use:css={{x: `${dimensions.x}px`, y: `${dimensions.y}px`, width: `${dimensions.width}px`, height: `${dimensions.height}px`, marginHorizontal: `${textPaneMarginHorizontal}px`}}
+  use:css={{x: `${dimensions.x}px`,
+            y: `${dimensions.y}px`,
+            width: `${dimensions.width}px`,
+            height: `${dimensions.height}px`,
+            marginHorizontal: `${textPaneMarginHorizontal}px`,
+            defaultColor,
+            background}}
 >
   <div
     class="labels-text-pane {$dir}"
   >
     {#if (showLabels && colorControlName && colorControlName !== 'none' && groupControlName !== colorControlName)}
+      <h3>{$t(`grouping.${colorControlName}`)}</h3>
+      <div class="separator"></div>
       {#each labels as { name, valueName, value, color, n }, i (`${name}.${valueName}.${i}`)}
         <RosetteLabel
           name={name}
@@ -136,5 +145,27 @@
 
   .labels-text-pane.rtl {
     margin: 0 var(--marginHorizontal) 0 1.5em;
+  }
+
+  h3 {
+    color: var(--defaultColor);
+    font-family: var(--font02);
+    font-size: 0.8em;
+    font-weight: 300;
+    text-align: center;
+    opacity: 0.7;
+  }
+
+  .separator {
+    width: 100%;
+    height: 1px;
+    margin: 0.3em auto 0.3em auto;
+    background: linear-gradient(
+                  90deg,
+                  var(--background) 0%,
+                  var(--defaultColor) 10%,
+                  var(--defaultColor) 90%,
+                  var(--background) 100%
+                );
   }
 </style>

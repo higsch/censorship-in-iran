@@ -99,13 +99,13 @@
     text-shadow: 0px 0px 1px var(--backgroundColor);
   }
 
-  h2.background {
+  /* h2.background {
     color: #000000;
     font-size: 3em;
     opacity: 0.5;
     transform: translateY(0.4em);
     text-shadow: none;
-  }
+  } */
 
   .rosette-title.hovered h2 {
     opacity: 1.0;
@@ -115,7 +115,7 @@
     display: inline-block;
   }
 
-  span.number {
+  /* span.number {
     font-weight: 500;
-  }
+  } */
 </style>

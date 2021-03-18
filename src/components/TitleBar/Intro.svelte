@@ -47,6 +47,7 @@
   }
 
   .intro-text p {
+    flex: 1;
     margin: 1em;
   }
 </style>

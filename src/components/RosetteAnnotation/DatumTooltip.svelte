@@ -31,26 +31,28 @@
     easing: cubicOut
   });
 
+  function f(selected) {
+    let header = null;
+    if (selected && selected.name !== 'none' && datum[selected.name] !== 'unknown') {
+      header = {};
+      header.main = $t(`groupingvalues.${selected.name}.${datum[selected.name]}`);
+      if (selected.name === 'institutioninvestigating') {
+        header.prefix = $t(`grouping.${selected.name}_prefix`);
+      }
+    }
+    console.log(header)
+    return header;
+  }
+
   $: ({ d: datum, pos } = tooltip);
 
   $: yOffset = Math.min(50, parentHeight / 10);
   $: $leftPos = Math.min(parentWidth - width - margin.right, Math.max(margin.left, pos.x - width / 2));
   $: topPos = pos.y + (parentHeight / 2 < pos.y ? -height - yOffset / 2 : yOffset);
 
-  $: if (selectedGroup) {
-    headerGroup = null;
-    if (selectedGroup.name !== 'none' && datum[selectedGroup.name] !== 'unknown') {
-      headerGroup = $t(`groupingvalues.${selectedGroup.name}.${datum[selectedGroup.name]}`);
-    }
-  }
-
-  $: if (selectedColor) {
-    headerColor = null;
-    if (selectedColor.name !== 'none' && datum[selectedColor.name] !== 'unknown') {
-      headerColor = $t(`groupingvalues.${selectedColor.name}.${datum[selectedColor.name]}`);
-    }
-    ({ color } = selectedColor.values.find((d) => d.value === datum[selectedColor.name]));
-  }
+  $: headerGroup = f(selectedGroup);
+  $: headerColor = f(selectedColor);
+  $: ({ color } = selectedColor.values.find((d) => d.value === datum[selectedColor.name]));
 </script>
 
 <div
@@ -72,12 +74,18 @@
         </h2>
         {#if (headerGroup)}
           <p>
-            {headerGroup}
+            {#if (headerGroup.prefix)}
+              <span>{headerGroup.prefix}</span>
+            {/if}
+            <span>{headerGroup.main}</span>
           </p>
         {/if}
-        {#if (headerColor && headerColor !== headerGroup)}
+        {#if (headerColor && selectedGroup.name !== selectedColor.name)}
           <p>
-            {headerColor}
+            {#if (headerColor.prefix)}
+              <span>{headerColor.prefix}</span>
+            {/if}
+            <span>{headerColor.main}</span>
           </p>
         {/if}
       </div>
