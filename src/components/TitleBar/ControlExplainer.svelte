@@ -4,14 +4,13 @@
   import { t } from '../../stores/i18n';
 
   import Diamond from '../Diamond.svelte';
-import TitleBar from './TitleBar.svelte';
 </script>
 
 <div
   class="control-explainer"
   use:css={{defaultColor}}
 >
-  <p class="grouping">{$t('titlebar.controlexplainer.square')}<span class="turned"><Diamond color={defaultColor} hoverEnabled={false} /></span>.</p><p>{$t('titlebar.controlexplainer.diamond')}<span><Diamond color={yellow} hoverEnabled={false} /></span>.</p>
+  <p class="grouping">{$t('intro.controlexplainer.square')}<span class="turned"><Diamond color={defaultColor} hoverEnabled={false} /></span>.</p><p>{$t('intro.controlexplainer.diamond')}<span><Diamond color={yellow} hoverEnabled={false} /></span>.</p>
 </div>
 
 <style>
@@ -22,7 +21,7 @@ import TitleBar from './TitleBar.svelte';
     width: 100%;
     height: 100%;
     color: var(--defaultColor);
-    opacity: 0.7;
+    opacity: 0.9;
   }
 
   p {

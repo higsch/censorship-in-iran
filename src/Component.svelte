@@ -4,8 +4,8 @@
 
   import { formatData } from './utils/format';
   import { groupControl, colorControl } from './stores/control';
-  import { locale as localeStore, dict, dir } from './stores/i18n';
-  import { background } from './utils/colors'; 
+  import { locale as localeStore, dict } from './stores/i18n';
+  import { background, defaultColor, yellow } from './utils/colors'; 
   import { css } from './actions/css';
 
   import Visualization from './components/Visualization.svelte';
@@ -42,6 +42,8 @@
 <div
   class="component-wrapper {locale}"
   use:css={{backgroundColor: background,
+            defaultColor,
+            yellow,
             font01: 'Roboto, Helvetica, Arial, sans-serif',
             // font01: '"Shippori Mincho B1", serif',
             font02: 'Roboto, Helvetica, Arial, sans-serif'}}
@@ -62,6 +64,16 @@
     font-family: var(--font02);
     opacity: 1;
     box-sizing: border-box;
+  }
+
+  :global(a) {
+    color: var(--yellow);
+    text-decoration: none;
+    pointer-events: all;
+  }
+
+  :global(a:hover) {
+    text-decoration: underline;
   }
 
   .component-wrapper {

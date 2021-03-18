@@ -74,7 +74,6 @@
     position: relative;
     height: 2em;
     margin: 0 0.3em;
-    cursor: pointer;
     user-select: none;
   }
 
@@ -86,6 +85,8 @@
     height: 100%;
     padding: 0 0.2em;
     color: var(--color1);
+    cursor: pointer;
+    pointer-events: all;
   }
 
   span {

@@ -49,11 +49,11 @@
             backgroundColor}}
   transition:fade
 >
-  <h2
+  <!-- <h2
     class="background"
   >
     {$t(`groupingvalues.${groupControlName}.${cluster.name}`, 'fa').split(' ')[0]}
-  </h2>
+  </h2> -->
   <h2
     class="foreground"
   >

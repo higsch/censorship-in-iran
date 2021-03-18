@@ -116,13 +116,14 @@
     width: 100%;
     height: 100%;
   }
-
+  
   .visualization-header {
     position: absolute;
     top: 0;
     left: 0;
     z-index: 90;
     width: 100%;
+    pointer-events: none;
   }
 
   .draw-wrapper {

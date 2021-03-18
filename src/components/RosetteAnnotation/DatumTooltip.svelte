@@ -150,7 +150,7 @@
     background-image: var(--backgroundUrl);
     background-size: cover;
     background-repeat: no-repeat;
-    background-position: center;
+    background-position: 50% 50% ;
     border: none;
     border-radius: 3px;
   }
