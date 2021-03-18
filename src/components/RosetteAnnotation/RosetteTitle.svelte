@@ -96,7 +96,7 @@
     border: none;
     border-radius: 2px;
     transition: opacity 0.2s;
-    text-shadow: 0px 0px 1px var(--backgroundColor);
+    /* text-shadow: 0px 0px 1px var(--backgroundColor); */
   }
 
   /* h2.background {

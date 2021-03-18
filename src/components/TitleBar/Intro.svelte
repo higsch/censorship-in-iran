@@ -8,7 +8,13 @@
   class="intro"
   use:css={{defaultColor}}
 >
-  <h2><img src="img/rosette_01.jpg" alt="White rosette" />{$t('intro.heading')}</h2>
+  <div class="title">
+    <img src="img/rosette_01.jpg" alt="White rosette" />
+    <div class="title-text">
+      <h1>{$t('intro.heading')}</h1>
+      <h2>{$t('intro.subheading')}</h2>
+    </div>
+  </div>
   <div class="intro-text">
     <p>{$t('intro.text1')}</p>
     <p>{@html $t('intro.text2')}</p>
@@ -22,20 +28,38 @@
     color: var(--defaultColor);
   }
 
-  h2 {
+  .title {
     display: flex;
     align-items: center;
     justify-content: center;
     width: 100%;
+    margin: 1em 0;
     font-family: var(--font01);
-    font-size: 4em;
-    font-weight: 500;
-    text-align: center;
   }
 
-  h2 img {
-    max-height: 1.5em;
-    margin: 0 0.2em;
+  .title img {
+    height: 7em;
+    margin: 0 0.8em;
+  }
+
+  .title-text {
+    display: flex;
+    flex-direction: column;
+  }
+
+  h1 {
+    width: 100%;
+    text-align: left;
+    font-size: 4em;
+    font-weight: 500;
+  }
+
+  h2 {
+    width: 100%;
+    font-family: var(--font02);
+    font-size: 1em;
+    font-weight: 300;
+    opacity: 0.8;
   }
 
   .intro-text {
