@@ -8,7 +8,7 @@
 >
   <p>{(new Date()).getFullYear()}</p>
   <p>|</p>
-  <a href="https://journalismisnotacrime.com">journalismisnotacrime.com</a>
+  <a href="https://journalismisnotacrime.com" target="_blank">journalismisnotacrime.com</a>
 </footer>
 
 <style>
