@@ -363,7 +363,7 @@
 
   .profile-footer {
     width: 100%;
-    min-height: 30%;
+    min-height: 20em;
     padding: 2em 2em;
     text-align: right;
     opacity: 0.7;
