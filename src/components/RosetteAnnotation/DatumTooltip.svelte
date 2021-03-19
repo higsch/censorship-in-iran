@@ -123,6 +123,7 @@
     width: 42%;
     min-width: 120px;
     max-width: 230px;
+    pointer-events: none;
   }
 
   .tooltip-content {
