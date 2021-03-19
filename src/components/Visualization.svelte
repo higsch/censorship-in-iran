@@ -68,9 +68,7 @@
     class="visualization-header"
     bind:clientHeight={headerHeight}  
   >
-    <TitleBar
-      data={data}
-    />
+    <TitleBar />
     <ControlPane />
   </div>
   <div

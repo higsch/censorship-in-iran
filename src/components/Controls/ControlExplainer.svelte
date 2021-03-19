@@ -10,7 +10,7 @@
   class="control-explainer"
   use:css={{defaultColor}}
 >
-  <p class="grouping">{$t('intro.controlexplainer.square')}<span class="turned"><Diamond color={defaultColor} hoverEnabled={false} /></span>.</p><p>{$t('intro.controlexplainer.diamond')}<span><Diamond color={yellow} hoverEnabled={false} /></span>.</p>
+  <p>{$t('controlexplainer.text1')} <span class="turned"><Diamond color={defaultColor} hoverEnabled={false} /></span> {$t('controlexplainer.text2')} <span><Diamond color={yellow} hoverEnabled={false} /></span>.</p>
 </div>
 
 <style>
@@ -20,13 +20,14 @@
     justify-content: center;
     width: 100%;
     height: 100%;
+    margin: 0 0 0.5em 0;
     color: var(--defaultColor);
-    opacity: 0.9;
+    opacity: 0.8;
   }
 
   p {
     margin: 0 0.2em;
-    font-size: 1em;
+    font-size: 0.8em;
     font-weight: 300;
     text-align: center;
   }

@@ -2,6 +2,7 @@
   import { groupControl, colorControl } from '../../stores/control';
   import { hoveredLabel, selectedDatum } from '../../stores/selection';
 
+  import ControlExplainer from './ControlExplainer.svelte';
   import ControlButton from './ControlButton.svelte';
 
   let buttonArray = [];
@@ -30,7 +31,8 @@
 <div
   class="control-pane"
 >
-  <div class="color-control-buttons">
+  <ControlExplainer />
+  <div class="control-buttons">
     {#each buttonArray as controlName, i (controlName)}
       <ControlButton
         name={controlName}
@@ -54,7 +56,7 @@
     margin: 1em 0;
   }
 
-  .control-pane > div {
+  .control-buttons {
     display: flex;
     align-items: center;
     justify-content: center;

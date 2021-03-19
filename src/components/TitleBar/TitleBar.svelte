@@ -4,32 +4,29 @@
   import { defaultColor, background } from '../../utils/colors';
   import { css } from '../../actions/css';
 
+  import Title from './Title.svelte';
   import Intro from './Intro.svelte';
-  import ControlExplainer from './ControlExplainer.svelte';
-  import InfoTitles from './InfoTitles.svelte';
 
-  export let data;
+  // function handleInfoTitlesClick(e) {
+  //   const { detail: { selectGroup, selectColor, hoverColor } = {} } = e || {};
 
-  function handleInfoTitlesClick(e) {
-    const { detail: { selectGroup, selectColor, hoverColor } = {} } = e || {};
+  //   if (selectGroup && selectGroup !== $groupControl.find((d) => d.selected).name) {
+  //     groupControl.select(selectGroup);
+  //     selectedDatum.set(null);
+  //   }
 
-    if (selectGroup && selectGroup !== $groupControl.find((d) => d.selected).name) {
-      groupControl.select(selectGroup);
-      selectedDatum.set(null);
-    }
+  //   if (selectColor && selectColor !== $colorControl.find((d) => d.selected).name) {
+  //     colorControl.select(selectColor);
+  //     selectedDatum.set(null);
+  //   }
 
-    if (selectColor && selectColor !== $colorControl.find((d) => d.selected).name) {
-      colorControl.select(selectColor);
-      selectedDatum.set(null);
-    }
-
-    if (hoverColor) {
-      hoveredLabel.set({
-        name: selectColor,
-        value: hoverColor
-      });
-    }
-  }
+  //   if (hoverColor) {
+  //     hoveredLabel.set({
+  //       name: selectColor,
+  //       value: hoverColor
+  //     });
+  //   }
+  // }
 </script>
 
 <div
@@ -37,14 +34,15 @@
   use:css={{defaultColor, background}}
 >
   <div class="title-bar-content">
+    <Title />
     <Intro />
     <div class="separator"></div>
-    <ControlExplainer />
+    <!-- <ControlExplainer />
     <InfoTitles
       data={data}
       on:click={handleInfoTitlesClick}
     />
-    <div class="separator"></div>
+    <div class="separator"></div> -->
   </div>
 </div>
 

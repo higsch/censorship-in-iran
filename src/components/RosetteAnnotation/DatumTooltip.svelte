@@ -40,7 +40,6 @@
         header.prefix = $t(`grouping.${selected.name}_prefix`);
       }
     }
-    console.log(header)
     return header;
   }
 
