@@ -13,6 +13,7 @@
   import Footer from './components/Footer.svelte';
 
   export let dataPath = 'data/data.csv';
+  export let apiPath = 'https://uq8kevhtqn.journalismisnotacrime.com/wall/prisonerslist';
   export let dictionaryPath = 'data/dictionary.json';
   export let locale = 'en';
 
@@ -31,12 +32,20 @@
         dict.set(dictionary);
       });
 
-    csv(dataPath, formatData)
-      .then((res) => {
-        data = res;
+    // csv(dataPath, formatData)
+    //   .then((res) => {
+    //     data = res;
+    //     groupControl.init(data);
+    //     colorControl.init(data);
+    //   });
+    
+    fetch(apiPath)
+      .then((res) => res.json())
+      .then(({data: parsed}) => {
+        data = parsed.map(formatData);
         groupControl.init(data);
         colorControl.init(data);
-      });
+      })
   });
 </script>
 
