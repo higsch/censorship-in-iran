@@ -14,6 +14,8 @@
 
   let width = 0;
   let height = 0;
+  let datum;
+  let pos;
   let headerGroup, headerColor;
   let color = background;
 
@@ -43,15 +45,16 @@
     return header;
   }
 
-  $: ({ d: datum, pos } = tooltip);
+  $: {
+    ({ d: datum, pos } = tooltip);
+    headerGroup = f(selectedGroup);
+    headerColor = f(selectedColor);
+    ({ color } = selectedColor.values.find((d) => d.value === datum[selectedColor.name]));
+  }
 
   $: yOffset = Math.min(50, parentHeight / 10);
   $: $leftPos = Math.min(parentWidth - width - margin.right, Math.max(margin.left, pos.x - width / 2));
   $: topPos = pos.y + (parentHeight / 2 < pos.y ? -height - yOffset / 2 : yOffset);
-
-  $: headerGroup = f(selectedGroup);
-  $: headerColor = f(selectedColor);
-  $: ({ color } = selectedColor.values.find((d) => d.value === datum[selectedColor.name]));
 </script>
 
 <div
