@@ -9,7 +9,6 @@
   export let name;
   export let groupControl = {};
   export let colorControl = {};
-  export let showExplanation = false;
 
   const dispatch = createEventDispatcher();
 
@@ -57,16 +56,18 @@
       {$t(`grouping.${name}`)}
     </span>
   </div>
-  {#if (showExplanation)}
-    <div class="explanation">
+  <div class="explanation">
+    {#if (groupControl.selected)}
       <span class="group-explanation-line">
         <span class="group-explanation-label">{$t('controlpane.grouping')}</span>
       </span>
+    {/if}
+    {#if (colorControl.selected)}
       <span class="color-explanation-line">
         <span class="color-explanation-label">{$t('controlpane.coloring')}</span>
       </span>
-    </div>
-  {/if}
+    {/if}
+  </div>
 </div>
 
 <style>
