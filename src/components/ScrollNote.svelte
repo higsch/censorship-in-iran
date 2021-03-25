@@ -1,5 +1,6 @@
 <script>
   import { fade } from 'svelte/transition';
+  import { selectedDatum } from '../stores/selection';
   import { defaultColor, background } from '../utils/colors';
   import { css } from '../actions/css';
 
@@ -8,7 +9,7 @@
 
 <svelte:window bind:scrollY={scrollY}/>
 
-{#if (!scrollY || scrollY < 20)}
+{#if ((!scrollY || scrollY < 20) && !$selectedDatum)}
   <div
     class="scroll-note"
     use:css={{defaultColor, background}}
