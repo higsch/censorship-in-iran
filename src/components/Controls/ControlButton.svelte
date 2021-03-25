@@ -146,7 +146,7 @@
     display: inline-block;
     right: 0.7em;
     color: var(--color1);
-    font-size: 0.8em;
+    font-size: 0.7em;
     font-weight: 300;
     text-align: right;
   }
@@ -180,7 +180,7 @@
     display: inline-block;
     left: 0.7em;
     color: var(--color2);
-    font-size: 0.8em;
+    font-size: 0.7em;
     font-weight: 300;
   }
 

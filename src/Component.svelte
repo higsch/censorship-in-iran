@@ -1,6 +1,7 @@
 <script>
   import { onMount } from 'svelte';
 
+  import { csv } from 'd3';
   import { formatData } from './utils/format';
   import { groupControl, colorControl } from './stores/control';
   import { locale as localeStore, dict } from './stores/i18n';
@@ -13,8 +14,8 @@
   import Footer from './components/Footer.svelte';
   import ScrollNote from './components/ScrollNote.svelte';
 
-  // export let dataPath = 'data/data.csv';
-  export let dataPath = 'https://uq8kevhtqn.journalismisnotacrime.com/wall/prisonerslist';
+  export let dataPath = 'data/data.csv';
+  // export let dataPath = 'https://uq8kevhtqn.journalismisnotacrime.com/wall/prisonerslist';
   export let dictionaryPath = 'data/dictionary.json';
   export let locale = 'en';
 
@@ -28,21 +29,26 @@
   }
 
   function loadData() {
-  // csv(dataPath, formatData)
-  //   .then((res) => {
-  //     set(res);
-  //     groupControl.init(res);
-  //     colorControl.init(res);
-  //   });
+    csv(dataPath, formatData)
+      .then((res) => {
+        data = res;
+        try {
+          localStorage.setItem(localStorageKey, JSON.stringify({created: (new Date()).getTime(), data}));
+        } catch (err) {
+          console.log('Could not cache data.', err);
+        }
+        groupControl.init(data);
+        colorControl.init(data);
+      });
   
-  fetch(dataPath)
-    .then((res) => res.json())
-    .then(({data: parsed}) => {
-      data = parsed.map(formatData);
-      localStorage.setItem(localStorageKey, JSON.stringify({created: (new Date()).getTime(), data}));
-      groupControl.init(data);
-      colorControl.init(data);
-    });
+  // fetch(dataPath)
+  //   .then((res) => res.json())
+  //   .then(({data: parsed}) => {
+  //     data = parsed.map(formatData);
+  //     localStorage.setItem(localStorageKey, JSON.stringify({created: (new Date()).getTime(), data}));
+  //     groupControl.init(data);
+  //     colorControl.init(data);
+  //   });
 };
 
   onMount(() => {
@@ -80,7 +86,7 @@
             font02: 'Roboto, Helvetica, Arial, sans-serif'}}
 >
   <Visualization
-    data={data}
+    data={data.map((d, i) => ({id: i, ...d}))}
   />
   <LocaleSelector
     locale={$localeStore}
