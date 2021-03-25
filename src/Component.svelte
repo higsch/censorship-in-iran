@@ -11,6 +11,7 @@
   import Visualization from './components/Visualization.svelte';
   import LocaleSelector from './components/LocaleSelector.svelte';
   import Footer from './components/Footer.svelte';
+  import ScrollNote from './components/ScrollNote.svelte';
 
   export let dataPath = 'data/data.csv';
   export let apiPath = 'https://uq8kevhtqn.journalismisnotacrime.com/wall/prisonerslist';
@@ -66,6 +67,7 @@
     on:localeselected={selectLocale}
   />
   <Footer />
+  <ScrollNote />
 </div>
 
 <style>
