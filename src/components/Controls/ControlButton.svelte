@@ -74,7 +74,7 @@
   .grouping-button {
     position: relative;
     height: 2em;
-    margin: 0 0.3em;
+    margin: 0 0.5em;
     user-select: none;
   }
 

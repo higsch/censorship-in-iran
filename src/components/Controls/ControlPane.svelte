@@ -5,7 +5,10 @@
   import ControlExplainer from './ControlExplainer.svelte';
   import ControlButton from './ControlButton.svelte';
 
+  export let topOffset = 0;
+
   let buttonArray = [];
+  let scrolled = false;
 
   function handleButtonClick(e) {
     const { type, name } = e.detail;
@@ -23,6 +26,14 @@
     }
     hoveredLabel.set(null);
     selectedDatum.set(null);
+
+    if (!scrolled) {
+      window.scrollTo({
+        top: topOffset / 1.5,
+        behavior: 'smooth'
+      });
+      scrolled = true;
+    }
   }
 
   $: buttonArray = [...new Set([...$groupControl, ...$colorControl].filter((d) => d.show).map((d) => d.name))];

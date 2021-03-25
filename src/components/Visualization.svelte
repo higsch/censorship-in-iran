@@ -73,7 +73,9 @@
     bind:clientHeight={headerHeight}  
   >
     <TitleBar />
-    <ControlPane />
+    <ControlPane
+      topOffset={headerHeight}
+    />
   </div>
   <div
     class="draw-wrapper"
