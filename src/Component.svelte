@@ -45,7 +45,11 @@
   //   .then((res) => res.json())
   //   .then(({data: parsed}) => {
   //     data = parsed.map(formatData);
-  //     localStorage.setItem(localStorageKey, JSON.stringify({created: (new Date()).getTime(), data}));
+  //     try {
+  //       localStorage.setItem(localStorageKey, JSON.stringify({created: (new Date()).getTime(), data}));
+  //     } catch (err) {
+  //       console.log('Could not cache data.', err);
+  //     }
   //     groupControl.init(data);
   //     colorControl.init(data);
   //   });
