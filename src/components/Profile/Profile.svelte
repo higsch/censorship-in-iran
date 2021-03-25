@@ -35,6 +35,11 @@
   <div class="profile-content-scroll-wrapper">
     <div class="profile-content">
       <div class="profile-header">
+        <button
+          class="close-profile"
+        >
+          {$t('profile.close')}
+        </button>
         <div class="profile-image">
           <img
             src={datum.profile_url}
@@ -232,6 +237,18 @@
     margin: 0.2em 0;
   }
 
+  .profile-header button.close-profile {
+    margin: 0.5em 0;
+    padding: 0 0.5em;
+    color: var(--background);
+    font-size: 0.9em;
+    background-color: var(--defaultColor);
+    border: none;
+    border-radius: 3px;
+    outline: none;
+    cursor: pointer;
+  }
+
   .profile-header .status {
     margin: 0.6em 0 0.2em 0;
     font-size: 0.9em;
@@ -247,7 +264,6 @@
   .profile-image img {
     height: 100%;
     max-height: 200px;
-    /* border: 2px solid var(--color); */
     border-radius: 3px;
   }
 
