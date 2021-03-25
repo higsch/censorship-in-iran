@@ -1,6 +1,5 @@
 <script>
   import { createEventDispatcher } from 'svelte';
-  import { timeFormat } from 'd3';
   import { fade } from 'svelte/transition';
   import { css } from '../../actions/css';
   import { background, defaultColor, yellow } from '../../utils/colors';
@@ -14,7 +13,6 @@
 
   // const _url = 'https://journalismisnotacrime.com/media/profile/nasrin_vaziri.jpg.400x400_q85_bw_crop.jpg';
   const dispatch = createEventDispatcher();
-  const formatDate = timeFormat('%d %B %Y');
 
   function closeProfile() {
     dispatch('close');
@@ -27,8 +25,8 @@
             backgroundTransparent: `${background}00`,
             color: defaultColor, yellow,
             topOffset: `${topOffset}px`,
-            decreasedTopOffset: `${topOffset / 1.1}px`,
-            increasedTopOffset: `${topOffset * 1.1}px`}}
+            decreasedTopOffset: `0px`,
+            increasedTopOffset: `20px`}}
   on:click={closeProfile}
   transition:fade={{duration: 200}}
 >
@@ -159,12 +157,11 @@
   .profile {
     position: absolute;
     left: 0;
-    top: 0;
+    top: var(--topOffset);
     z-index: 60;
     display: flex;
     flex-direction: column;
     align-items: center;
-    justify-content: center;
     width: 100%;
     height: 100%;
     background: linear-gradient(var(--backgroundTransparent) 0%, var(--background) 90%);
@@ -173,7 +170,7 @@
   .profile-content-scroll-wrapper {
     position: relative;
     width: 100%;
-    height: 100%;
+    height: 100vh;
     overflow-y: scroll;
   }
 
@@ -219,10 +216,8 @@
     height: 90%;
     max-height: 90%;
     margin: 0 auto;
-    padding: calc(2em + var(--topOffset)) 0 0 0;
+    padding: 2em 0 0 0;
     color: var(--color);
-    border: none;
-    border-radius: 0.2em;
   }
 
   .profile-header {

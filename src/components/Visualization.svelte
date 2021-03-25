@@ -19,7 +19,7 @@
   let width = 0;
   let height = 0;
   let headerHeight = 0;
-  let renderedData;
+  let renderedData = [];
   let showClusterTitles = true;
   let showLabels = false;
 

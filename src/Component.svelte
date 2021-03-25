@@ -32,20 +32,20 @@
         dict.set(dictionary);
       });
 
-    // csv(dataPath, formatData)
-    //   .then((res) => {
-    //     data = res;
+    csv(dataPath, formatData)
+      .then((res) => {
+        data = res;
+        groupControl.init(data);
+        colorControl.init(data);
+      });
+    
+    // fetch(apiPath)
+    //   .then((res) => res.json())
+    //   .then(({data: parsed}) => {
+    //     data = parsed.map(formatData);
     //     groupControl.init(data);
     //     colorControl.init(data);
     //   });
-    
-    fetch(apiPath)
-      .then((res) => res.json())
-      .then(({data: parsed}) => {
-        data = parsed.map(formatData);
-        groupControl.init(data);
-        colorControl.init(data);
-      })
   });
 </script>
 
