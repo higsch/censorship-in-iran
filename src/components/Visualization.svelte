@@ -12,13 +12,14 @@
   import RosettesForeground from './Rosettes/RosettesForeground.svelte';
   import DatumTooltip from './RosetteAnnotation/DatumTooltip.svelte';
   import Profile from './Profile/Profile.svelte';
+  import LoadingSpinner from './LoadingSpinner.svelte';
 
   export let data = [];
 
   let width = 0;
   let height = 0;
   let headerHeight = 0;
-  let renderedData = [];
+  let renderedData;
   let showClusterTitles = true;
   let showLabels = false;
 
@@ -64,6 +65,9 @@
 <div
   class="visualization-wrapper"
 >
+  {#if (!renderedData || renderedData.length === 0)}
+    <LoadingSpinner />
+  {/if}
   <div
     class="visualization-header"
     bind:clientHeight={headerHeight}  
