@@ -20,3 +20,7 @@ export const intersect = (arr1, arr2) => {
   if (intersectArr && intersectArr.length > 0) return true;
   return false;
 };
+
+export const dateDiffInDays = (ms1, ms2) => {
+  return Math.abs((ms1 - ms2) / (1000 * 60 * 60 * 24));
+};

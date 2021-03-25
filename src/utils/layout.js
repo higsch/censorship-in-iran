@@ -95,7 +95,7 @@ const sortClusterDataByCategoryN = (data, selectedColor) => {
 export const batchLayoutClusters = (selectedGrouping, selectedColor, data, radiusScale) => {
   const { values, name: groupingName } = selectedGrouping;
   const clusters = values.map((v) => v.value);
-
+  
   let lastId = Math.max(...data.map((d) => +d.id));
 
   const clustersData = clusters.map((cluster) => {

@@ -44,7 +44,7 @@
       left: 0
     };
 
-  $: {
+  $: if (data && data.length) {
     selectedGroup = $groupControl.find((c) => c.selected);
     selectedColor = $colorControl.find((c) => c.selected);
 
@@ -52,7 +52,7 @@
     
     showClusterTitles = !$selectedDatum && selectedGroup.show;
     showLabels = !$selectedDatum && selectedColor.show && selectedGroup.name !== selectedColor.name;
-    
+
     const clustersData = batchLayoutClusters(selectedGroup, selectedColor, data, $radiusScale);
     renderedData = layoutBar(clustersData, width, height, drawMargin, $dir, showLabels);
   }

@@ -1,10 +1,10 @@
 <script>
   import { onMount } from 'svelte';
-  import { csv } from 'd3-fetch';
 
   import { formatData } from './utils/format';
   import { groupControl, colorControl } from './stores/control';
   import { locale as localeStore, dict } from './stores/i18n';
+  import { dateDiffInDays } from './utils/math';
   import { background, defaultColor, yellow } from './utils/colors'; 
   import { css } from './actions/css';
 
@@ -13,10 +13,12 @@
   import Footer from './components/Footer.svelte';
   import ScrollNote from './components/ScrollNote.svelte';
 
-  export let dataPath = 'data/data.csv';
-  export let apiPath = 'https://uq8kevhtqn.journalismisnotacrime.com/wall/prisonerslist';
+  // export let dataPath = 'data/data.csv';
+  export let dataPath = 'https://uq8kevhtqn.journalismisnotacrime.com/wall/prisonerslist';
   export let dictionaryPath = 'data/dictionary.json';
   export let locale = 'en';
+
+  const localStorageKey = 'rosette_data';
 
   let data = [];
 
@@ -24,6 +26,24 @@
     const { detail: selectedLocale } = e;
     localeStore.set(selectedLocale);
   }
+
+  function loadData() {
+  // csv(dataPath, formatData)
+  //   .then((res) => {
+  //     set(res);
+  //     groupControl.init(res);
+  //     colorControl.init(res);
+  //   });
+  
+  fetch(dataPath)
+    .then((res) => res.json())
+    .then(({data: parsed}) => {
+      data = parsed.map(formatData);
+      localStorage.setItem(localStorageKey, JSON.stringify({created: (new Date()).getTime(), data}));
+      groupControl.init(data);
+      colorControl.init(data);
+    });
+};
 
   onMount(() => {
     localeStore.set(locale);
@@ -33,20 +53,20 @@
         dict.set(dictionary);
       });
 
-    csv(dataPath, formatData)
-      .then((res) => {
-        data = res;
+    const json = localStorage.getItem(localStorageKey);
+
+    if (json) {
+      const { created, data: localData } = JSON.parse(json);
+      if (created && dateDiffInDays(created, (new Date()).getTime()) < 7) {
+        data = localData;
         groupControl.init(data);
         colorControl.init(data);
-      });
-    
-    // fetch(apiPath)
-    //   .then((res) => res.json())
-    //   .then(({data: parsed}) => {
-    //     data = parsed.map(formatData);
-    //     groupControl.init(data);
-    //     colorControl.init(data);
-    //   });
+      } else {
+        loadData();
+      }
+    } else {
+      loadData();
+    }
   });
 </script>
 
@@ -60,7 +80,7 @@
             font02: 'Roboto, Helvetica, Arial, sans-serif'}}
 >
   <Visualization
-    data={data.map((d, i) => ({...d, id: i}))}
+    data={data}
   />
   <LocaleSelector
     locale={$localeStore}
