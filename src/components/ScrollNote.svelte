@@ -27,6 +27,7 @@
     left: 50%;
     bottom: 1em;
     z-index: 130;
+    user-select: none;
   }
 
   .scroll-note-content {
