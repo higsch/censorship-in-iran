@@ -148,9 +148,9 @@
         {/if}
       </div>
       <div class="profile-footer">
-        {#if (datum.last_updated)}
+        {#if (datum.last_updated && (datum.last_updated instanceof Date))}
           <p>{$t('profile.last_updated')} {datum.last_updated.toLocaleDateString($locale + '-GB')}</p>
-        {:else if (datum.modified_date)}
+        {:else if (datum.modified_date && (datum.modified_date instanceof Date))}
           <p>{$t('profile.last_modified')} {datum.modified_date.toLocaleDateString($locale + '-GB')}</p>
         {/if}
       </div>
