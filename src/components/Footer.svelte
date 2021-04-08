@@ -21,7 +21,7 @@
     justify-content: center;
     width: 100%;
     max-height: 30px;
-    padding-bottom: 0.3em;
+    padding-bottom: 1em;
     color: var(--defaultColor);
     font-family: var(--font02);
     font-size: 0.7em;
