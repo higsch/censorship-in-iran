@@ -41,7 +41,7 @@
     text-align: left;
     font-size: 4em;
     font-weight: 500;
-    text-shadow: 0px 0px 3px var(--defaultColor);
+    /* text-shadow: 0px 0px 3px var(--defaultColor); */
   }
 
   h1.rtl {
