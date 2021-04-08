@@ -9,6 +9,7 @@
   import { background, defaultColor, yellow } from './utils/colors'; 
   import { css } from './actions/css';
 
+  import Catch from './components/Catch.svelte';
   import Visualization from './components/Visualization.svelte';
   import LocaleSelector from './components/LocaleSelector.svelte';
   import Footer from './components/Footer.svelte';
@@ -22,6 +23,7 @@
   const localStorageKey = 'rosette_data';
 
   let data = [];
+  let width = 0;
 
   function selectLocale(e) {
     const { detail: selectedLocale } = e;
@@ -53,7 +55,7 @@
   //     groupControl.init(data);
   //     colorControl.init(data);
   //   });
-};
+  };
 
   onMount(() => {
     localeStore.set(locale);
@@ -78,10 +80,14 @@
       loadData();
     }
   });
+
+  $: isMobile = width < 600;
+  $: isOldBrowser = (/MSIE|Trident/.test(window.navigator.userAgent));
 </script>
 
 <div
   class="component-wrapper {locale}"
+  bind:clientWidth={width}
   use:css={{backgroundColor: background,
             defaultColor,
             yellow,
@@ -89,15 +95,21 @@
             // font01: '"Shippori Mincho B1", serif',
             font02: 'Roboto, Helvetica, Arial, sans-serif'}}
 >
-  <Visualization
-    data={data.map((d, i) => ({id: i, ...d}))}
-  />
-  <LocaleSelector
-    locale={$localeStore}
-    on:localeselected={selectLocale}
-  />
-  <Footer />
-  <ScrollNote />
+  {#if (isMobile)}
+    <Catch content={'Please visit us on a larger screen to explore the visualization.'} />
+  {:else if (isOldBrowser)}
+    <Catch content={'Please visit us with a modern browser.'} />
+  {:else}
+    <Visualization
+      data={data.map((d, i) => ({id: i, ...d}))}
+    />
+    <LocaleSelector
+      locale={$localeStore}
+      on:localeselected={selectLocale}
+    />
+    <Footer />
+    <ScrollNote />
+  {/if}
 </div>
 
 <style>

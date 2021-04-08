@@ -44,7 +44,7 @@
       left: 0
     };
 
-  $: if (data && data.length) {
+  $: if (data && data.length && width > 0) {
     selectedGroup = $groupControl.find((c) => c.selected);
     selectedColor = $colorControl.find((c) => c.selected);
 
