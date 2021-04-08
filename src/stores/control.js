@@ -23,9 +23,9 @@ const groupingInit = [
   {
     name: 'ethnicgroup'
   },
-  {
-    name: 'religoiusgroup'
-  }
+  // {
+  //   name: 'religoiusgroup'
+  // }
 ].map((d, i) => ({
   ...d,
   selected: d.name === 'occupation',
@@ -56,9 +56,9 @@ const colorInit = [
   {
     name: 'ethnicgroup'
   },
-  {
-    name: 'religoiusgroup'
-  }
+  // {
+  //   name: 'religoiusgroup'
+  // }
 ].map((d, i) => ({
   ...d,
   selected: d.name === 'institutioninvestigating',
