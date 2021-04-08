@@ -11,7 +11,7 @@
   <img src="img/rosette_01_t.png" alt="White rosette" />
   <div class="title-text">
     <h1 class={$dir}>{$t('title.heading')}</h1>
-    <h2>{$t('title.subheading')}</h2>
+    <!-- <h2>{$t('title.subheading')}</h2> -->
   </div>
 </div>
 
@@ -48,11 +48,11 @@
     text-align: right;
   }
 
-  h2 {
+  /* h2 {
     width: 100%;
     font-family: var(--font02);
     font-size: 1em;
     font-weight: 300;
     opacity: 0.8;
-  }
+  } */
 </style>

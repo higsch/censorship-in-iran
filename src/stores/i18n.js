@@ -2,7 +2,7 @@ import { writable, derived } from 'svelte/store';
 
 const initialLocale = 'en';
 
-export const dict = writable();
+export const dict = writable(null);
 export const locale = writable(initialLocale);
 
 // https://stackoverflow.com/questions/38627024/convert-english-numbers-to-persian/47971760
@@ -18,13 +18,13 @@ const toFarsiNumber = (n) => {
 };
 
 const getMessageFromDict = (id, dict, customLocale) => {
-  if (!dict || !customLocale) return id;
+  if (!dict || !customLocale) return '';
   const localizedDict = dict[customLocale];
 
   const splitId = id.split('.');
   const message = splitId.reduce((acc, cur) => acc ? acc[cur] : id, {...localizedDict});
 
-  return message || id;
+  return message || '';
 };
 
 const createMessageFormatter = (dict, locale) => (id, customLocale = locale) => getMessageFromDict(id, dict, customLocale);
@@ -58,4 +58,8 @@ export const availableLanguages = derived(dict, ($dict) => {
   return Object.keys($dict)
     .map((d) => ({[$dict[d].meta.locale]: $dict[d].meta.name}))
     .reduce((acc, cur) => ({...acc, ...cur}), {});
+});
+
+export const i18nReady = derived(dict, ($dict) => {
+  return ($dict !== null);
 });

@@ -14,7 +14,9 @@
 </script>
 
 <div class="locale-selector">
-  <button on:click={() => handleClick(otherLocale)}>{$languages[otherLocale]}</button>
+  {#if ($languages[otherLocale])}
+    <button on:click={() => handleClick(otherLocale)}>{$languages[otherLocale]}</button>
+  {/if}
 </div>
 
 <style>

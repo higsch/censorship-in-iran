@@ -3,7 +3,7 @@
   import { radiusScale, createRadiusScale } from '../stores/scales';
   import { groupControl, colorControl } from '../stores/control';
   import { hoveredDatum, selectedDatum } from '../stores/selection';
-  import { dir } from '../stores/i18n';
+  import { dir, i18nReady } from '../stores/i18n';
 
   import TitleBar from './TitleBar/TitleBar.svelte';
   import ControlPane from './Controls/ControlPane.svelte';
