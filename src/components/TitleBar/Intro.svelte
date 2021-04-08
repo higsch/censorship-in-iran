@@ -23,10 +23,10 @@
 
   .intro-text {
     display: flex;
-    font-size: 0.8em;
+    font-size: 0.9em;
     line-height: 1.5;
     /* text-align: justify; */
-    opacity: 0.7;
+    opacity: 0.8;
   }
 
   .intro-text p {
