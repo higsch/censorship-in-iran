@@ -124,7 +124,7 @@
     z-index: 100;
     width: 42%;
     min-width: 120px;
-    max-width: 230px;
+    max-width: 330px;
     pointer-events: none;
   }
 
