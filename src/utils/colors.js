@@ -1,6 +1,7 @@
 import { hcl } from 'd3';
 
-export const background = '#242B2E';
+// export const background = '#242B2E';
+export const background = '#003247';
 export const defaultColor = '#DAE2F5';
 export const white = '#FFFFFF';
 export const yellow = '#FAB243';
