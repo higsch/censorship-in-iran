@@ -10,7 +10,7 @@
 >
   <div class="intro-text">
     <p>{$t('intro.text1')}</p>
-    <p>{@html $t('intro.text2')}</p>
+    <p>{$t('intro.text2')} <a href=mailto:{$t('intro.mail')}>{$t('intro.mail')}</a>.</p>
   </div>
 </div>
 
