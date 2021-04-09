@@ -138,7 +138,7 @@
     position: relative;
     width: 100%;
     height: 150vh;
-    min-height: 1200px;
+    min-height: 1500px;
     font-size: 12px;
     background-color: var(--backgroundColor);
     overflow: hidden;
