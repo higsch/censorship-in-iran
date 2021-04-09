@@ -1,6 +1,9 @@
 <script>
+    import Footer from './Footer.svelte';
+
     // shown when the viz cannot be displayed
-    export let content = '';
+    export let contentEn = '';
+    export let contentFa = '';
   
     function sendMail() {
       const subject = encodeURIComponent('Journalism Is not a Crime');
@@ -10,13 +13,18 @@
   </script>
   
   <section class="content catch">
-    <p>{content}</p>
+    <p>{contentEn}</p>
+    <p>{contentFa}</p>
   </section>
   <div class="placeholder-image">
     <img src="img/rosette_01_t.png" alt="A white rosette." />
   </div>
   <section class="content catch">
     <span class="pseudolink" on:click={sendMail}>Send Email with Link</span>
+    <span class="pseudolink" on:click={sendMail}>لینک صفحه را با ایمیل بفرستید</span>
+  </section>
+  <section class="footer catch">
+    <a href="https://journalismisnotacrime.com" target="_blank">journalismisnotacrime.com</a>
   </section>
   
   <style>
@@ -52,5 +60,14 @@
   
     img {
       width: 100%;
+    }
+
+    section.footer {
+      flex-direction: row;
+      justify-content: center;
+    }
+
+    section.footer p {
+      font-size: 0.7em;
     }
   </style>

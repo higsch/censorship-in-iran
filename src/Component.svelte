@@ -96,7 +96,10 @@
             font02: 'Roboto, Helvetica, Arial, sans-serif'}}
 >
   {#if (isMobile)}
-    <Catch content={'Please visit us on a larger screen to explore the visualization.'} />
+    <Catch
+      contentEn={'Please visit us on a larger screen to explore the visualization.'}
+      contentFa={'لطفا این صفحه را روی کامپیوتر یا لپتاپ ببینید'}
+    />
   {:else if (isOldBrowser)}
     <Catch content={'Please visit us with a modern browser.'} />
   {:else}
