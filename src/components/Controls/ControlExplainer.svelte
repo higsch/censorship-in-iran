@@ -1,7 +1,7 @@
 <script>
   import { defaultColor, yellow } from '../../utils/colors';
   import { css } from '../../actions/css';
-  import { t } from '../../stores/i18n';
+  import { locale, t } from '../../stores/i18n';
 
   import Diamond from '../Diamond.svelte';
 </script>
@@ -10,7 +10,11 @@
   class="control-explainer"
   use:css={{defaultColor}}
 >
-  <p>{$t('controlexplainer.text1')} <span class="turned"><Diamond color={defaultColor} hoverEnabled={false} /></span> {$t('controlexplainer.text2')} <span><Diamond color={yellow} hoverEnabled={false} /></span>.</p>
+  {#if ($locale === 'en')}
+    <p>{$t('controlexplainer.text1')} <span class="turned"><Diamond color={defaultColor} hoverEnabled={false} /></span> {$t('controlexplainer.text2')} <span><Diamond color={yellow} hoverEnabled={false} /></span>.</p>
+  {:else if ($locale === 'fa')}
+    <p>{$t('controlexplainer.text1')} <span class="turned"><Diamond color={defaultColor} hoverEnabled={false} /></span> {$t('controlexplainer.text2')} <span><Diamond color={yellow} hoverEnabled={false} /></span> {$t('controlexplainer.text3')}.</p>
+  {/if}
 </div>
 
 <style>
