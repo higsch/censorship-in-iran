@@ -66,8 +66,4 @@
       flex-direction: row;
       justify-content: center;
     }
-
-    section.footer p {
-      font-size: 0.7em;
-    }
   </style>
