@@ -9,6 +9,7 @@
   import { background, defaultColor, yellow } from './utils/colors'; 
   import { css } from './actions/css';
 
+  import CookieBanner from './components/CookieBanner.svelte';
   import Catch from './components/Catch.svelte';
   import Visualization from './components/Visualization.svelte';
   import LocaleSelector from './components/LocaleSelector.svelte';
@@ -95,6 +96,7 @@
             // font01: '"Shippori Mincho B1", serif',
             font02: 'Roboto, Helvetica, Arial, sans-serif'}}
 >
+  <CookieBanner />
   {#if (isMobile)}
     <Catch
       contentEn={'Please visit us on a larger screen to explore the visualization.'}
