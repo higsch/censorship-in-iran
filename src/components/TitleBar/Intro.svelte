@@ -19,6 +19,7 @@
     width: 100%;
     margin: 0 0 1em 0;
     color: var(--defaultColor);
+    pointer-events: all;
   }
 
   .intro-text {

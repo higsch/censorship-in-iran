@@ -24,6 +24,7 @@
     margin: 1em 0;
     color: var(--defaultColor);
     font-family: var(--font01);
+    pointer-events: all;
   }
 
   .title img {
