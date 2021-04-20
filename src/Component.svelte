@@ -17,7 +17,7 @@
   import ScrollNote from './components/ScrollNote.svelte';
 
   // export let dataPath = 'data/data.csv';
-  export let dataPath = 'https://uq8kevhtqn.journalismisnotacrime.com/wall/prisonerslist';
+  export let dataPath = 'https://journalismisnotacrime.com/wall/prisonerslist';
   export let dictionaryPath = 'data/dictionary.json';
   export let locale = 'en';
 
