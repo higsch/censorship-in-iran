@@ -16,8 +16,8 @@
   import Footer from './components/Footer.svelte';
   import ScrollNote from './components/ScrollNote.svelte';
 
-  export let dataPath = 'data/data.csv';
-  // export let dataPath = 'https://uq8kevhtqn.journalismisnotacrime.com/wall/prisonerslist';
+  // export let dataPath = 'data/data.csv';
+  export let dataPath = 'https://uq8kevhtqn.journalismisnotacrime.com/wall/prisonerslist';
   export let dictionaryPath = 'data/dictionary.json';
   export let locale = 'en';
 
@@ -32,30 +32,30 @@
   }
 
   function loadData() {
-    csv(dataPath, formatData)
-      .then((res) => {
-        data = res;
-        try {
-          localStorage.setItem(localStorageKey, JSON.stringify({created: (new Date()).getTime(), data}));
-        } catch (err) {
-          console.log('Could not cache data.', err);
-        }
-        groupControl.init(data);
-        colorControl.init(data);
-      });
+    // csv(dataPath, formatData)
+    //   .then((res) => {
+    //     data = res;
+    //     try {
+    //       localStorage.setItem(localStorageKey, JSON.stringify({created: (new Date()).getTime(), data}));
+    //     } catch (err) {
+    //       console.log('Could not cache data.', err);
+    //     }
+    //     groupControl.init(data);
+    //     colorControl.init(data);
+    //   });
   
-  // fetch(dataPath)
-  //   .then((res) => res.json())
-  //   .then(({data: parsed}) => {
-  //     data = parsed.map(formatData);
-  //     try {
-  //       localStorage.setItem(localStorageKey, JSON.stringify({created: (new Date()).getTime(), data}));
-  //     } catch (err) {
-  //       console.log('Could not cache data.', err);
-  //     }
-  //     groupControl.init(data);
-  //     colorControl.init(data);
-  //   });
+  fetch(dataPath)
+    .then((res) => res.json())
+    .then(({data: parsed}) => {
+      data = parsed.map(formatData);
+      try {
+        localStorage.setItem(localStorageKey, JSON.stringify({created: (new Date()).getTime(), data}));
+      } catch (err) {
+        console.log('Could not cache data.', err);
+      }
+      groupControl.init(data);
+      colorControl.init(data);
+    });
   };
 
   onMount(() => {
