@@ -1,8 +1,16 @@
-# Journalism is not a crime – Wall of shame
+# Visualizing Censorship in Iran
 
-## Get started
+>Code base for the visualization of censorship in Iran
+
+![Rosette](public/img/rosette_01_t.png)
+
+Runs [here](https://visualization.journalismisnotacrime.com).
+
+
+## Run locally
 
 ```bash
+git clone
 npm install
 npm run dev
 ```
