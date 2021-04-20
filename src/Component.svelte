@@ -1,7 +1,7 @@
 <script>
   import { onMount } from 'svelte';
 
-  import { csv } from 'd3';
+  // import { csv } from 'd3';
   import { formatData } from './utils/format';
   import { groupControl, colorControl } from './stores/control';
   import { locale as localeStore, dict } from './stores/i18n';
