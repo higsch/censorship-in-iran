@@ -9,8 +9,10 @@
   export let name;
   export let groupControl = {};
   export let colorControl = {};
+  export let showHighlight = true;
 
   const dispatch = createEventDispatcher();
+
 
   function handleClick(type) {
     dispatch('click', {
@@ -37,6 +39,11 @@
         color={defaultColor}
         filled={groupControl.selected}
       />
+      {#if (showHighlight && groupControl.selected)}
+        <span
+          class="highlight"
+        ></span>
+      {/if}
     </span>
     <span
       class="color-diamond-wrapper"
@@ -46,6 +53,11 @@
         color={yellow}
         filled={colorControl.selected}
       />
+      {#if (showHighlight && colorControl.selected)}
+        <span
+          class="highlight"
+        ></span>
+      {/if}
     </span>
     <span
       class="name"
@@ -71,6 +83,23 @@
 </div>
 
 <style>
+  @keyframes pulse {
+    0% {
+      transform: scale(0);
+      opacity: 0.9;
+    }
+    50% {
+      opacity: 0.8;
+    }
+    70% {
+      opacity: 0.09;
+    }
+    100% {
+      transform: scale(3);
+      opacity: 0;
+    }
+  }
+
   .grouping-button {
     position: relative;
     height: 2em;
@@ -95,9 +124,25 @@
   }
 
   .group-diamond-wrapper, .color-diamond-wrapper {
+    position: relative;
     width: 1.4em;
     height: 1.4em;
     margin: 0.1em;
+  }
+
+  .highlight {
+    position: absolute;
+    left: 0;
+    top: 0;
+    z-index: 0;
+    width: 1.4em;
+    height: 1.4em;
+    border: 2px solid var(--color1);
+    border-radius: 100%;
+    opacity: 0;
+    animation: pulse 3s infinite ease-in-out;
+    animation-iteration-count: 20;
+    pointer-events: none;
   }
 
   .name {

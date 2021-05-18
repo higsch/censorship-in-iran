@@ -9,8 +9,10 @@
 
   let buttonArray = [];
   let scrolled = false;
+  let showHighlight = true;
 
   function handleButtonClick(e) {
+    showHighlight = false;
     const { type, name } = e.detail;
     switch (type) {
       case 'group':
@@ -49,6 +51,7 @@
         name={controlName}
         groupControl={$groupControl.find((d) => d.name === controlName)}
         colorControl={$colorControl.find((d) => d.name === controlName)}
+        showHighlight={showHighlight}
         on:click={handleButtonClick}
       />
     {/each}
