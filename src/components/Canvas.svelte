@@ -17,20 +17,6 @@
   let pendingInvalidation = false;
   let frameId;
 
-  $: setContext(contextName, {
-    register(fn) {
-      drawFunctions.push(fn);
-    },
-    deregister(fn) {
-      drawFunctions.splice(drawFunctions.indexOf(fn), 1);
-    },
-    invalidate() {
-			if (pendingInvalidation) return;
-			pendingInvalidation = true;
-			frameId = requestAnimationFrame(update);
-		}
-  });
-
   function handleMouseMoveClick(e, type) {
     const { layerX: x, layerY: y } = e;
     if (center) {
@@ -68,6 +54,20 @@
     if (frameId) {
       cancelAnimationFrame(frameId);
     }
+  });
+
+  $: setContext(contextName, {
+    register(fn) {
+      drawFunctions.push(fn);
+    },
+    deregister(fn) {
+      drawFunctions.splice(drawFunctions.indexOf(fn), 1);
+    },
+    invalidate() {
+			if (pendingInvalidation) return;
+			pendingInvalidation = true;
+			frameId = requestAnimationFrame(update);
+		}
   });
 
   $: ctx = setupCanvas(canvas, width, height, pixelRatio, center);

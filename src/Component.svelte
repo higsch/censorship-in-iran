@@ -93,7 +93,6 @@
             defaultColor,
             yellow,
             font01: 'Roboto, Helvetica, Arial, sans-serif',
-            // font01: '"Shippori Mincho B1", serif',
             font02: 'Roboto, Helvetica, Arial, sans-serif'}}
 >
   <CookieBanner />
