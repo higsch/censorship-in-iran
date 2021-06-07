@@ -7,8 +7,8 @@ export const white = '#FFFFFF';
 export const yellow = '#FAB243';
 
 const gender = {
-  female: '#F6B5C1',
-  male: '#B3C7F2',
+  female: '#55efc4',
+  male: '#fdcb6e',
   unknown: '#EEEEEE'
 };
 
