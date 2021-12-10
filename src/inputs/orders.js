@@ -9,5 +9,7 @@ export const statusOrder = [
   'awaiting_trial;released',
   'in_exile;released',
   'furlough',
+  'furlough;in_prison',
+  'dead',
   'unknown'
 ].reverse();

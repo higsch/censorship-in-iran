@@ -13,6 +13,7 @@ const getStatus = (d) => {
   if (d.in_exile) status.push('in_exile');
   if (d.in_prison) status.push('in_prison');
   if (d.killed) status.push('killed');
+  if (d.dead) status.push('dead');
   if (d.released) status.push('released');
   if (d.suspended_sentence) status.push('suspended_sentence');
 
@@ -29,6 +30,7 @@ export const formatData = (d) => {
     in_exile: toBoolean(d.in_exile),
     in_prison: toBoolean(d.in_prison),
     killed: toBoolean(d.killed),
+    dead: toBoolean(d.dead),
     released: toBoolean(d.released),
     suspended_sentence: toBoolean(d.suspended_sentence)
   };
